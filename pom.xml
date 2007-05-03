@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.    
+-->
+<!--
+ | DISCLAIMER DISCLAIMER DISCLAIMER DISCLAIMER DISCLAIMER 
+ | 
+ | This file is only intended to be used to build the jsieve
+ | website. It must not be used to build packages for jsieve
+ | library.
+ | 
+ | DISCLAIMER DISCLAIMER DISCLAIMER DISCLAIMER DISCLAIMER 
+ -->
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.apache.mailet</groupId>
+  <artifactId>mailet</artifactId>
+  <name>Apache Mailet API</name>
+  <version>3.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <description>
+    Apache Mailet API
+  </description>
+  <parent>
+    <groupId>org.apache.james</groupId>
+    <artifactId>james-project</artifactId>
+    <version>1.1-SNAPSHOT</version>
+  </parent>
+  <url>http://james.apache.org/mailet</url>
+  <inceptionYear>2007</inceptionYear>
+
+  <distributionManagement>
+    <site>
+      <id>mailet-website</id>
+      <url>scp://people.apache.org/www/james.apache.org/mailet/</url>
+    </site>
+  </distributionManagement>
+
+  <issueManagement>
+    <system>JIRA</system>
+    <url>http://issues.apache.org/jira/browse/JSIEVE</url>
+  </issueManagement>
+
+  <scm>
+    <connection>
+      scm:svn:http://svn.apache.org/repos/asf/james/jsieve/trunk
+    </connection>
+    <developerConnection>
+      scm:svn:https://svn.apache.org/repos/asf/james/jsieve/trunk
+    </developerConnection>
+    <url>
+      http://svn.apache.org/viewcvs.cgi/james/jsieve/trunk/?root=Apache-SVN
+    </url>
+  </scm>
+
+  <repositories>
+  <!--
+    <repository>
+      <id>local-jsieve-3rd-party-m1</id>
+      <name>Local jSieve third party repository</name>
+      <url>file://${basedir}/repos/third-party-m1</url>
+      <layout>legacy</layout>
+      <releases>
+        <enabled>true</enabled>
+        <checksumPolicy>ignore</checksumPolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+        <checksumPolicy>ignore</checksumPolicy>
+      </snapshots>
+    </repository>
+  -->
+    <repository>
+      <id>central</id>
+      <name>Apache Snapshot Repository</name>
+      <url>http://people.apache.org/repo/m2-ibiblio-rsync-repository</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>apache.snapshots</id>
+      <name>Apache Snapshot Repository</name>
+      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+    </repository>
+   
+    <!-- 
+     this should be removed and custom jars should 
+     be copied to a local files based repository.
+    -->
+    <repository>
+      <id>ibiblio</id>
+      <name>Main maven repo</name>
+      <url>http://repo1.maven.org/maven2</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <dependencies verbose="true">
+
+    <dependency>
+    	<groupId>org.apache.james</groupId>
+    	<artifactId>james-server</artifactId>
+    	<version>3.0-SNAPSHOT</version>
+    </dependency>
+ 
+    <dependency>
+      <groupId>javax.mail</groupId>
+      <artifactId>mail</artifactId>
+      <version>1.4</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.0.4</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>commons-digester</groupId>
+      <artifactId>commons-digester</artifactId>
+      <version>1.8</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+    </resources>
+    
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>javacc-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>generate-jjtree</id>
+            <phase>generate-sources</phase>
+            <configuration>
+              <nodePackage>org.apache.jsieve.parser.generated</nodePackage>
+              <outputDirectory>${project.build.directory}/generated-sources/jjtree/org/apache/jsieve/parser/generated</outputDirectory>
+            </configuration>
+            <goals>
+              <goal>jjtree</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>generate-javacc</id>
+            <phase>generate-sources</phase>
+            <configuration>
+              <sourceDirectory>${project.build.directory}/generated-sources/jjtree/org/apache/jsieve/parser/generated</sourceDirectory>
+              <packageName>org.apache.jsieve.parser.generated</packageName>
+            </configuration>
+            <goals>
+              <goal>javacc</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifestEntries>
+              <mode>development</mode>
+              <url>${pom.url}</url>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>bin</descriptorRef>
+            <descriptorRef>src</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jxr-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <configuration>
+          <targetjdk>1.4</targetjdk>
+          <rulesets>
+            <ruleset>/rulesets/basic.xml</ruleset>
+            <ruleset>/rulesets/controversial.xml</ruleset>
+          </rulesets>
+          <format>xml</format>
+          <linkXref>true</linkXref>
+          <sourceEncoding>utf-8</sourceEncoding>
+          <minimumTokens>100</minimumTokens>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-site-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </reporting>
+  
+    <mailingLists>
+      <mailingList>
+	    <name>Apache James User</name>
+	    <subscribe>server-user-subscribe@james.apache.org</subscribe>
+	    <unsubscribe>server-user-unsubscribe@james.apache.org</unsubscribe>
+	    <post>server-user@james.apache.org</post>
+	    <archive>http://mail-archives.apache.org/mod_mbox/james-server-user/</archive>
+      </mailingList>
+      <mailingList>
+       <name>Apache James Developer</name>
+       <subscribe>server-dev-subscribe@james.apache.org</subscribe>
+       <unsubscribe>server-dev-unsubscribe@james.apache.org</unsubscribe>
+       <post>server-dev@james.apache.org</post>
+       <archive>http://mail-archives.apache.org/mod_mbox/james-server-dev/</archive>
+      </mailingList>
+  </mailingLists>
+
+</project>
