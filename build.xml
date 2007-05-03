@@ -262,7 +262,7 @@ Mailet  build file
       <jar 
             jarfile="${build.lib}/${name}-${version}.jar" 
             basedir="${build.classes}">
-          <include name="org/apachemailet/**"/>
+          <include name="org/apache/mailet/**"/>
           <include name="META-INF/**"/> 
           <exclude name="**/junit/*/**"/>
           <exclude name="**/samples/*/**"/>
