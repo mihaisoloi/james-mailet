@@ -51,10 +51,116 @@
     </site>
   </distributionManagement>
 
-  <issueManagement>
+
+ <issueManagement>
     <system>JIRA</system>
     <url>http://issues.apache.org/jira/browse/MAILET</url>
   </issueManagement>
+
+  <developers>
+  
+  <developer>
+      <id>danny</id>
+      <name>Danny Angus</name>
+      <email>danny at apache.org</email>
+      <timezone>1</timezone>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <id>bago</id>
+      <name>Stefano Bagnara</name>
+      <email>bago at apache.org</email>
+      <timezone>2</timezone>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+	   <developer>
+      <id>noel</id>
+      <name>Noel J. Bergman</name>
+      <email>noel at devtech.com</email>
+      <timezone />
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+	<developer>
+      <id>sbrewin</id>
+      <name>Steve Brewin</name>
+      <email>sbrewin at synsys.com</email>
+      <timezone />
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <id>adc</id>
+      <name>Alan D. Cabrera</name>
+      <email>list at toolazydogs.com</email>
+      <timezone>-8</timezone>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <id>rdonkin</id>
+      <name>Robert Burrell Donkin</name>
+      <email>rdonkin at apache.org</email>
+      <timezone />
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <id>benrdf</id>
+      <name>Bernd Fondermann</name>
+      <email>bf_jak at brainlounge.de</email>
+      <timezone />
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <id>hilmer</id>
+      <!-- This is not correctly handled by maven release plugin -->
+      <!-- <name>S&#248;ren Hilmer</name> -->
+      <name>Soren Hilmer</name>
+      <email>sh at widetrail.dk</email>
+      <timezone />
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+	<developer>
+      <id>serge</id>
+      <name>Serge Knystautas</name>
+      <email>sergek at lokitech.com</email>
+      <timezone />
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>	
+    <developer>
+      <id>norman</id>
+      <name>Norman Maurer</name>
+      <email>norman at apache.org</email>
+      <timezone>2</timezone>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <id>vincenzo</id>
+      <name>Vincenzo Gianferrari Pini</name>
+      <email>vincenzo.gianferraripini at praxis.it</email>
+      <timezone />
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+  </developers>
 
   <scm>
     <connection>

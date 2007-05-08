@@ -17,9 +17,9 @@
   specific language governing permissions and limitations
   under the License.    
 -->
-<project name="jSieve">
+<project name="Mailet API">
   <bannerLeft>
-    <name>JAMES jSieve</name>
+    <name>JAMES Mailet API</name>
     <src>images/mailet-logo.gif</src>
     <href>http://james.apache.org/</href>
   </bannerLeft>
