@@ -280,7 +280,7 @@ Mailet  build file
           </manifest> 
       </jar>
 
-      <!-- Make jSieve jUnit jar-->
+<!--
       <echo message="Making Mailet jUnit Jar (${name}-jUnit-${version}.jar)"/>
       <jar jarfile="${build.lib}/${name}-jUnit-${version}.jar" basedir="${build.classes}">
             <include name="org/apache/mailet/junit/**"/>
@@ -290,6 +290,7 @@ Mailet  build file
               <attribute name="X-Compile-Target-JDK" value='${jdk.target}'/> 
             </manifest>  
       </jar>
+	  -->
     </target>
 
     <!--
