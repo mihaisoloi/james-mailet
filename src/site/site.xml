@@ -20,8 +20,8 @@
 <project name="Mailet API">
   <bannerLeft>
     <name>JAMES Mailet API</name>
-    <src>images/mailet-logo.gif</src>
-    <href>http://james.apache.org/</href>
+    <src>images/james-mailetapi-logo.gif</src>
+    <href>http://james.apache.org/mailet/index.html</href>
   </bannerLeft>
 
   <bannerRight>
