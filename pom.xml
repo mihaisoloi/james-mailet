@@ -69,22 +69,7 @@
   </scm>
 
   <repositories>
-  <!--
-    <repository>
-      <id>local-jsieve-3rd-party-m1</id>
-      <name>Local jSieve third party repository</name>
-      <url>file://${basedir}/repos/third-party-m1</url>
-      <layout>legacy</layout>
-      <releases>
-        <enabled>true</enabled>
-        <checksumPolicy>ignore</checksumPolicy>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-        <checksumPolicy>ignore</checksumPolicy>
-      </snapshots>
-    </repository>
-  -->
+  
     <repository>
       <id>central</id>
       <name>Apache Snapshot Repository</name>
@@ -122,28 +107,12 @@
   <dependencies verbose="true">
 
     <dependency>
-    	<groupId>org.apache.james</groupId>
-    	<artifactId>james-server</artifactId>
-    	<version>3.0-SNAPSHOT</version>
-    </dependency>
- 
-    <dependency>
       <groupId>javax.mail</groupId>
       <artifactId>mail</artifactId>
       <version>1.4</version>
     </dependency>
     
-    <dependency>
-      <groupId>commons-logging</groupId>
-      <artifactId>commons-logging</artifactId>
-      <version>1.0.4</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>commons-digester</groupId>
-      <artifactId>commons-digester</artifactId>
-      <version>1.8</version>
-    </dependency>
+   
     
     <dependency>
       <groupId>junit</groupId>
@@ -162,34 +131,7 @@
     </resources>
     
     <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>javacc-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>generate-jjtree</id>
-            <phase>generate-sources</phase>
-            <configuration>
-              <nodePackage>org.apache.jsieve.parser.generated</nodePackage>
-              <outputDirectory>${project.build.directory}/generated-sources/jjtree/org/apache/jsieve/parser/generated</outputDirectory>
-            </configuration>
-            <goals>
-              <goal>jjtree</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>generate-javacc</id>
-            <phase>generate-sources</phase>
-            <configuration>
-              <sourceDirectory>${project.build.directory}/generated-sources/jjtree/org/apache/jsieve/parser/generated</sourceDirectory>
-              <packageName>org.apache.jsieve.parser.generated</packageName>
-            </configuration>
-            <goals>
-              <goal>javacc</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+      
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -248,19 +190,13 @@
   
     <mailingLists>
       <mailingList>
-	    <name>Apache James User</name>
-	    <subscribe>server-user-subscribe@james.apache.org</subscribe>
-	    <unsubscribe>server-user-unsubscribe@james.apache.org</unsubscribe>
-	    <post>server-user@james.apache.org</post>
-	    <archive>http://mail-archives.apache.org/mod_mbox/james-server-user/</archive>
+	    <name>Apache Mailet API</name>
+	    <subscribe>mailet-api-subscribe@james.apache.org</subscribe>
+	    <unsubscribe>mailet-api-unsubscribe@james.apache.org</unsubscribe>
+	    <post>mailet-api@james.apache.org</post>
+	    <archive>http://mail-archives.apache.org/mod_mbox/james-mailet-api/</archive>
       </mailingList>
-      <mailingList>
-       <name>Apache James Developer</name>
-       <subscribe>server-dev-subscribe@james.apache.org</subscribe>
-       <unsubscribe>server-dev-unsubscribe@james.apache.org</unsubscribe>
-       <post>server-dev@james.apache.org</post>
-       <archive>http://mail-archives.apache.org/mod_mbox/james-server-dev/</archive>
-      </mailingList>
+
   </mailingLists>
 
 </project>

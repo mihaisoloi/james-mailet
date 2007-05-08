@@ -20,7 +20,7 @@
 <project name="jSieve">
   <bannerLeft>
     <name>JAMES jSieve</name>
-    <src>images/james-jsieve-logo.gif</src>
+    <src>images/mailet-logo.gif</src>
     <href>http://james.apache.org/</href>
   </bannerLeft>
 
@@ -32,12 +32,9 @@
 
   <body>
 
-    <menu name="jSieve">
+    <menu name="Mailet API">
       <item name="Overview" href="index.html"/>
-      <item name="RFC 2234 (ABNF)" href="rfc2234.txt"/>
-      <item name="RFC 2244 (ACAP)" href="rfc2244.txt"/>
-      <item name="RFC 2298 (MDN)" href="rfc2298.txt"/>
-      <item name="RFC 3028 (Sieve)" href="rfc3028.txt"/>
+      
     </menu>
     
     ${reports}
