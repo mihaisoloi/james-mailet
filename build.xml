@@ -47,17 +47,8 @@ Mailet  build file
     -->
 
     <path id="project.class.path">
-        <pathelement location="${xercesImpl.jar}"/>
-        <pathelement location="${xmlApis.jar}"/>        
-        <pathelement location="${javax-mail.jar}"/>
-        <pathelement location="${javax-activation.jar}"/>
-        <pathelement location="${commons-digester.jar}"/>
-        <pathelement location="${commons-collections.jar}"/>
-        <pathelement location="${commons-beanutils.jar}"/>
-        <pathelement location="${commons-logging.jar}"/>
-        <pathelement location="${jakarta-oro.jar}"/>
-        <pathelement location="${log4j.jar}"/>
-        <pathelement location="${junit.jar}"/>
+        <pathelement path="${javax-mail.jar}"/>
+        <pathelement path="${javax-activation.jar}"/>
         <pathelement path="${java.class.path}" />
         <pathelement path="${build.classes}" />
     </path>
@@ -99,9 +90,13 @@ Mailet  build file
       </copy>
       <fixcrlf srcdir="${java.dir}" includes="**/*.java" eol="lf" tab="remove" tablength="4" />
       <fixcrlf srcdir="${java.dir}" includes="**/*.html" eol="lf" tab="remove" tablength="4" />
+      <!-- 
       <fixcrlf srcdir="${test.dir}" includes="**/*.java" eol="lf" tab="remove" tablength="4" />
+       -->
       <fixcrlf srcdir="${xdocs.dir}" includes="**/*.xml" eol="lf" tab="remove" tablength="4" />
+      <!-- 
       <fixcrlf srcdir="${conf.dir}" includes="**/*.xml" eol="lf" tab="remove" tablength="4" />
+       -->
       <fixcrlf srcdir="." includes="build.sh" eol="lf"/>
       <fixcrlf srcdir="." includes="build.bat" eol="crlf"/>
       <fixcrlf srcdir="." includes="build.xml" eol="lf"/>
@@ -131,7 +126,7 @@ Mailet  build file
         <classpath refid="project.class.path"/>
         <src path="${build.src}"/>
         <src path="${java.dir}"/>
-        <src path="${test.dir}"/>
+        <!-- <src path="${test.dir}"/>  -->
         <include name="org/apache/mailet/**"/>
         <exclude name="**/samples/*/**"/>
       </javac>
@@ -334,10 +329,8 @@ Mailet  build file
     <target name="dist-lite-test" depends="dist-lite-build">
         <echo message="Testing dist-lite build"/>
         <mkdir dir="${dist.dir}/reports"/>
+        <!-- 
         <junit printsummary="yes" haltonfailure="yes" filtertrace="on">
-            <!-- Uncomment this to remotely debug the tests
-            <jvmarg line="-Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=y"/>
-            -->
             <classpath id="junit.class.path">
                 <fileset dir="${dist.dir}/lib">
                     <include name="**/*.jar"/>
@@ -354,6 +347,7 @@ Mailet  build file
                 </fileset>
             </batchtest>
         </junit>
+        -->
     </target>
 
     <!--
