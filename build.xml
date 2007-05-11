@@ -252,7 +252,7 @@ Mailet  build file
 
       <mkdir dir="${build.lib}"/>
 
-      <!-- Make jSieve jar-->
+      <!-- Make Mailet jar-->
       <echo message="Making Mailet Jar (${name}-${version}.jar)"/>
       <jar 
             jarfile="${build.lib}/${name}-${version}.jar" 
@@ -265,14 +265,14 @@ Mailet  build file
             <attribute name="Extension-Name" value='${extension.name}'/>
             <attribute name="Specification-Title" value='${title.spec}'/>
             <attribute name="Specification-Vendor" value='${vendor}'/>
-            <attribute name="Specification-Version" value='${version}'/>
+            <attribute name="Specification-Version" value='${manifestVersion}'/>
             <attribute name="Implementation-Vendor-Id" value='${vendor.id}'/>
             <attribute name="Implementation-Title" value='${title.impl}'/>
             <attribute name="Implementation-Vendor" value='${vendor}'/>
-            <attribute name="Implementation-Version" value='${version}'/>
+            <attribute name="Implementation-Version" value='${manifestVersion}'/>
             <attribute name="X-Compile-Source-JDK" value='${jdk.source}'/>
             <attribute name="X-Compile-Target-JDK" value='${jdk.target}'/> 
-          </manifest> 
+          </manifest>
       </jar>
 
 <!--
