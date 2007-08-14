@@ -189,14 +189,14 @@ public class MailAddress implements java.io.Serializable {
      * @return  a <code>String</code> object representing the host part
      *          of this email address. If the host is of the dotNum form
      *          (e.g. [yyy.yyy.yyy.yyy]) then strip the braces first.
-     *  @deprecated use getDomain() - name change to align with RFC2821 3.4.1. Addr-spec specification
+     *  @deprecated use getDomain() - name change to align with RFC2822 3.4.1. Addr-spec specification
      */
     public String getHost() {
         return getDomain();
     }
     
     /**
-     * Return the domain part per RFC2821 3.4.1. Addr-spec specification
+     * Return the domain part per RFC2822 3.4.1. Addr-spec specification
      *
      * @return  a <code>String</code> object representing the domain part
      *          of this email address. If the domain is of the domain-literal form  (e.g. [yyy.yyy.yyy.yyy])  the braces will have been stripped returning the raw IP address.
@@ -215,17 +215,17 @@ public class MailAddress implements java.io.Serializable {
      * @return  a <code>String</code> object representing the user part
      *          of this email address.
      * @throws  AddressException    if the parse failed
-     * @deprecated use getLocalPart() - name change to align with RFC2821 3.4.1. Addr-spec specification
+     * @deprecated use getLocalPart() - name change to align with RFC2822 3.4.1. Addr-spec specification
      */
     public String getUser() {
         return getLocalPart();
     }
     
     /**
-     * Return the local-part per RFC2821 3.4.1. Addr-spec specification
+     * Return the local-part per RFC2822 3.4.1. Addr-spec specification
      *
      * @return  a <code>String</code> object representing the local-part
-     *          of this email address as defined by RFC2821 3.4.1. Addr-spec specification. 
+     *          of this email address as defined by RFC2822 3.4.1. Addr-spec specification. 
      *          The local-part portion is a domain dependent string.  In addresses, it is simply interpreted on the particular host as a name of a particular mailbox.
      *          It is the part before the "@"
      * @throws  AddressException    if the parse failed
