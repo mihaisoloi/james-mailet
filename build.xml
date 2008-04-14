@@ -1,14 +1,6 @@
 <?xml version="1.0"?>
-  <!DOCTYPE project [
-    <!ENTITY check-targets SYSTEM "file:./check-targets.xml">
-  ]>
 
 <!-- 
-==========================================================================
-
-Mailet  build file 
-
-
   Licensed to the Apache Software Foundation (ASF) under one   
   or more contributor license agreements.  See the NOTICE file 
   distributed with this work for additional information        
@@ -25,8 +17,6 @@ Mailet  build file
   KIND, either express or implied.  See the License for the    
   specific language governing permissions and limitations      
   under the License.                                           
- 
-==============================================================================
 -->
 
 <project default="main" basedir=".">
@@ -36,7 +26,6 @@ Mailet  build file
     -->
     <property file=".ant.properties"/>
     <property file="${user.home}/.ant.properties"/>
-    <property file="check-targets.properties"/>
     <property file="include.properties"/>
     <property file="default.properties"/>
 
@@ -49,18 +38,12 @@ Mailet  build file
     <path id="project.class.path">
         <pathelement path="${javax-mail.jar}"/>
         <pathelement path="${javax-activation.jar}"/>
+    	<pathelement path="${mailet.jar}"/>
+    	<pathelement path="${bc-workaround.jar}"/>
+    	<pathelement path="${bc.jar}"/>
         <pathelement path="${java.class.path}" />
         <pathelement path="${build.classes}" />
     </path>
-
-    <!--
-    ===================================================================
-                                Dependency Check
-    ===================================================================
-    -->
-
-    &check-targets;
-    <target name="check-dependencies" depends="javamail-check,activation-check"/>
 
     <!--
     ===================================================================
@@ -75,7 +58,7 @@ Mailet  build file
     all targets
     ===================================================================
     -->
-    <target name="prepare" depends="check-dependencies">
+    <target name="prepare">
 
       <echo message="Preparing code"/>
 
@@ -90,11 +73,6 @@ Mailet  build file
       </copy>
       <fixcrlf srcdir="${java.dir}" includes="**/*.java" eol="lf" tab="remove" tablength="4" />
       <fixcrlf srcdir="${java.dir}" includes="**/*.html" eol="lf" tab="remove" tablength="4" />
-      <fixcrlf srcdir="${xdocs.dir}" includes="**/*.xml" eol="lf" tab="remove" tablength="4" />
-      <fixcrlf srcdir="${conf.dir}" includes="**/*.xml" eol="lf" tab="remove" tablength="4" />
-      <fixcrlf srcdir="." includes="build.sh" eol="lf"/>
-      <fixcrlf srcdir="." includes="build.bat" eol="crlf"/>
-      <fixcrlf srcdir="." includes="build.xml" eol="lf"/>
       <mkdir dir="${build.src}"/>
     </target>
 
@@ -120,8 +98,7 @@ Mailet  build file
         <classpath refid="project.class.path"/>
         <src path="${build.src}"/>
         <src path="${java.dir}"/>
-        <include name="org/apache/mailet/**"/>
-        <exclude name="**/samples/*/**"/>
+        <include name="org/apache/james/**"/>
       </javac>
       <copy todir="${build.classes}">
         <fileset dir="${java.dir}">
@@ -143,7 +120,10 @@ Mailet  build file
 
       <delete dir="${build.javadocs}"/>
       <mkdir dir="${build.javadocs}"/>
-      <javadoc failonerror="yes" packagenames="org.apache.mailet.*" excludepackagenames="org.apache.mailet.samples.*" destdir="${build.javadocs}">
+      <javadoc 
+      		failonerror="yes" 
+      		packagenames="org.apache.james.*" 
+      		destdir="${build.javadocs}">
         <sourcepath>
             <pathelement path="${java.dir}"/>
             <pathelement path="${build.src}"/>            
@@ -158,82 +138,17 @@ Mailet  build file
           <param name="-link" value="http://java.sun.com/j2ee/sdk_1.3/techdocs/api"/>
           <param name="-doctitle" value="${Name} ${version}"/>
           <param name="-windowtitle" value="${Name} API"/>
-          <param name="-bottom" value="&quot;Copyright &#169; ${year} Apache Jakarta Project. All Rights Reserved.&quot;"/>
+          <param name="-bottom" value="&quot;Licensed to the Apache Software Foundation. Distributed under the Apache License, 2.0.&quot;"/>
         </doclet>
       </javadoc>
     </target>
-
-    <!--
-    ===================================================================
-                                  build xdocs
-    ===================================================================
-    -->
-    <target name="xdocs" depends="prepare">
-      <style style="${docs.src}/stylesheets/site.xsl"
-                basedir="${docs.src}/"
-                destdir="${build.docs}/" 
-                includes="**/*.xml" >
-      </style>
-      <copy todir="${build.docs}" filtering="no">
-        <fileset dir="${docs.src}">
-          <include name="**/*.css"/>
-        </fileset>
-      </copy>
-      <copy todir="${build.docs}/images" filtering="no">
-        <fileset dir="${docs.src}/images">
-          <include name="**/*.gif"/>
-          <include name="**/*.jpeg"/>
-          <include name="**/*.jpg"/>
-          <include name="**/*.png"/>
-        </fileset>
-      </copy>
-      <mkdir dir="${dist.dir}/docs"/>
-      <copy todir="${dist.dir}/docs" filtering="no">
-        <fileset dir="${build.docs}"/>
-      </copy>
-    </target>
-
-    <!--
-    ===================================================================
-                                build   website 
-    ===================================================================
-    -->
-    <target name="website" depends="xdocs,javadocs">
-
-      <echo message="preparing website in ${www.dir}"/>
-      <delete quiet="true">
-        <fileset dir="${www.dir}">
-          <exclude name="CVS/**"/>
-          <exclude name="rfclist/**"/>
-          <exclude name="javadocs/**"/>
-        </fileset>
-      </delete>
-      <mkdir dir="${www.dir}"/>
-      <copy todir="${www.dir}" filtering="no">
-        <fileset dir="${build.docs}"/>
-      </copy>
-      <copy todir="${www.dir}" filtering="no">
-        <fileset dir="${build.dir}">
-          <include name="javadocs/**"/>
-        </fileset>
-      </copy>
-      <fixcrlf srcdir="${www.dir}" includes="**/*.html" eol="lf" tab="remove" tablength="4" />
-      <fixcrlf srcdir="${www.dir}" includes="**/*.css" eol="lf" tab="remove" tablength="4" />
-    </target>
-
-    <!--
-    ===================================================================
-                Build everything
-    ===================================================================
-    -->
-    <target name="everything" depends="clean,website,dist-bin,dist-src"/>
-
+	
     <!--
     ===================================================================
                                   Build all distributions
     ===================================================================
     -->
-    <target name="dist" depends="dist-bin,dist-src"/>
+    <target name="dist" depends="clean,dist-bin,dist-src"/>
 
     <!--
     ===================================================================
@@ -250,7 +165,7 @@ Mailet  build file
       <jar 
             jarfile="${build.lib}/${name}-${version}.jar" 
             basedir="${build.classes}">
-          <include name="org/apache/mailet/**"/>
+          <include name="org/apache/james/**"/>
           <include name="META-INF/**"/> 
           <exclude name="**/junit/*/**"/>
           <exclude name="**/samples/*/**"/>
@@ -298,7 +213,7 @@ Mailet  build file
     ===================================================================
     -->
 
-    <target name="dist-bin" depends="dist-lite,xdocs,javadocs">
+    <target name="dist-bin" depends="dist-lite, javadocs">
       <echo message ="Building binary distribution"/>
       <property name="dist.binary.dir" value="${dist.dir}/downloads/bin"/>
       <mkdir dir="${dist.binary.dir}"/>
@@ -325,7 +240,7 @@ Mailet  build file
                                   source distributions
     ===================================================================
     -->
-    <target name="dist-src" depends="dist-lite,xdocs,javadocs">
+    <target name="dist-src" depends="dist-lite, javadocs">
         <echo message ="Building source distributions"/>
 
         <property name="dist.source.dir" value="${dist.dir}/downloads/src"/>
@@ -387,9 +302,8 @@ Mailet  build file
         <echo message="   test      --> tests the compiled classes"/>
         <echo message="   website   --> makes all the docs and javadocs"/>
         <echo message="   compile   --> compiles the source code"/>
-        <echo message="   dist      --> generates all the Mailet distributions, packed"/>
+        <echo message="   dist      --> generates all the distributions, packed"/>
         <echo message="   clean     --> cleans up the directory"/>
-        <echo message="   xdocs     --> creates the documentation for Mailet"/>
         <echo message="   javadocs  --> creates the Javadoc"/>
         <echo message=""/>
         <echo message=" See the comments inside the build.xml file for more details."/>

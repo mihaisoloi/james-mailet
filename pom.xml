@@ -29,12 +29,12 @@
    -->
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.james</groupId>
-  <artifactId>mailet</artifactId>
-  <name>Apache Mailet API</name>
-  <version>3.0-SNAPSHOT</version>
+  <artifactId>crypto-mailets</artifactId>
+  <name>Apache JAMES Cryptographic Mailets</name>
+  <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <description>
-    Apache Mailet API
+    Apache JAMES Cryptographic Mailets
   </description>
   <parent>
     <groupId>org.apache.james</groupId>
@@ -42,13 +42,13 @@
     <version>1.1-SNAPSHOT</version>
     <relativePath>../james-project/project/pom.xml</relativePath>
   </parent>
-  <url>http://james.apache.org/mailet</url>
-  <inceptionYear>2007</inceptionYear>
+  <url>http://james.apache.org/mailet/crypto</url>
+  <inceptionYear>2008</inceptionYear>
 
   <distributionManagement>
     <site>
-      <id>mailet-website</id>
-      <url>scp://people.apache.org/www/james.apache.org/mailet/</url>
+      <id>crypto-mailet-website</id>
+      <url>scp://people.apache.org/www/james.apache.org/mailet/crypto</url>
     </site>
   </distributionManagement>
 
@@ -59,20 +59,15 @@
 
   <scm>
     <connection>
-      scm:svn:http://svn.apache.org/repos/asf/james/mailet/trunk
+      scm:svn:http://svn.apache.org/repos/asf/james/mailet/crypto/trunk
     </connection>
     <developerConnection>
-      scm:svn:https://svn.apache.org/repos/asf/james/mailet/trunk
+      scm:svn:https://svn.apache.org/repos/asf/james/mailet/crypto/trunk
     </developerConnection>
     <url>
-      http://svn.apache.org/viewcvs.cgi/james/mailet/trunk/?root=Apache-SVN
+      http://svn.apache.org/viewcvs.cgi/james/mailet/crypto/trunk/?root=Apache-SVN
     </url>
   </scm>
-
-  <!-- This is here because of http://jira.codehaus.org/browse/MRRESOURCES-6 -->
-  <properties>
-    <maven.test.skip>true</maven.test.skip>
-  </properties>
 
   <dependencies>
     <dependency>
@@ -80,12 +75,24 @@
       <artifactId>mail</artifactId>
       <version>1.4</version>
     </dependency>
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcmail-jdk14</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcmail-jdk14-workaround</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.james</groupId>
+      <artifactId>mailet</artifactId>
+    </dependency>
   </dependencies>
 
 	<repositories>
     <repository>
-      <id>mailet-stage-repository</id>
-      <name>Mailet stage repository</name>
+      <id>crypto-mailet-stage-repository</id>
+      <name>Stage repository</name>
       <url>file://${basedir}/stage</url>
       <layout>legacy</layout>
       <releases>
