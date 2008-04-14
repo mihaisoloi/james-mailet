@@ -1,0 +1,456 @@
+<?xml version="1.0"?>
+  <!DOCTYPE project [
+    <!ENTITY check-targets SYSTEM "file:./check-targets.xml">
+  ]>
+
+<!-- 
+==========================================================================
+
+Mailet  build file 
+
+
+  Licensed to the Apache Software Foundation (ASF) under one   
+  or more contributor license agreements.  See the NOTICE file 
+  distributed with this work for additional information        
+  regarding copyright ownership.  The ASF licenses this file   
+  to you under the Apache License, Version 2.0 (the            
+  "License"); you may not use this file except in compliance   
+  with the License.  You may obtain a copy of the License at   
+                                                               
+    http://www.apache.org/licenses/LICENSE-2.0                 
+                                                               
+  Unless required by applicable law or agreed to in writing,   
+  software distributed under the License is distributed on an  
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY       
+  KIND, either express or implied.  See the License for the    
+  specific language governing permissions and limitations      
+  under the License.                                           
+ 
+==============================================================================
+-->
+
+<project default="main" basedir=".">
+    <!--
+    Give user a chance to override without editing this file
+    (and without typing -D each time he compiles it)
+    -->
+    <property file=".ant.properties"/>
+    <property file="${user.home}/.ant.properties"/>
+    <property file="check-targets.properties"/>
+    <property file="include.properties"/>
+    <property file="default.properties"/>
+
+    <!--
+    ===================================================================
+    Set the classpath
+    ===================================================================
+    -->
+
+    <path id="project.class.path">
+        <pathelement path="${javax-mail.jar}"/>
+        <pathelement path="${javax-activation.jar}"/>
+        <pathelement path="${java.class.path}" />
+        <pathelement path="${build.classes}" />
+    </path>
+
+    <!--
+    ===================================================================
+                                Dependency Check
+    ===================================================================
+    -->
+
+    &check-targets;
+    <target name="check-dependencies" depends="javamail-check,activation-check"/>
+
+    <!--
+    ===================================================================
+                                  Main target
+    ===================================================================
+    -->
+    <target name="main" depends="dist-lite"/>
+
+    <!--
+    ===================================================================
+    Prepare-common target - common tasks executed in preparation for
+    all targets
+    ===================================================================
+    -->
+    <target name="prepare" depends="check-dependencies">
+
+      <echo message="Preparing code"/>
+
+      <tstamp/>
+      <mkdir dir="${dist.dir}"/>
+      <copy todir="${dist.dir}">
+        <fileset dir=".">
+          <include name="LICENSE.txt"/>
+          <include name="README.txt"/>
+          <include name="NOTICE.txt"/>
+        </fileset>
+      </copy>
+      <fixcrlf srcdir="${java.dir}" includes="**/*.java" eol="lf" tab="remove" tablength="4" />
+      <fixcrlf srcdir="${java.dir}" includes="**/*.html" eol="lf" tab="remove" tablength="4" />
+      <fixcrlf srcdir="${xdocs.dir}" includes="**/*.xml" eol="lf" tab="remove" tablength="4" />
+      <fixcrlf srcdir="${conf.dir}" includes="**/*.xml" eol="lf" tab="remove" tablength="4" />
+      <fixcrlf srcdir="." includes="build.sh" eol="lf"/>
+      <fixcrlf srcdir="." includes="build.bat" eol="crlf"/>
+      <fixcrlf srcdir="." includes="build.xml" eol="lf"/>
+      <mkdir dir="${build.src}"/>
+    </target>
+
+    
+    <!--
+    ===================================================================
+                                  compile
+    ===================================================================
+    -->
+    <target name="compile" depends="compile-main"/>
+    
+    <target name="compile-main" depends="prepare">
+      <echo message="Compiling Java sources"/>
+      <mkdir dir="${build.classes}"/>
+      <javac 
+            destdir="${build.classes}" 
+            debug="${debug}" 
+            optimize="${optimize}" 
+            deprecation="${deprecation}"
+            source="${jdk.source}"
+            target="${jdk.target}" 
+            >
+        <classpath refid="project.class.path"/>
+        <src path="${build.src}"/>
+        <src path="${java.dir}"/>
+        <include name="org/apache/mailet/**"/>
+        <exclude name="**/samples/*/**"/>
+      </javac>
+      <copy todir="${build.classes}">
+        <fileset dir="${java.dir}">
+          <include name="**/*.properties"/>
+        </fileset>
+      </copy>   
+      <copy todir="${build.classes}/META-INF" file='LICENSE.txt'/>
+      <copy todir="${build.classes}/META-INF" file='NOTICE.txt'/>   
+    </target>
+
+    <!--
+    ===================================================================
+                                  Javadocs
+    ===================================================================
+    -->
+    <target name="javadocs" depends="compile">
+
+      <echo message="Making Mailet Javadocs"/>
+
+      <delete dir="${build.javadocs}"/>
+      <mkdir dir="${build.javadocs}"/>
+      <javadoc failonerror="yes" packagenames="org.apache.mailet.*" excludepackagenames="org.apache.mailet.samples.*" destdir="${build.javadocs}">
+        <sourcepath>
+            <pathelement path="${java.dir}"/>
+            <pathelement path="${build.src}"/>            
+        </sourcepath> 
+        <classpath refid="project.class.path"/>
+        <doclet name="com.sun.tools.doclets.standard.Standard">
+          <param name="-author"/>
+          <param name="-version"/>
+          <param name="-use"/>
+          <param name="-breakiterator"/>
+          <param name="-link" value="http://java.sun.com/j2se/1.4/docs/api"/>
+          <param name="-link" value="http://java.sun.com/j2ee/sdk_1.3/techdocs/api"/>
+          <param name="-doctitle" value="${Name} ${version}"/>
+          <param name="-windowtitle" value="${Name} API"/>
+          <param name="-bottom" value="&quot;Copyright &#169; ${year} Apache Jakarta Project. All Rights Reserved.&quot;"/>
+        </doclet>
+      </javadoc>
+    </target>
+
+    <!--
+    ===================================================================
+                                  build xdocs
+    ===================================================================
+    -->
+    <target name="xdocs" depends="prepare">
+      <style style="${docs.src}/stylesheets/site.xsl"
+                basedir="${docs.src}/"
+                destdir="${build.docs}/" 
+                includes="**/*.xml" >
+      </style>
+      <copy todir="${build.docs}" filtering="no">
+        <fileset dir="${docs.src}">
+          <include name="**/*.css"/>
+        </fileset>
+      </copy>
+      <copy todir="${build.docs}/images" filtering="no">
+        <fileset dir="${docs.src}/images">
+          <include name="**/*.gif"/>
+          <include name="**/*.jpeg"/>
+          <include name="**/*.jpg"/>
+          <include name="**/*.png"/>
+        </fileset>
+      </copy>
+      <mkdir dir="${dist.dir}/docs"/>
+      <copy todir="${dist.dir}/docs" filtering="no">
+        <fileset dir="${build.docs}"/>
+      </copy>
+    </target>
+
+    <!--
+    ===================================================================
+                                build   website 
+    ===================================================================
+    -->
+    <target name="website" depends="xdocs,javadocs">
+
+      <echo message="preparing website in ${www.dir}"/>
+      <delete quiet="true">
+        <fileset dir="${www.dir}">
+          <exclude name="CVS/**"/>
+          <exclude name="rfclist/**"/>
+          <exclude name="javadocs/**"/>
+        </fileset>
+      </delete>
+      <mkdir dir="${www.dir}"/>
+      <copy todir="${www.dir}" filtering="no">
+        <fileset dir="${build.docs}"/>
+      </copy>
+      <copy todir="${www.dir}" filtering="no">
+        <fileset dir="${build.dir}">
+          <include name="javadocs/**"/>
+        </fileset>
+      </copy>
+      <fixcrlf srcdir="${www.dir}" includes="**/*.html" eol="lf" tab="remove" tablength="4" />
+      <fixcrlf srcdir="${www.dir}" includes="**/*.css" eol="lf" tab="remove" tablength="4" />
+    </target>
+
+    <!--
+    ===================================================================
+                Build everything
+    ===================================================================
+    -->
+    <target name="everything" depends="clean,website,dist-bin,dist-src"/>
+
+    <!--
+    ===================================================================
+                                  Build all distributions
+    ===================================================================
+    -->
+    <target name="dist" depends="dist-bin,dist-src"/>
+
+    <!--
+    ===================================================================
+                                  Make Mailet jars
+    ===================================================================
+    -->
+
+    <target name="jar" depends="compile, test">
+
+      <mkdir dir="${build.lib}"/>
+
+      <!-- Make Mailet jar-->
+      <echo message="Making Mailet Jar (${name}-${version}.jar)"/>
+      <jar 
+            jarfile="${build.lib}/${name}-${version}.jar" 
+            basedir="${build.classes}">
+          <include name="org/apache/mailet/**"/>
+          <include name="META-INF/**"/> 
+          <exclude name="**/junit/*/**"/>
+          <exclude name="**/samples/*/**"/>
+          <manifest> 
+            <attribute name="Extension-Name" value='${extension.name}'/>
+            <attribute name="Specification-Title" value='${title.spec}'/>
+            <attribute name="Specification-Vendor" value='${vendor}'/>
+            <attribute name="Specification-Version" value='${manifestVersion}'/>
+            <attribute name="Implementation-Vendor-Id" value='${vendor.id}'/>
+            <attribute name="Implementation-Title" value='${title.impl}'/>
+            <attribute name="Implementation-Vendor" value='${vendor}'/>
+            <attribute name="Implementation-Version" value='${manifestVersion}'/>
+            <attribute name="X-Compile-Source-JDK" value='${jdk.source}'/>
+            <attribute name="X-Compile-Target-JDK" value='${jdk.target}'/> 
+          </manifest>
+      </jar>
+
+
+    </target>
+
+    <!--
+    ===================================================================
+            Make dist directory with unpacked dist ready to run
+    ===================================================================
+    -->
+    
+
+    <target name="dist-lite" depends="jar">
+
+      <echo message="Installing Mailet to ${dist.dir}"/>
+
+      <!--Copies the Mailet jars into ./dist/lib -->
+      <copy todir="${dist.dir}/lib">
+        <fileset dir="${build.lib}">
+          <include name="*.jar"/>
+        </fileset>
+      </copy>
+    </target>
+
+    
+
+    <!--
+    ===================================================================
+                                  binary distribution
+    ===================================================================
+    -->
+
+    <target name="dist-bin" depends="dist-lite,xdocs,javadocs">
+      <echo message ="Building binary distribution"/>
+      <property name="dist.binary.dir" value="${dist.dir}/downloads/bin"/>
+      <mkdir dir="${dist.binary.dir}"/>
+        <zip zipfile="${dist.binary.dir}/${dist.name}-bin.zip">
+            <fileset dir="${dist.dir}">
+                <include name="lib/**"/>
+                <include name="*.txt"/>
+                <include name="KEYS"/>
+            </fileset>
+        </zip>
+        <tar longfile="gnu" tarfile="${dist.binary.dir}/${dist.name}-bin.tar">
+            <tarfileset dir="${dist.dir}" username="${name}" group="${name}">
+                <include name="lib/**"/>
+                <include name="*.txt"/>
+                <include name="KEYS"/>
+            </tarfileset>
+        </tar>
+        <gzip zipfile="${dist.binary.dir}/${dist.name}-bin.tar.gz" src="${dist.binary.dir}/${dist.name}-bin.tar"/>
+        <delete file="${dist.binary.dir}/${dist.name}-bin.tar"/>
+    </target>
+
+    <!--
+    ===================================================================
+                                  source distributions
+    ===================================================================
+    -->
+    <target name="dist-src" depends="dist-lite,xdocs,javadocs">
+        <echo message ="Building source distributions"/>
+
+        <property name="dist.source.dir" value="${dist.dir}/downloads/src"/>
+        <mkdir dir="${dist.source.dir}"/>
+        <zip zipfile="${dist.source.dir}/${dist.name}-src.zip">
+            <fileset dir=".">
+                <include name="src/**"/>
+                <include name="lib/**"/>
+                <include name="www/**"/>
+                <include name="tools/**"/>
+                <include name="*.xml"/>
+                <include name="*.properties"/>
+                <include name="*.txt"/>
+                <include name="KEYS"/>
+            </fileset>
+        </zip>
+        <tar longfile="gnu" tarfile="${dist.source.dir}/${dist.name}-src.tar">
+            <tarfileset dir="." username="${name}" group="${name}">
+                <include name="src/**"/>
+                <include name="lib/**"/>
+                <include name="www/**"/>
+                <include name="tools/**"/>
+                <include name="*.xml"/>
+                <include name="*.properties"/>
+                <include name="*.txt"/>
+                <include name="KEYS"/>
+            </tarfileset>
+        </tar>
+        <gzip zipfile="${dist.source.dir}/${dist.name}-src.tar.gz" src="${dist.source.dir}/${dist.name}-src.tar"/>
+        <delete file="${dist.source.dir}/${dist.name}-src.tar"/>
+    </target>
+    
+    <!--
+    ===================================================================
+                                  delete dist/, build/ and www/
+    ===================================================================
+    -->
+    <target name="clean">
+        <echo message ="deleting working directories ready for a clean build"/>
+        <delete dir="${dist.dir}"/>
+        <delete dir="${build.dir}"/>
+        <delete dir="${www.dir}"/>
+    </target>
+
+    <!--
+    ===================================================================
+                                   Help on usage                                                       
+    =================================================================== 
+    -->
+    <target name="usage">
+        <echo message=""/>
+        <echo message=""/>
+        <echo message="Mailet Build file"/>
+        <echo message="-------------------------------------------------------------"/>
+        <echo message=""/>
+        <echo message=" available targets are:"/>
+        <echo message=""/>
+        <echo message="   dist-lite --> generates unpacked distribution (default)"/>
+        <echo message="   test      --> tests the compiled classes"/>
+        <echo message="   website   --> makes all the docs and javadocs"/>
+        <echo message="   compile   --> compiles the source code"/>
+        <echo message="   dist      --> generates all the Mailet distributions, packed"/>
+        <echo message="   clean     --> cleans up the directory"/>
+        <echo message="   xdocs     --> creates the documentation for Mailet"/>
+        <echo message="   javadocs  --> creates the Javadoc"/>
+        <echo message=""/>
+        <echo message=" See the comments inside the build.xml file for more details."/>
+        <echo message="-------------------------------------------------------------"/>
+        <echo message=""/>
+        <echo message=""/>
+    </target>
+    
+    <!--
+       ===================================================================
+                                      Compile Tests                                                     
+       =================================================================== 
+       -->
+    <target name="compile-tests" depends="junit-present, compile" description="Compile the test code" if="junit.present">
+        <mkdir dir="${test.classes}"/>
+        <javac destdir="${test.classes}" excludes="**/package.html" debug="true" deprecation="true" optimize="false">
+          <src>
+            <pathelement location="src/test/java"/>
+          </src>
+          <classpath>
+            <path refid="project.class.path"/>
+          </classpath>
+        </javac>
+        <copy todir="${test.classes}">
+          <fileset dir="src/test/resources"/>
+        </copy>
+      </target>
+    <!--
+       ===================================================================
+                                      Run Tests                                                     
+       =================================================================== 
+       -->
+      <target name="test" depends="junit-present, compile-tests" if="junit.present" description="Run the test cases">
+        <mkdir dir="${test.report}"/>
+        <junit printSummary="yes" haltonerror="true" haltonfailure="true" fork="true" dir=".">
+          <sysproperty key="basedir" value="."/>
+          <formatter type="xml"/>
+          <formatter type="plain" usefile="false"/>
+          <classpath>
+            <path refid="project.class.path"/>
+            <pathelement location="${test.classes}"/>
+          </classpath>
+          <batchtest todir="${test.report}">
+            <fileset dir="src/test/java">
+              <include name="**/*Test.java"/>
+              <exclude name="**/*Abstract*Test.java"/>
+            </fileset>
+          </batchtest>
+        </junit>
+      </target>
+      <target name="test-junit-present">
+        <available classname="junit.framework.Test" property="junit.present"/>
+      </target>
+    <!--
+       ===================================================================
+                                      Find Junit                                           
+       =================================================================== 
+       -->
+      <target name="junit-present" depends="test-junit-present" unless="junit.present">
+        <echo>================================= WARNING ================================</echo>
+        <echo> Junit isn't present in your $ANT_HOME/lib directory. Tests not executed. </echo>
+        <echo>==========================================================================</echo>
+      </target>
+</project>
