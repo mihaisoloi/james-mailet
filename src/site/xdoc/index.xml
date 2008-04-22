@@ -24,7 +24,32 @@
   </properties>
   <body>
     <section name="Crytography Mailets">
-      <p>Mailets which encode, decode, sign and verify mail.</p>
+      	<p>Mailets which encode, decode, sign and verify mail plus cryptology utilities.</p>
+    </section>
+    <section name='S/MIME Mailets'>
+    	<p><acronym title='Secure / Multipurpose Internet Mail Extensions'>S/MIME</acronym> provides
+    	cryptographic services for <acronym title='Multipurpose Internet Mail Extensions'>
+    	<a href='http://james.apache.org/server/rfclist/basic/rfc2045.txt'>MIME</a></acronym> messages.
+    	These services include public key digital signature and encryption. 
+    	Authentication is certificate based and so uses a hierarchical trust model. 
+    	</p><p>
+    	SMIME is standardised by the 
+    	<acronym title='Internet Engineering Task Force'>
+    	<a href='http://www.imc.org/ietf-smime/index.html'>IEFT</a></acronym>.
+    	</p>
+    	<p>
+    	JAMES provides:
+    	</p>
+    	<ul>
+    		<li><a href='apidocs/org/apache/james/transport/mailets/smime/SMIMEDecrypt.html'>SMIMECheckSignature</a> 
+    		Verifies the S/MIME signature of a message. The s/mime signing ensure that the 
+    		private key owner is the real sender of the message.</li>
+    		<li><a href='apidocs/org/apache/james/transport/mailets/smime/SMIMEDecrypt.html'>SMIMEDecrypt</a>
+    		Decrypts a S/MIME encrypted message.</li>
+    		<li><a href='apidocs/org/apache/james/transport/mailets/smime/SMIMESign.html'>SMIMESign</a>
+    		Puts a server-side SMIME signature on a message.
+    		</li>
+    	</ul>
     </section>
   </body>
 </document>
