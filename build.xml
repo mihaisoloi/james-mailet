@@ -38,8 +38,6 @@
         <pathelement path="${javax-mail.jar}"/>
         <pathelement path="${javax-activation.jar}"/>
     	<pathelement path="${mailet.jar}"/>
-    	<pathelement path="${bc-workaround.jar}"/>
-    	<pathelement path="${bc.jar}"/>
         <pathelement path="${java.class.path}" />
         <pathelement path="${build.classes}" />
     </path>
@@ -160,7 +158,7 @@
       <mkdir dir="${build.lib}"/>
 
       <!-- Make Mailet jar-->
-      <echo message="Making Mailet Jar (${name}-${version}.jar)"/>
+      <echo message="Making Mailet Jar (${project}-${name}-${version}.jar)"/>
       <jar 
             jarfile="${build.lib}/${project}-${name}-${version}.jar" 
             basedir="${build.classes}">

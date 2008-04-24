@@ -2,7 +2,7 @@
    ==      NOTICE file for use with the Apache License, Version 2.0,      ==
    =========================================================================
 
-   Apache JAMES Crytographic Mailets
+   Apache JAMES Standard Mailets
    Copyright 2008 The Apache Software Foundation
 
    This product includes software developed at
@@ -10,7 +10,6 @@
 
    This product also includes software developed by :
      - Sun Microsystems (http://java.sun.com/)
-     - The Legion Of The Bouncy Castle (http://www.bouncycastle.org)
 
    Please read the LICENSE.txt and README.txt files in the root directory of 
    this distribution.

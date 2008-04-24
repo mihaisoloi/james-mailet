@@ -29,12 +29,12 @@
    -->
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.james</groupId>
-  <artifactId>crypto-mailets</artifactId>
-  <name>Apache JAMES Cryptographic Mailets</name>
+  <artifactId>standard-mailets</artifactId>
+  <name>Apache JAMES Standard Mailets</name>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <description>
-    Apache JAMES Cryptographic Mailets
+    Apache JAMES Standard Mailets
   </description>
   <parent>
     <groupId>org.apache.james</groupId>
@@ -42,13 +42,13 @@
     <version>1.1</version>
     <relativePath>stage/org.apache.james/poms/james-project-1.1.pom</relativePath>
   </parent>
-  <url>http://james.apache.org/mailet/crypto</url>
+  <url>http://james.apache.org/mailet/standard</url>
   <inceptionYear>2008</inceptionYear>
 
   <distributionManagement>
     <site>
-      <id>crypto-mailet-website</id>
-      <url>scp://people.apache.org/www/james.apache.org/mailet/crypto</url>
+      <id>standard-mailet-website</id>
+      <url>scp://people.apache.org/www/james.apache.org/mailet/standard</url>
     </site>
   </distributionManagement>
 
@@ -59,13 +59,13 @@
 
   <scm>
     <connection>
-      scm:svn:http://svn.apache.org/repos/asf/james/mailet/crypto/trunk
+      scm:svn:http://svn.apache.org/repos/asf/james/mailet/standard/trunk
     </connection>
     <developerConnection>
-      scm:svn:https://svn.apache.org/repos/asf/james/mailet/crypto/trunk
+      scm:svn:https://svn.apache.org/repos/asf/james/mailet/standard/trunk
     </developerConnection>
     <url>
-      http://svn.apache.org/viewcvs.cgi/james/mailet/crypto/trunk/?root=Apache-SVN
+      http://svn.apache.org/viewcvs.cgi/james/mailet/standard/trunk/?root=Apache-SVN
     </url>
   </scm>
 
@@ -76,16 +76,6 @@
       <version>1.4</version>
     </dependency>
     <dependency>
-      <groupId>org.bouncycastle</groupId>
-      <artifactId>bcmail-jdk14</artifactId>
-      <version>129</version>
-    </dependency>
-    <dependency>
-      <groupId>org.bouncycastle</groupId>
-      <artifactId>bcmail-jdk14-workaround</artifactId>
-      <version>129</version>
-    </dependency>
-    <dependency>
       <groupId>org.apache.james</groupId>
       <artifactId>mailet</artifactId>
       <version>3.0-SNAPSHOT</version>
@@ -94,7 +84,7 @@
 
 	<repositories>
     <repository>
-      <id>crypto-mailet-stage-repository</id>
+      <id>mailet-stage-repository</id>
       <name>Stage repository</name>
       <url>file://${basedir}/stage</url>
       <layout>legacy</layout>
