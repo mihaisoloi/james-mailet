@@ -17,11 +17,11 @@
   specific language governing permissions and limitations
   under the License.    
 -->
-<project name="Apache JAMES Crypto">
+<project name="Apache JAMES Standard Mailets">
   <bannerLeft>
-    <name>JAMES Cryptography Mailets</name>
+    <name>JAMES Standard Mailets</name>
     <src>images/james-server-logo.gif</src>
-    <href>http://james.apache.org/mailets/crypto/index.html</href>
+    <href>http://james.apache.org/mailets/standard/index.html</href>
   </bannerLeft>
 
   <bannerRight>
@@ -32,7 +32,7 @@
 
   <body>
 
-    <menu name="Cryptography Mailets">
+    <menu name="Standard Mailets">
       <item name="Overview" href="index.html"/>
       <item name="Configuration" href="conf.html"/>
     </menu>
