@@ -26,6 +26,7 @@ import org.apache.mailet.MailAddress;
 import org.apache.mailet.MailetContext;
 
 /**
+ * Matches mail where the recipient is local.
  * @version 1.0.0, 24/04/1999
  */
 public class RecipientIsLocal extends GenericRecipientMatcher {

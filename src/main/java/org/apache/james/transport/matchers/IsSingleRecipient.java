@@ -27,6 +27,7 @@ import org.apache.mailet.Mail;
 import java.util.Collection;
 
 /**
+ * Matches mail where the number of recipiants is exactly one.
  * @version 1.0.0, 04/12/2000
  */
 public class IsSingleRecipient extends GenericMatcher {

@@ -25,7 +25,7 @@ import org.apache.james.transport.matchers.HasHabeasWarrantMark;
 import org.apache.mailet.GenericMailet ;
 import org.apache.mailet.Mail ;
 
-/*
+/**
  * This matcher adds the Hebeas Warrant Mark to a message.
  * For details see: http://www.hebeas.com
  *

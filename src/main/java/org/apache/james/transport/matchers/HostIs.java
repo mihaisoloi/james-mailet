@@ -30,6 +30,7 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 
 /**
+ * Matches mail from given hosts.
  * @version 1.0.0, 24/04/1999
  */
 public class HostIs extends GenericRecipientMatcher {

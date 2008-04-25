@@ -32,7 +32,7 @@ import java.util.Collection;
 import java.util.Enumeration;
 
 /**
- *
+ * Matches mail which has been relayed more than a given number of times.
  * @version 1.0.0, 1/5/2000
  */
 

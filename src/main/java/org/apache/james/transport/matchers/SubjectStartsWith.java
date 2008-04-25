@@ -29,10 +29,9 @@ import javax.mail.internet.MimeMessage;
 import java.util.Collection;
 
 /**
- *
+ * Matches mail where the subject starts with a given phrase.
  * @version 1.0.0, 1/5/2000
  */
-
 public class SubjectStartsWith extends GenericMatcher {
 
     public Collection match(Mail mail) throws MessagingException {

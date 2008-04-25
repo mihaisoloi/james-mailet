@@ -28,7 +28,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.Collection;
 
-/*
+/**
  * This matcher tests for the Hebeas Warrant Mark.
  * For details see: http://www.hebeas.com
  *

@@ -28,6 +28,7 @@ import java.util.Collection;
 import java.util.StringTokenizer;
 
 /**
+ * Matches mail where the recipent is one of a configurable list.
  * @version 1.0.0, 24/04/1999
  */
 public class RecipientIs extends GenericRecipientMatcher {

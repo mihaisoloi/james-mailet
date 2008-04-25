@@ -25,6 +25,7 @@ import org.apache.mailet.GenericRecipientMatcher;
 import org.apache.mailet.MailAddress;
 
 /**
+ * Matches mail from localhost.
  * @version 1.0.0, 24/04/1999
  */
 public class HostIsLocal extends GenericRecipientMatcher {

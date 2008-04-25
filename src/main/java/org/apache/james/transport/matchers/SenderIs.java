@@ -29,6 +29,7 @@ import java.util.Collection;
 import java.util.StringTokenizer;
 
 /**
+ * Matches mail where the sender is contained in a configurable list.
  * @version 1.0.0, 24/04/1999
  */
 public class SenderIs extends GenericMatcher {

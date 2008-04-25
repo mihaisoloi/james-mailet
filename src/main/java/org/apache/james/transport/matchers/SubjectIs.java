@@ -28,10 +28,9 @@ import javax.mail.internet.MimeMessage;
 import java.util.Collection;
 
 /**
- *
+ * Matches mail where the subject is contained in a configurable list.
  * @version 1.0.0, 1/5/2000
  */
-
 public class SubjectIs extends GenericMatcher {
     public Collection match(Mail mail) throws javax.mail.MessagingException {
         MimeMessage mm = mail.getMessage();

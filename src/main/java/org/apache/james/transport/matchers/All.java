@@ -24,6 +24,7 @@ import org.apache.mailet.Mail;
 import java.util.Collection;
 
 /**
+ * Matches all mail.
  * @version 1.0.0, 24/04/1999
  */
 public class All extends GenericMatcher {
