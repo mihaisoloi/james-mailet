@@ -23,8 +23,8 @@
     <author email="server-dev@james.apache.org">JAMES Project Team</author>
   </properties>
   <body>
-    <section name="Standard Mailets">
-      	<p>A collection of generally useful reusable mailets and matchers with minimal depedencies.</p>
+    <section name="Basic Mailet Toolkit">
+      	<p>A toolit for builders of mailets and matchers.</p>
     </section>
     <section name='Catalog'>
         <p>For more information see the <a href='apidocs/index.html'>javadocs</a>.</p>

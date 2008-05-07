@@ -29,12 +29,12 @@
    -->
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.james</groupId>
-  <artifactId>standard-mailets</artifactId>
-  <name>Apache JAMES Standard Mailets</name>
+  <artifactId>apache-james-mailet-base</artifactId>
+  <name>Apache JAMES Basic Mailet Toolkit</name>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <description>
-    Apache JAMES Standard Mailets
+    Apache JAMES Basic Mailet Toolkit
   </description>
   <parent>
     <groupId>org.apache.james</groupId>
@@ -42,13 +42,13 @@
     <version>1.1</version>
     <relativePath>stage/org.apache.james/poms/james-project-1.1.pom</relativePath>
   </parent>
-  <url>http://james.apache.org/mailet/standard</url>
+  <url>http://james.apache.org/mailet/base</url>
   <inceptionYear>2008</inceptionYear>
 
   <distributionManagement>
     <site>
-      <id>standard-mailet-website</id>
-      <url>scp://people.apache.org/www/james.apache.org/mailet/standard</url>
+      <id>mailet-base-website</id>
+      <url>scp://people.apache.org/www/james.apache.org/mailet/base</url>
     </site>
   </distributionManagement>
 
@@ -59,13 +59,13 @@
 
   <scm>
     <connection>
-      scm:svn:http://svn.apache.org/repos/asf/james/mailet/standard/trunk
+      scm:svn:http://svn.apache.org/repos/asf/james/mailet/base/trunk
     </connection>
     <developerConnection>
-      scm:svn:https://svn.apache.org/repos/asf/james/mailet/standard/trunk
+      scm:svn:https://svn.apache.org/repos/asf/james/mailet/base/trunk
     </developerConnection>
     <url>
-      http://svn.apache.org/viewcvs.cgi/james/mailet/standard/trunk/?root=Apache-SVN
+      http://svn.apache.org/viewcvs.cgi/james/mailet/base/trunk/?root=Apache-SVN
     </url>
   </scm>
 

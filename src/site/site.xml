@@ -17,11 +17,11 @@
   specific language governing permissions and limitations
   under the License.    
 -->
-<project name="Apache JAMES Standard Mailets">
+<project name="Apache JAMES Basic Mailet Toolkit">
   <bannerLeft>
-    <name>JAMES Standard Mailets</name>
+    <name>JAMES Basic Mailet Toolkit</name>
     <src>images/james-server-logo.gif</src>
-    <href>http://james.apache.org/mailets/standard/index.html</href>
+    <href>http://james.apache.org/mailets/basic/index.html</href>
   </bannerLeft>
 
   <bannerRight>
@@ -32,9 +32,8 @@
 
   <body>
 
-    <menu name="Standard Mailets">
+    <menu name="Basic Mailet Toolkit">
       <item name="Overview" href="index.html"/>
-      <item name="Configuration" href="conf.html"/>
     </menu>
 
     ${reports}
