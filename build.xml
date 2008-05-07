@@ -18,7 +18,7 @@
   under the License.                                           
 -->
 
-<project default="main" basedir=".">
+<project name="mailet-base" default="main" basedir=".">
     <!--
     Give user a chance to override without editing this file
     (and without typing -D each time he compiles it)
