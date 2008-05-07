@@ -38,6 +38,7 @@
         <pathelement path="${javax-mail.jar}"/>
         <pathelement path="${javax-activation.jar}"/>
     	<pathelement path="${mailet.jar}"/>
+    	<pathelement path="${mailet-base.jar}"/>
         <pathelement path="${java.class.path}" />
         <pathelement path="${build.classes}" />
     </path>
