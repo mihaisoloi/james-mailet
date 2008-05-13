@@ -20,7 +20,8 @@
 
 package org.apache.mailet;
 
-/* A specialized subclass of javax.mail.URLName, which provides location
+/** 
+ * A specialized subclass of javax.mail.URLName, which provides location
  * information for servers.
  * 
  * @since Mailet API v2.2.0a16-unstable
