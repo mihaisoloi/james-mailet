@@ -119,7 +119,7 @@
       <mkdir dir="${build.javadocs}"/>
       <javadoc 
       		failonerror="yes" 
-      		packagenames="org.apache.james.*" 
+      		packagenames="org.apache.*" 
       		destdir="${build.javadocs}">
         <sourcepath>
             <pathelement path="${java.dir}"/>
@@ -162,7 +162,7 @@
       <jar 
             jarfile="${build.lib}/${project}-${name}-${version}.jar" 
             basedir="${build.classes}">
-          <include name="org/apache/james/**"/>
+          <include name="org/apache/**"/>
           <include name="META-INF/**"/> 
           <exclude name="**/junit/*/**"/>
           <exclude name="**/samples/*/**"/>
