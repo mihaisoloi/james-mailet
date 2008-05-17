@@ -95,7 +95,7 @@
         <classpath refid="project.class.path"/>
         <src path="${build.src}"/>
         <src path="${java.dir}"/>
-        <include name="org/apache/james/**"/>
+        <include name="org/apache/**"/>
       </javac>
       <copy todir="${build.classes}">
         <fileset dir="${java.dir}">
