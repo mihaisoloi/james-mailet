@@ -203,9 +203,9 @@
         <version>1.0-alpha-3</version>
         <configuration>
           <excludes>
-            <exclude>NOTICE.base</exclude>
-            <exclude>LICENSE.apache</exclude>
-            <exclude>release.properties</exclude>
+            <exclude>NOTICE.txt</exclude>
+            <exclude>LICENSE.txt</exclude>
+            <exclude>dist/**/*</exclude>
           </excludes>
         </configuration>
       </plugin>
