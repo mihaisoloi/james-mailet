@@ -1,8 +1,4 @@
 <?xml version="1.0"?>
-  <!DOCTYPE project [
-    <!ENTITY check-targets SYSTEM "./check-targets.xml">
-  ]>
-
 <!-- 
 ==========================================================================
 
@@ -36,7 +32,6 @@ Mailet  build file
     -->
     <property file=".ant.properties"/>
     <property file="${user.home}/.ant.properties"/>
-    <property file="check-targets.properties"/>
     <property file="include.properties"/>
     <property file="default.properties"/>
 
@@ -55,15 +50,6 @@ Mailet  build file
 
     <!--
     ===================================================================
-                                Dependency Check
-    ===================================================================
-    -->
-
-    &check-targets;
-    <target name="check-dependencies" depends="javamail-check,activation-check"/>
-
-    <!--
-    ===================================================================
                                   Main target
     ===================================================================
     -->
@@ -75,7 +61,7 @@ Mailet  build file
     all targets
     ===================================================================
     -->
-    <target name="prepare" depends="check-dependencies">
+    <target name="prepare">
 
       <echo message="Preparing code"/>
 
