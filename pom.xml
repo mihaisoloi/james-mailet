@@ -52,6 +52,11 @@
     </site>
   </distributionManagement>
 
+  <ciManagement>
+     <system>Gump</system>
+     <url>http://vmgump.apache.org/gump/public/james-mailet/james-mailet/index.html</url>
+  </ciManagement>
+
   <issueManagement>
     <system>JIRA</system>
     <url>http://issues.apache.org/jira/browse/MAILET</url>
@@ -59,13 +64,13 @@
 
   <scm>
     <connection>
-      scm:svn:http://svn.apache.org/repos/asf/james/mailet/trunk
+      scm:svn:http://svn.apache.org/repos/asf/james/mailet/api/trunk
     </connection>
     <developerConnection>
-      scm:svn:https://svn.apache.org/repos/asf/james/mailet/trunk
+      scm:svn:https://svn.apache.org/repos/asf/james/mailet/api/trunk
     </developerConnection>
     <url>
-      http://svn.apache.org/viewcvs.cgi/james/mailet/trunk/?root=Apache-SVN
+      http://svn.apache.org/viewcvs.cgi/james/mailet/api/trunk/?root=Apache-SVN
     </url>
   </scm>
 
