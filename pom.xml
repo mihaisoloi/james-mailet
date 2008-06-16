@@ -39,7 +39,7 @@
   <parent>
     <groupId>org.apache.james</groupId>
     <artifactId>james-project</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
     <relativePath>../james-project/project/pom.xml</relativePath>
   </parent>
   <url>http://james.apache.org/mailet</url>
@@ -79,6 +79,13 @@
       <groupId>javax.mail</groupId>
       <artifactId>mail</artifactId>
       <version>1.4</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
@@ -165,11 +172,42 @@
   <reporting>
     <plugins>
       <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.4.3</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>2.4.3</version>
+      </plugin> 
+      <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.4</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>2.1</version>
+      </plugin>
+            <plugin>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>2.0-beta-6</version>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jxr-maven-plugin</artifactId>
+        <artifactId>rat-maven-plugin</artifactId>
+        <version>1.0-alpha-3</version>
+        <configuration>
+          <excludes>
+            <exclude>NOTICE.base</exclude>
+            <exclude>LICENSE.apache</exclude>
+            <exclude>release.properties</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>taglist-maven-plugin</artifactId>
+        <version>2.2</version>
       </plugin>
     </plugins>
   </reporting>
