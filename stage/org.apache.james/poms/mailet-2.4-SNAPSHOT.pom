@@ -29,28 +29,33 @@
    -->
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.james</groupId>
-  <artifactId>apache-james-mailet-base</artifactId>
-  <name>Apache JAMES Basic Mailet Toolkit</name>
-  <version>1.0-SNAPSHOT</version>
+  <artifactId>mailet</artifactId>
+  <name>Apache Mailet API</name>
+  <version>2.4-SNAPSHOT</version>
   <packaging>jar</packaging>
   <description>
-    Apache JAMES Basic Mailet Toolkit
+    Apache Mailet API
   </description>
   <parent>
     <groupId>org.apache.james</groupId>
     <artifactId>james-project</artifactId>
-    <version>1.1</version>
-    <relativePath>stage/org.apache.james/poms/james-project-1.1.pom</relativePath>
+    <version>1.2</version>
+    <relativePath>../james-project/project/pom.xml</relativePath>
   </parent>
-  <url>http://james.apache.org/mailet/base</url>
-  <inceptionYear>2008</inceptionYear>
+  <url>http://james.apache.org/mailet</url>
+  <inceptionYear>2007</inceptionYear>
 
   <distributionManagement>
     <site>
-      <id>mailet-base-website</id>
-      <url>scp://people.apache.org/www/james.apache.org/mailet/base</url>
+      <id>mailet-website</id>
+      <url>scp://people.apache.org/www/james.apache.org/mailet/</url>
     </site>
   </distributionManagement>
+
+  <ciManagement>
+     <system>Gump</system>
+     <url>http://vmgump.apache.org/gump/public/james-mailet/james-mailet/index.html</url>
+  </ciManagement>
 
   <issueManagement>
     <system>JIRA</system>
@@ -59,15 +64,20 @@
 
   <scm>
     <connection>
-      scm:svn:http://svn.apache.org/repos/asf/james/mailet/base/trunk
+      scm:svn:http://svn.apache.org/repos/asf/james/mailet/api/trunk
     </connection>
     <developerConnection>
-      scm:svn:https://svn.apache.org/repos/asf/james/mailet/base/trunk
+      scm:svn:https://svn.apache.org/repos/asf/james/mailet/api/trunk
     </developerConnection>
     <url>
-      http://svn.apache.org/viewcvs.cgi/james/mailet/base/trunk/?root=Apache-SVN
+      http://svn.apache.org/viewcvs.cgi/james/mailet/api/trunk/?root=Apache-SVN
     </url>
   </scm>
+
+  <!-- This is here because of http://jira.codehaus.org/browse/MRRESOURCES-6 -->
+  <properties>
+    <maven.test.skip>true</maven.test.skip>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -75,11 +85,7 @@
       <artifactId>mail</artifactId>
       <version>1.4</version>
     </dependency>
-    <dependency>
-      <groupId>org.apache.james</groupId>
-      <artifactId>mailet</artifactId>
-      <version>2.4-SNAPSHOT</version>
-    </dependency>
+    
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -91,7 +97,7 @@
 	<repositories>
     <repository>
       <id>mailet-stage-repository</id>
-      <name>Stage repository</name>
+      <name>Mailet stage repository</name>
       <url>file://${basedir}/stage</url>
       <layout>legacy</layout>
       <releases>
@@ -107,11 +113,11 @@
 
   <mailingLists>
     <mailingList>
-	    <name>Apache JAMES Server List</name>
-	    <subscribe>server-dev-subscribe@james.apache.org</subscribe>
-	    <unsubscribe>server-dev-unsubscribe@james.apache.org</unsubscribe>
-	    <post>server-dev@james.apache.org</post>
-	    <archive>http://mail-archives.apache.org/mod_mbox/james-server-dev/</archive>
+	    <name>Apache Mailet API List</name>
+	    <subscribe>mailet-api-subscribe@james.apache.org</subscribe>
+	    <unsubscribe>mailet-api--unsubscribe@james.apache.org</unsubscribe>
+	    <post>mailet-api-@james.apache.org</post>
+	    <archive>http://mail-archives.apache.org/mod_mbox/james-mailet-api/</archive>
     </mailingList>
   </mailingLists>
 
@@ -128,16 +134,20 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <artifactId>maven-jar-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>test-jar</goal>
-            </goals>
-          </execution>
-        </executions>
+        <configuration>
+          <archive>
+            <manifestEntries>
+              <Specification-Title>Apache Mailet API</Specification-Title>
+              <Specification-Version>${pom.version}</Specification-Version>
+              <Specification-Vendor>The Apache Software Foundation</Specification-Vendor>
+              <Implementation-Title>Apache Mailet API</Implementation-Title>
+              <Implementation-Version>${pom.version}</Implementation-Version>
+              <Implementation-Vendor>The Apache Software Foundation</Implementation-Vendor>
+              <Implementation-Vendor-Id>org.apache</Implementation-Vendor-Id>
+              <url>${pom.url}</url>
+            </manifestEntries>
+          </archive>
+        </configuration>
       </plugin>
       <!-- Add NOTICE and LICENSE to generated JAR -->
       <plugin>
@@ -167,11 +177,44 @@
   <reporting>
     <plugins>
       <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.4.3</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>2.4.3</version>
+      </plugin> 
+      <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.4</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>2.1</version>
+      </plugin>
+            <plugin>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>2.0-beta-6</version>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jxr-maven-plugin</artifactId>
+        <artifactId>rat-maven-plugin</artifactId>
+        <version>1.0-alpha-3</version>
+        <configuration>
+          <excludes>
+            <exclude>NOTICE.txt</exclude>
+            <exclude>LICENSE.txt</exclude>
+            <!-- Generated by Maven -->
+            <exclude>release.properties</exclude>
+            <exclude>dist/**/*</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>taglist-maven-plugin</artifactId>
+        <version>2.2</version>
       </plugin>
     </plugins>
   </reporting>

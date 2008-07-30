@@ -19,7 +19,6 @@
 
 package org.apache.james.test.mock.util;
 
-import org.apache.james.test.mock.james.MockMailServer;
 import org.apache.james.test.mock.javaxmail.MockMimeMessage;
 import org.apache.james.test.mock.mailet.MockMail;
 import org.apache.mailet.MailAddress;
@@ -36,9 +35,16 @@ import java.util.Arrays;
  */
 public class MailUtil {
 
+    private static int m_counter = 0;
+
+    public static String newId() {
+        m_counter++;
+        return "MockMailUtil-ID-" + m_counter;
+    }
+    
     public static MockMail createMockMail2Recipients(MimeMessage m) throws ParseException {
         MockMail mockedMail = new MockMail();
-        mockedMail.setName(MockMailServer.newId());
+        mockedMail.setName(newId());
         mockedMail.setMessage(m);
         mockedMail.setRecipients(Arrays.asList(new MailAddress[] {
                 new MailAddress("test@james.apache.org"),
