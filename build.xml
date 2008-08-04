@@ -37,8 +37,9 @@
     <path id="project.class.path">
         <pathelement path="${javax-mail.jar}"/>
         <pathelement path="${javax-activation.jar}"/>
-    	<pathelement path="${mailet.jar}"/>
-    	<pathelement path="${mailet-base.jar}"/>
+        <pathelement path="${mailet.jar}"/>
+        <pathelement path="${mailet-base.jar}"/>
+        <pathelement path="${mailet-base-tests.jar}"/>
         <pathelement path="${java.class.path}" />
         <pathelement path="${build.classes}" />
     </path>
@@ -181,6 +182,14 @@
           </manifest>
       </jar>
 
+
+      <echo message="Making Mailet Test Jar (${name}-${version}-tests.jar)"/>
+      <jar 
+            jarfile="${build.lib}/${name}-${version}-tests.jar" 
+            basedir="${test.classes}">
+          <include name="org/apache/**"/>
+          <include name="META-INF/**"/> 
+      </jar>
 
     </target>
 
