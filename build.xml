@@ -35,6 +35,7 @@
     -->
 
     <path id="project.class.path">
+        <pathelement path="${junit.jar}"/>
         <pathelement path="${javax-mail.jar}"/>
         <pathelement path="${javax-activation.jar}"/>
         <pathelement path="${mailet.jar}"/>
