@@ -254,6 +254,13 @@ Mailet  build file
           </manifest>
       </jar>
 
+      <echo message="Making Mailet Test Jar (${name}-${version}-tests.jar)"/>
+      <jar 
+            jarfile="${build.lib}/${name}-${version}-tests.jar" 
+            basedir="${test.classes}">
+          <include name="org/apache/mailet/**"/>
+          <include name="META-INF/**"/> 
+      </jar>
 
     </target>
 
