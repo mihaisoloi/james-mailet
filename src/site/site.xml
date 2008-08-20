@@ -20,7 +20,7 @@
 <project name="Apache JAMES Basic Mailet Toolkit">
   <bannerLeft>
     <name>JAMES Basic Mailet Toolkit</name>
-    <src>images/james-server-logo.gif</src>
+    <src>images/james-mailet-base-logo.gif</src>
     <href>http://james.apache.org/mailets/basic/index.html</href>
   </bannerLeft>
 
@@ -34,6 +34,13 @@
 
     <menu name="Basic Mailet Toolkit">
       <item name="Overview" href="index.html"/>
+    </menu>
+
+    <menu name="Mailets">
+      <item name="API" href="http://james.apache.org/mailet/api"/>
+      <item name="Basic Toolkit" href="http://james.apache.org/mailet/base"/>
+      <item name="Standard" href="http://james.apache.org/mailet/standard"/>
+      <item name="Crypto" href="http://james.apache.org/mailet/crypto"/>
     </menu>
 
     ${reports}

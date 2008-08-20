@@ -24,7 +24,9 @@
   </properties>
   <body>
     <section name="Basic Mailet Toolkit">
-      	<p>A toolit for builders of mailets and matchers.</p>
+      	<p>
+A toolkit for builders of mailets and matchers with minimal dependencies.
+		</p>
     </section>
     <section name='Catalog'>
         <p>For more information see the <a href='apidocs/index.html'>javadocs</a>.</p>
