@@ -34,7 +34,9 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
   <description>
-    Apache JAMES Basic Mailet Toolkit
+    Apache JAMES Basic Mailet Toolkit is a collection of utilities and lightweight framework
+    aimed at developers and testers of mailets. This toolkit is extensively used elsewhere in
+    JAMES.
   </description>
   <parent>
     <groupId>org.apache.james</groupId>
@@ -160,6 +162,33 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+	  <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-doap-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>site</id>
+            <phase>site</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+         <doapOptions>
+           <programmingLanguage>java</programmingLanguage>
+           <category>mail</category>
+           <download-page>http://james.apache.org/download.cgi</download-page>
+         </doapOptions>
+
+         <asfExtOptions>
+           <included>true</included>
+           <pmc>http://james.apache.org</pmc>
+           <name>Apache JAMES</name>
+         </asfExtOptions>
+
+        </configuration>
       </plugin>
     </plugins>
   </build>
