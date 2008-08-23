@@ -193,6 +193,7 @@
          <asfExtOptions>
            <included>true</included>
            <pmc>http://james.apache.org</pmc>
+           <name>Apache JAMES</name>
          </asfExtOptions>
 
         </configuration>
