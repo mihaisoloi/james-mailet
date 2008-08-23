@@ -37,10 +37,10 @@
     </menu>
 
     <menu name="Mailets">
-      <item name="API" href="http://james.apache.org/mailet/api"/>
-      <item name="Basic Toolkit" href="http://james.apache.org/mailet/base"/>
-      <item name="Standard" href="http://james.apache.org/mailet/standard"/>
-      <item name="Crypto" href="http://james.apache.org/mailet/crypto"/>
+      <item name="API" href="http://james.apache.org/mailet/api/"/>
+      <item name="Basic Toolkit" href="http://james.apache.org/mailet/base/"/>
+      <item name="Standard" href="http://james.apache.org/mailet/standard/"/>
+      <item name="Crypto" href="http://james.apache.org/mailet/crypto/"/>
     </menu>
 
     ${reports}
