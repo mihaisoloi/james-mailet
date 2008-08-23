@@ -34,7 +34,7 @@
   <version>2.4-SNAPSHOT</version>
   <packaging>jar</packaging>
   <description>
-    Apache Mailet API
+    The Apache Mailet API is a flexible specification for mail processing agents.
   </description>
   <parent>
     <groupId>org.apache.james</groupId>
@@ -42,7 +42,7 @@
     <version>1.2</version>
     <relativePath>../james-project/project/pom.xml</relativePath>
   </parent>
-  <url>http://james.apache.org/mailet</url>
+  <url>http://james.apache.org/mailet/api</url>
   <inceptionYear>2007</inceptionYear>
 
   <distributionManagement>
@@ -170,6 +170,32 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-doap-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>site</id>
+            <phase>site</phase>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+         <doapOptions>
+           <programmingLanguage>java</programmingLanguage>
+           <category>mail</category>
+           <download-page>http://james.apache.org/download.cgi</download-page>
+         </doapOptions>
+
+         <asfExtOptions>
+           <included>true</included>
+           <pmc>http://james.apache.org</pmc>
+         </asfExtOptions>
+
+        </configuration>
       </plugin>
     </plugins>
   </build>
