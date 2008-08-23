@@ -166,7 +166,7 @@ public class MailetdocsMojo extends AbstractMavenReport {
         getSink().list();
         for (int i = 0; i < descriptors.size(); i++) {
             getSink().listItem();
-            getSink().link(((MailetMatcherDescriptor) descriptors.get(i)).getName());
+            getSink().link("#"+((MailetMatcherDescriptor) descriptors.get(i)).getName());
             getSink().text(
                     ((MailetMatcherDescriptor) descriptors.get(i)).getName());
             getSink().link_();
@@ -206,6 +206,7 @@ public class MailetdocsMojo extends AbstractMavenReport {
 	            getSink().text(
 	                    ((MailetMatcherDescriptor) descriptors.get(i)).getInfo());
 	            getSink().bold_();
+	            getSink().lineBreak();
 	            getSink().paragraph_();
             }
 
