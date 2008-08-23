@@ -42,13 +42,13 @@
     <version>1.2</version>
     <relativePath>../james-project/project/pom.xml</relativePath>
   </parent>
-  <url>http://james.apache.org/mailet/api</url>
+  <url>http://james.apache.org/mailet/api/</url>
   <inceptionYear>2007</inceptionYear>
 
   <distributionManagement>
     <site>
       <id>mailet-website</id>
-      <url>scp://people.apache.org/www/james.apache.org/mailet/</url>
+      <url>scp://people.apache.org/www/james.apache.org/mailet/api/</url>
     </site>
   </distributionManagement>
 
