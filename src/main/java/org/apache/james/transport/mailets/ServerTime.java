@@ -29,8 +29,10 @@ import javax.mail.internet.MimeMessage;
 
 /**
  * Returns the current time for the mail server.  Sample configuration:
- * <mailet match="RecipientIs=time@cadenza.lokitech.com" class="ServerTime">
- * </mailet>
+ * <pre><code>
+ * &lt;mailet match="RecipientIs=time@cadenza.lokitech.com" class="ServerTime"&gt;
+ * &lt;/mailet&gt;
+ * </code></pre>
  *
  */
 public class ServerTime extends GenericMailet {

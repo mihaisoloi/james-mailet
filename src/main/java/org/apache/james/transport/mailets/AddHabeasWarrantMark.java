@@ -26,11 +26,18 @@ import org.apache.mailet.GenericMailet ;
 import org.apache.mailet.Mail ;
 
 /**
- * This matcher adds the Hebeas Warrant Mark to a message.
- * For details see: http://www.hebeas.com
+ * <p>This matcher adds the Hebeas Warrant Mark to a message.
+ * For details see: http://www.hebeas.com</p>
  *
- * Usage: <mailet match="<suitable-matcher>" class="AddHabeasWarrantMark" />
+ * <p>
+ * Usage:
+ * </p>
+ * 
+ * <pre><code>
+ * &lt;mailet match="&lt;suitable-matcher&gt;" class="AddHabeasWarrantMark" /&gt;
+ * </code></pre>
  *
+ * <p>
  * NOTE: Although this mailet is covered by the Apache Software License,
  * the Habeas Warrant Mark is copyright.  A separate license from Habeas
  * is required in order to legally attach the Habeas Warrant Mark to
@@ -40,7 +47,8 @@ import org.apache.mailet.Mail ;
  * 
  * Because the Habeas Warrant Mark is copyright material, I have asked
  * for and received the following explicit statement from Habeas:
- *
+ * </p>
+ * <pre>
  * -----------------------------------
  * From: Lindsey Pettit [mailto:support@habeas.com]
  * Sent: Sunday, September 29, 2002 5:51
@@ -71,7 +79,7 @@ import org.apache.mailet.Mail ;
  * 
  * That's absolutely perfect!
  * -----------------------------------
- *
+ * </pre>
  */
 
 public class AddHabeasWarrantMark extends GenericMailet

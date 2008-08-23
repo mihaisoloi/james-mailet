@@ -32,16 +32,16 @@ import org.apache.mailet.GenericMailet;
 import org.apache.mailet.Mail;
 
 /**
- * Convert attributes to headers
+ * <p>Convert attributes to headers</p>
  * 
- * Sample configuration:
- * 
+ * <p>Sample configuration:</p>
+ * <pre><code>
  * &lt;mailet match="All" class="MailAttributesToMimeHeaders"&gt;
  * &lt;simplemapping&gt;org.apache.james.attribute1;
  * headerName1&lt;/simplemapping&gt;
  * &lt;simplemapping&gt;org.apache.james.attribute2;
  * headerName2&lt;/simplemapping&gt; &lt;/mailet&gt;
- * 
+ * </code></pre>
  */
 public class MailAttributesToMimeHeaders extends GenericMailet {
 

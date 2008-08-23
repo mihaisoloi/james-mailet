@@ -31,23 +31,26 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Remove (best effort to) the hardcoded wrapping from a message.
- * <p>If the text is  "format=flowed" then deflows the text.
- * <p>Otherwise it forces a dewrap of the text.
- * <p>Parameters: quotewidth - when we try to dewrap e quoted text it helps knowing the original
+ * <p>Remove (best effort to) the hardcoded wrapping from a message.<br>
+ * If the text is  "format=flowed" then deflows the text. Otherwise it forces a dewrap of the text.
+ * </p>
+ * <p>Parameters:<br> 
+ * quotewidth - when we try to dewrap e quoted text it helps knowing the original
  * with, so we can reconstruct "wrapped wraps" created by multiple wrappings by clients with
  * different original width or simply to the add of the heading ">" that increase the line
- * length.
+ * length.<br>
  * The value should be "WIDTH+X" if the original length is known, "-X" otherwise.
  * In the latter case the length of the longer line will be used.
  * X is the tollerance needed for the quoting chars: if the original width is known the suggested
  * value for X is 2 (because of "> " prefix), otherwise it is suggested to increase it to a value 
- * like 10 (-10)
+ * like 10 (-10)</p>
  * 
- * In summary, if the original wrap is known (for example 76, for flowed messages)
- *  quotewidth = 78
- * Otherwise
- *  quotewidth = -10
+ * <p>
+ * In summary, if the original wrap is known (for example 76, for flowed messages)<br>
+ *  <code>quotewidth = 78</code><br>
+ * Otherwise<br>
+ *  <code>quotewidth = -10</code>
+ * </p>
  */
 public class UnwrapText extends GenericMailet {
     public final static String PARAMETER_NAME_QUOTEWIDTH = "quotewidth";

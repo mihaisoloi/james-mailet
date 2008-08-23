@@ -33,10 +33,10 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 /**
- * use: <mailet match="{<header>[=value]}+" class="..." />
+ * use: <pre><code>&lt;mailet match="{&lt;header&gt;[=value]}+" class="..." /&gt;</code></pre>
  * 
- * This matcher checks if the header named is present. If complements the
- * AddHeader mailet.
+ * <p>This matcher checks if the header named is present. If complements the
+ * AddHeader mailet.</p>
  */
 public class HasHeader extends GenericMatcher {
 
@@ -56,7 +56,7 @@ public class HasHeader extends GenericMatcher {
 
     public Collection match(Mail mail) throws javax.mail.MessagingException {
         boolean match = false;
-        MimeMessage message = (MimeMessage) mail.getMessage();
+        MimeMessage message = mail.getMessage();
 
 
         header:

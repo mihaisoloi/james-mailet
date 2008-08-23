@@ -46,11 +46,11 @@ import java.util.Vector;
  * of the message.</p>
  *
  * <p>e.g.</p>
- * <pre>
- *    <mailet match="RecipientIs=forwarded@myhost"
- *            class="UseHeaderRecipients">
- *    </mailet>
- * </pre>
+ * <pre><code>
+ *    &lt;mailet match="RecipientIs=forwarded@myhost"
+ *            class="UseHeaderRecipients"&gt;
+ *    &lt;/mailet&gt;
+ * </code></pre>
  *
  * @version 1.0.0, 24/11/2000
  */

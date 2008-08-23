@@ -33,10 +33,10 @@ import org.apache.mailet.RFC2822Headers;
  * <br>
  * 
  * Sample Configuration: <br>
- * <br>
+ * <pre><code>
  * &lt;mailet match="RecipientIs=robot@james.apache.org" class="TagMessage"&gt;
  * &lt;subjectPrefix&gt;[robot]&lt;/subjectPrefix&gt; &lt;/mailet&gt; <br>
- * <br>
+ * </code></pre>
  */
 public class AddSubjectPrefix extends GenericMailet {
 

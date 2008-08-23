@@ -29,7 +29,9 @@ import javax.mail.MessagingException;
  * This mailet sets removes all attributes set on the Mail instance
  * 
  * Sample configuration:
+ * <pre><code>
  * &lt;mailet match="All" class="RemoveAllMailAttributes"/&gt;
+ * </code></pre>
  *
  * @version CVS $Revision$ $Date$
  * @since 2.2.0

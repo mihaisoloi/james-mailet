@@ -35,9 +35,9 @@ import java.util.HashMap;
 /**
  * Keep only the text part of a message.
  * <p>If the message is text only then it doesn't touch it, if it is a multipart it
- * transform it a in plain text message with the first text part found.
- * - text/plain
- * - text/html => with a conversion to text only
+ * transform it a in plain text message with the first text part found.<br>
+ * - text/plain<br>
+ * - text/html => with a conversion to text only<br>
  * - text/* as is.</p>
  */
 public class OnlyText extends GenericMailet {

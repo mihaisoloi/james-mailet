@@ -29,20 +29,20 @@ import javax.mail.internet.MimeMessage;
 import java.util.Collection;
 
 /**
- * This matcher tests for the Hebeas Warrant Mark.
- * For details see: http://www.hebeas.com
+ * <p>This matcher tests for the Hebeas Warrant Mark.
+ * For details see: http://www.hebeas.com</p>
  *
- * Usage: Place this matcher
+ * <p>Usage: Place this matcher</p>
+ * <pre><code>
+ * &lt;mailet match="HasHabeasWarrantMark" class="ToProcessor"&gt;
+ *     &lt;processor&gt; transport &lt;/processor&gt;
+ * &lt;/mailet&gt;
+ * </code></pre>
+ * <p>in the root processs before the DNSRBL block lists (the InSpammerBlacklist matcher).</p>
  *
- * <mailet match="HasHabeasWarrantMark" class="ToProcessor">
- *     <processor> transport </processor>
- * </mailet>
- *
- * in the root processs before the DNSRBL block lists (the InSpammerBlacklist matcher).
- *
- * Because the Habeas Warrant Mark is copyright material, I have asked for and
- * received the following explicit statement from Habeas:
- *
+ * <p>Because the Habeas Warrant Mark is copyright material, I have asked for and
+ * received the following explicit statement from Habeas:</p>
+ * <pre>
  * -----------------------------------
  * From: Lindsey Pettit [mailto:support@habeas.com]
  * Sent: Sunday, September 29, 2002 5:51
@@ -63,7 +63,7 @@ import java.util.Collection;
  * do insist that it not ever be used as a basis for rejecting email which 
  * bears the Habeas mark.
  * -----------------------------------
- *
+ * </pre>
  */
 
 public class HasHabeasWarrantMark extends GenericMatcher

@@ -33,10 +33,12 @@ import javax.mail.MessagingException;
  * This mailet sets attributes on the Mail.
  * 
  * Sample configuration:
+ * <pre><code>
  * &lt;mailet match="All" class="RemoveMailAttribute"&gt;
  *   &lt;name&gt;attribute_name1&lt;/name&gt;
  *   &lt;name&gt;attribute_name2&lt;/name&gt;
  * &lt;/mailet&gt;
+ * </code></pre>
  *
  * @version CVS $Revision$ $Date$
  * @since 2.2.0

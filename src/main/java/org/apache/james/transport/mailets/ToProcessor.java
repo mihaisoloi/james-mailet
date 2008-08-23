@@ -28,13 +28,15 @@ import org.apache.mailet.MailetException;
 import javax.mail.MessagingException;
 
 /**
- * This mailet redirects the mail to the named processor
+ * <p>This mailet redirects the mail to the named processor</p>
  *
- * Sample configuration:
- * <mailet match="All" class="ToProcessor">
- *   <processor>spam</processor>
- *   <notice>Notice attached to the message (optional)</notice>
- * </mailet>
+ * <p>Sample configuration:</p>
+ * <pre><code>
+ * &lt;mailet match="All" class="ToProcessor"&gt;
+ *   &lt;processor&gt;spam&lt;/processor&gt;
+ *   &lt;notice&gt;Notice attached to the message (optional)&lt;/notice&gt;
+ * &lt;/mailet&gt;
+ * </code></pre>
  *
  */
 public class ToProcessor extends GenericMailet {

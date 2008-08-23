@@ -28,14 +28,16 @@ import org.apache.mailet.GenericMailet ;
 import org.apache.mailet.Mail ;
 
 /**
- * Adds a specified header and value to the message.
+ * <p>Adds a specified header and value to the message.</p>
  *
- * Sample configuration:
+ * <p>Sample configuration:</p>
  *
- * <mailet match="All" class="AddHeader">
- *   <name>X-MailetHeader</name>
- *   <value>TheHeaderValue</value>
- * </mailet>
+ * <pre><code>
+ * &lt;mailet match="All" class="AddHeader"&gt;
+ *   &lt;name&gt;X-MailetHeader&lt;/name&gt;
+ *   &lt;value&gt;TheHeaderValue&lt;/value&gt;
+ * &lt;/mailet&gt;
+ * </code></pre>
  *
  * @version 1.0.0, 2002-09-11
  */

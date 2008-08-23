@@ -32,13 +32,15 @@ import java.util.Set;
 import javax.mail.MessagingException;
 
 /**
- * This mailet sets attributes on the Mail.
+ * <p>This mailet sets attributes on the Mail.</p>
  * 
- * Sample configuration:
+ * <p>Sample configuration:</p>
+ * <pre><code>
  * &lt;mailet match="All" class="SetMailAttribute"&gt;
  *   &lt;name1&gt;value1&lt;/name1&gt;
  *   &lt;name2&gt;value2&lt;/name2&gt;
  * &lt;/mailet&gt;
+ * </code></pre>
  *
  * @version CVS $Revision$ $Date$
  * @since 2.2.0

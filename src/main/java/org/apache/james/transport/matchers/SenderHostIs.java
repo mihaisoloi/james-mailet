@@ -30,13 +30,14 @@ import java.util.Locale;
 import java.util.StringTokenizer;
 
 /**
- * Checkes the sender's displayed domain name against a supplied list.
+ * <p>Checkes the sender's displayed domain name against a supplied list.</p>
  *
- * Sample configuration:
- *
- * <mailet match="SenderHostIs=domain.com" class="ToProcessor">
- *   <processor> spam </processor>
- * </mailet>
+ * <p>Sample configuration:</p>
+ * <pre><code>
+ * &lt;mailet match="SenderHostIs=domain.com" class="ToProcessor"&gt;
+ *   &lt;processor> spam &lt;/processor&gt;
+ * &lt;/mailet&gt;
+ * </code></pre>
  *
  * @version 1.0.0, 2002-09-10
  */
@@ -71,7 +72,7 @@ public class SenderHostIs extends GenericMatcher {
      */
     public Collection match(Mail mail) {
         try {
-            if (mail.getSender() != null && senderHosts.contains(mail.getSender().getHost().toLowerCase(Locale.US))) {
+            if (mail.getSender() != null && senderHosts.contains(mail.getSender().getDomain().toLowerCase(Locale.US))) {
                 return mail.getRecipients();
             }
         } catch (Exception e) {
