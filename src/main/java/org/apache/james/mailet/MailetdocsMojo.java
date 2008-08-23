@@ -194,18 +194,21 @@ public class MailetdocsMojo extends AbstractMavenReport {
             getSink().sectionTitle2_();
 
             getSink().paragraph();
-            if (((MailetMatcherDescriptor) descriptors.get(i)).getType() == MailetMatcherDescriptor.TYPE_MAILET) {
-                getSink().text("Mailet Info: ");
-            } else if (((MailetMatcherDescriptor) descriptors.get(i)).getType() == MailetMatcherDescriptor.TYPE_MAILET) {
-                getSink().text("Matcher Info: ");
-            } else {
-                getSink().text("Info: ");
+            
+            if (((MailetMatcherDescriptor) descriptors.get(i)).getInfo() != null) {
+	            if (((MailetMatcherDescriptor) descriptors.get(i)).getType() == MailetMatcherDescriptor.TYPE_MAILET) {
+	                getSink().text("Mailet Info: ");
+	            } else if (((MailetMatcherDescriptor) descriptors.get(i)).getType() == MailetMatcherDescriptor.TYPE_MATCHER) {
+	                getSink().text("Matcher Info: ");
+	            } else {
+	                getSink().text("Info: ");
+	            }
+	            getSink().bold();
+	            getSink().text(
+	                    ((MailetMatcherDescriptor) descriptors.get(i)).getInfo());
+	            getSink().bold_();
+	            getSink().paragraph_();
             }
-            getSink().bold();
-            getSink().text(
-                    ((MailetMatcherDescriptor) descriptors.get(i)).getInfo());
-            getSink().bold_();
-            getSink().paragraph_();
 
             getSink().paragraph();
             getSink().rawText(
