@@ -43,13 +43,13 @@
     <version>1.2</version>
     <relativePath>../james-project/project/pom.xml</relativePath>
   </parent>
-  <url>http://james.apache.org/mailet/standard</url>
+  <url>http://james.apache.org/mailet/standard/</url>
   <inceptionYear>2008</inceptionYear>
 
   <distributionManagement>
     <site>
       <id>standard-mailet-website</id>
-      <url>scp://people.apache.org/www/james.apache.org/mailet/standard</url>
+      <url>scp://people.apache.org/www/james.apache.org/mailet/standard/</url>
     </site>
   </distributionManagement>
 
