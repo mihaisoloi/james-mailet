@@ -34,6 +34,10 @@
 
     <menu name="Mailet API">
       <item name="Overview" href="index.html"/>
+      <item 
+      	name="DOAP" 
+      	href="doap_mailet.rdf" 
+      	img='http://www.w3.org/RDF/icons/rdf_metadata_button.32'/>
     </menu>
     
     <menu name="Mailets">
@@ -43,7 +47,7 @@
       <item name="Crypto" href="http://james.apache.org/mailet/crypto/"/>
     </menu>
     
-    ${reports}
+    <menu ref="reports" />
 
   </body>
 </project>
