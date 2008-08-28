@@ -42,12 +42,13 @@
       	img='http://www.w3.org/RDF/icons/rdf_metadata_button.32'/>
     </menu>
 
-    <menu name="Mailets">
-      <item name="API" href="http://james.apache.org/mailet/api/"/>
-      <item name="Basic Toolkit" href="http://james.apache.org/mailet/base/"/>
-      <item name="Standard" href="http://james.apache.org/mailet/standard/"/>
-      <item name="Crypto" href="http://james.apache.org/mailet/crypto/"/>
-    </menu>
+     <menu name="Mailet">
+      <item name="API" href="http://james.apache.org/mailet/api"/>
+      <item name="Basic Toolkit" href="http://james.apache.org/mailet/base"/>
+      <item name="Crypto" href="http://james.apache.org/mailet/crypto"/>
+      <item name="MailetDocs" href="http://james.apache.org/mailet/maven-mailetdocs-plugin"/>
+      <item name="Standard" href="http://james.apache.org/mailet/standard"/>
+     </menu>
 
     <menu ref="reports" />
 
