@@ -21,7 +21,7 @@
   <bannerLeft>
     <name>JAMES Standard Mailets</name>
     <src>images/james-standard-mailets-logo.gif</src>
-    <href>http://james.apache.org/mailets/standard/index.html</href>
+    <href>http://james.apache.org/mailet/standard/index.html</href>
   </bannerLeft>
 
   <bannerRight>
