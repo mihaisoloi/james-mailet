@@ -21,7 +21,7 @@
   <bannerLeft>
     <name>JAMES Basic Mailet Toolkit</name>
     <src>images/james-mailet-base-logo.gif</src>
-    <href>http://james.apache.org/mailets/basic/index.html</href>
+    <href>http://james.apache.org/mailet/base/index.html</href>
   </bannerLeft>
 
   <bannerRight>
