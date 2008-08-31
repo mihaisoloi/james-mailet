@@ -21,7 +21,7 @@
   <bannerLeft>
     <name>JAMES Cryptography Mailets</name>
     <src>images/james-crypto-mailets-logo.gif</src>
-    <href>http://james.apache.org/mailets/crypto/index.html</href>
+    <href>http://james.apache.org/mailet/crypto/index.html</href>
   </bannerLeft>
 
   <bannerRight>
