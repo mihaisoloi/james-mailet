@@ -29,7 +29,7 @@
    -->
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.james</groupId>
-  <artifactId>mailet</artifactId>
+  <artifactId>apache-mailet</artifactId>
   <name>Apache Mailet API</name>
   <version>2.4-SNAPSHOT</version>
   <packaging>jar</packaging>
