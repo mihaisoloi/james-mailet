@@ -155,7 +155,10 @@ Mailet  build file
                 Build everything
     ===================================================================
     -->
-    <target name="everything" depends="clean, dist"/>
+    <target name="everything">
+    	<antcall target="clean"/>
+		<antcall target="dist"/>
+    </target>
 
     <!--
     ===================================================================
