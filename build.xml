@@ -152,68 +152,10 @@ Mailet  build file
 
     <!--
     ===================================================================
-                                  build xdocs
-    ===================================================================
-    -->
-    <target name="xdocs" depends="prepare">
-      <xslt style="${docs.src}/stylesheets/site.xsl"
-                basedir="${docs.src}/"
-                destdir="${build.docs}/" 
-                includes="**/*.xml" >
-      </xslt>
-      <copy todir="${build.docs}" filtering="no">
-        <fileset dir="${docs.src}">
-          <include name="**/*.css"/>
-        </fileset>
-      </copy>
-      <copy todir="${build.docs}/images" filtering="no">
-        <fileset dir="${docs.src}/images">
-          <include name="**/*.gif"/>
-          <include name="**/*.jpeg"/>
-          <include name="**/*.jpg"/>
-          <include name="**/*.png"/>
-        </fileset>
-      </copy>
-      <mkdir dir="${dist.dir}/docs"/>
-      <copy todir="${dist.dir}/docs" filtering="no">
-        <fileset dir="${build.docs}"/>
-      </copy>
-    </target>
-
-    <!--
-    ===================================================================
-                                build   website 
-    ===================================================================
-    -->
-    <target name="website" depends="xdocs,javadocs">
-
-      <echo message="preparing website in ${www.dir}"/>
-      <delete quiet="true">
-        <fileset dir="${www.dir}">
-          <exclude name="CVS/**"/>
-          <exclude name="rfclist/**"/>
-          <exclude name="javadocs/**"/>
-        </fileset>
-      </delete>
-      <mkdir dir="${www.dir}"/>
-      <copy todir="${www.dir}" filtering="no">
-        <fileset dir="${build.docs}"/>
-      </copy>
-      <copy todir="${www.dir}" filtering="no">
-        <fileset dir="${build.dir}">
-          <include name="javadocs/**"/>
-        </fileset>
-      </copy>
-      <fixcrlf srcdir="${www.dir}" includes="**/*.html" eol="lf" tab="remove" tablength="4" />
-      <fixcrlf srcdir="${www.dir}" includes="**/*.css" eol="lf" tab="remove" tablength="4" />
-    </target>
-
-    <!--
-    ===================================================================
                 Build everything
     ===================================================================
     -->
-    <target name="everything" depends="clean,website,dist"/>
+    <target name="everything" depends="clean, dist"/>
 
     <!--
     ===================================================================
@@ -285,7 +227,7 @@ Mailet  build file
     ===================================================================
     -->
 
-    <target name="dist" depends="dist-lite,xdocs,javadocs">
+    <target name="dist" depends="dist-lite,javadocs">
       <echo message ="Building binary distribution"/>
       <mkdir dir="${dist.dir}"/>
         <zip zipfile="${dist.base}/${dist.name}.zip">
@@ -315,7 +257,6 @@ Mailet  build file
         <echo message ="deleting working directories ready for a clean build"/>
         <delete dir="${dist.dir}"/>
         <delete dir="${build.dir}"/>
-        <delete dir="${www.dir}"/>
     </target>
 
     <!--
