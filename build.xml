@@ -251,11 +251,9 @@
         <echo message="" />
         <echo message="   dist-lite --> generates unpacked distribution (default)" />
         <echo message="   test      --> tests the compiled classes" />
-        <echo message="   website   --> makes all the docs and javadocs" />
         <echo message="   compile   --> compiles the source code" />
         <echo message="   dist      --> generates all the Mailet distributions, packed" />
         <echo message="   clean     --> cleans up the directory" />
-        <echo message="   xdocs     --> creates the documentation for Mailet" />
         <echo message="   javadocs  --> creates the Javadoc" />
         <echo message="" />
         <echo message=" See the comments inside the build.xml file for more details." />
