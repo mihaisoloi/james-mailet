@@ -68,7 +68,7 @@
         <copy todir="${dist.dir}">
             <fileset dir=".">
                 <include name="LICENSE.txt" />
-                <include name="README.txt" />
+                <include name="RELEASE_NOTES.txt" />
                 <include name="NOTICE.txt" />
             </fileset>
         </copy>
