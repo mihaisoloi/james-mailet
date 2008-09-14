@@ -227,11 +227,15 @@ Mailet  build file
       <echo message ="Building binary distribution"/>
       <mkdir dir="${dist.dir}"/>
         <zip zipfile="${dist.base}/${dist.name}.zip">
-            <fileset dir="${dist.dir}">
-            </fileset>
+            <zipfileset dir="${dist.dir}" prefix="${dist.name}">
+            </zipfileset>
         </zip>
         <tar longfile="gnu" tarfile="${dist.base}/${dist.name}.tar">
-            <tarfileset dir="${dist.dir}" username="${name}" group="${name}">
+            <tarfileset 
+            		dir="${dist.dir}" 
+            		username="${name}" 
+            		group="${name}" 
+            		prefix="${dist.name}">
             </tarfileset>
         </tar>
         <gzip zipfile="${dist.base}/${dist.name}.tar.gz" src="${dist.base}/${dist.name}.tar"/>
