@@ -197,6 +197,15 @@
                 <include name="${name}-${version}.jar" />
             </fileset>
         </copy>
+        <mkdir dir="${dist.dir}/lib"/>
+        <copy todir="${dist.dir}/lib" flatten="true">
+            <fileset dir="${basedir}">
+                <include name="${javax-mail.jar}" />
+                <include name="${javax-mail.license}" />
+                <include name="${javax-activation.jar}" />
+                <include name="${javax-activation.license}" />
+            </fileset>
+        </copy>
     </target>
 
 
