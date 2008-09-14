@@ -142,13 +142,6 @@
         </doclet>
       </javadoc>
     </target>
-	
-    <!--
-    ===================================================================
-                                  Build all distributions
-    ===================================================================
-    -->
-    <target name="dist" depends="clean,dist-bin,dist-src"/>
 
     <!--
     ===================================================================
@@ -221,64 +214,17 @@
     ===================================================================
     -->
 
-    <target name="dist-bin" depends="dist-lite, javadocs">
+    <target name="dist" depends="dist-lite, javadocs">
       <echo message ="Building binary distribution"/>
-      <property name="dist.binary.dir" value="${dist.dir}/downloads/bin"/>
-      <mkdir dir="${dist.binary.dir}"/>
-        <zip zipfile="${dist.binary.dir}/${dist.name}-bin.zip">
-            <fileset dir="${dist.dir}">
-                <include name="lib/**"/>
-                <include name="*.txt"/>
-                <include name="KEYS"/>
-            </fileset>
+      <mkdir dir="${dist.dir}"/>
+        <zip zipfile="${dist.base}/${dist.name}.zip">
+            <zipfileset dir="${dist.dir}" prefix="${dist.name}"/>
         </zip>
-        <tar longfile="gnu" tarfile="${dist.binary.dir}/${dist.name}-bin.tar">
-            <tarfileset dir="${dist.dir}" username="${name}" group="${name}">
-                <include name="lib/**"/>
-                <include name="*.txt"/>
-                <include name="KEYS"/>
-            </tarfileset>
+        <tar longfile="gnu" tarfile="${dist.base}/${dist.name}.tar">
+            <tarfileset dir="${dist.dir}" username="${name}" group="${name}" prefix="${dist.name}"/>
         </tar>
-        <gzip zipfile="${dist.binary.dir}/${dist.name}-bin.tar.gz" src="${dist.binary.dir}/${dist.name}-bin.tar"/>
-        <delete file="${dist.binary.dir}/${dist.name}-bin.tar"/>
-    </target>
-
-    <!--
-    ===================================================================
-                                  source distributions
-    ===================================================================
-    -->
-    <target name="dist-src" depends="dist-lite, javadocs">
-        <echo message ="Building source distributions"/>
-
-        <property name="dist.source.dir" value="${dist.dir}/downloads/src"/>
-        <mkdir dir="${dist.source.dir}"/>
-        <zip zipfile="${dist.source.dir}/${dist.name}-src.zip">
-            <fileset dir=".">
-                <include name="src/**"/>
-                <include name="lib/**"/>
-                <include name="www/**"/>
-                <include name="tools/**"/>
-                <include name="*.xml"/>
-                <include name="*.properties"/>
-                <include name="*.txt"/>
-                <include name="KEYS"/>
-            </fileset>
-        </zip>
-        <tar longfile="gnu" tarfile="${dist.source.dir}/${dist.name}-src.tar">
-            <tarfileset dir="." username="${name}" group="${name}">
-                <include name="src/**"/>
-                <include name="lib/**"/>
-                <include name="www/**"/>
-                <include name="tools/**"/>
-                <include name="*.xml"/>
-                <include name="*.properties"/>
-                <include name="*.txt"/>
-                <include name="KEYS"/>
-            </tarfileset>
-        </tar>
-        <gzip zipfile="${dist.source.dir}/${dist.name}-src.tar.gz" src="${dist.source.dir}/${dist.name}-src.tar"/>
-        <delete file="${dist.source.dir}/${dist.name}-src.tar"/>
+        <gzip zipfile="${dist.base}/${dist.name}.tar.gz" src="${dist.base}/${dist.name}.tar"/>
+        <delete file="${dist.base}/${dist.name}.tar"/>
     </target>
     
     <!--
