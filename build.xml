@@ -215,9 +215,9 @@ Mailet  build file
       <echo message="Installing Mailet to ${dist.dir}"/>
 
       <!--Copies the Mailet jars into ./dist/lib -->
-      <copy todir="${dist.dir}/lib">
+      <copy todir="${dist.dir}">
         <fileset dir="${build.lib}">
-          <include name="*.jar"/>
+          <include name="${name}-${version}.jar"/>
         </fileset>
       </copy>
     </target>
