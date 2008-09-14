@@ -231,20 +231,17 @@ Mailet  build file
     -->
 
     <target name="dist" depends="dist-lite,javadocs">
+      <copy todir='${dist.dir}/api'>
+    	<fileset dir='${build.javadocs}'/>
+      </copy>
       <echo message ="Building binary distribution"/>
       <mkdir dir="${dist.dir}"/>
         <zip zipfile="${dist.base}/${dist.name}.zip">
             <fileset dir="${dist.dir}">
-                <include name="lib/**"/>
-                <include name="*.txt"/>
-                <include name="KEYS"/>
             </fileset>
         </zip>
         <tar longfile="gnu" tarfile="${dist.base}/${dist.name}.tar">
             <tarfileset dir="${dist.dir}" username="${name}" group="${name}">
-                <include name="lib/**"/>
-                <include name="*.txt"/>
-                <include name="KEYS"/>
             </tarfileset>
         </tar>
         <gzip zipfile="${dist.base}/${dist.name}.tar.gz" src="${dist.base}/${dist.name}.tar"/>
