@@ -181,6 +181,13 @@
             </manifest>
         </jar>
 
+        <!-- OSGi Enable -->
+        <taskdef resource="aQute/bnd/ant/taskdef.properties" classpath="${bnd.jar}" />
+        <bndwrap 
+            jars='${build.lib}/${name}-${version}.jar' 
+            output='${build.lib}/${name}-${version}.jar' 
+            definitions="." />
+
     </target>
 
     <!--
