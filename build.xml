@@ -155,7 +155,7 @@
       <mkdir dir="${build.lib}"/>
 
       <!-- Make Mailet jar-->
-      <echo message="Making Mailet Jar (${name}-${version}.jar)"/>
+      <echo message="Making Mailet Jar (${project}-${name}-${version}.jar)"/>
       <jar 
             jarfile="${build.lib}/${project}-${name}-${version}.jar" 
             basedir="${build.classes}">
@@ -177,6 +177,12 @@
           </manifest>
       </jar>
 
+      <!-- OSGi Enable -->
+      <taskdef resource="aQute/bnd/ant/taskdef.properties" classpath="${bnd.jar}" />
+      <bndwrap 
+        jars='${build.lib}/${project}-${name}-${version}.jar' 
+        output='${build.lib}/${project}-${name}-${version}.jar' 
+        definitions="." />
 
       <echo message="Making Mailet Test Jar (${name}-${version}-tests.jar)"/>
       <jar 
