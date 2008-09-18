@@ -183,15 +183,6 @@
         jars='${build.lib}/${project}-${name}-${version}.jar' 
         output='${build.lib}/${project}-${name}-${version}.jar' 
         definitions="." />
-
-      <echo message="Making Mailet Test Jar (${name}-${version}-tests.jar)"/>
-      <jar 
-            jarfile="${build.lib}/${name}-${version}-tests.jar" 
-            basedir="${test.classes}">
-          <include name="org/apache/**"/>
-          <include name="META-INF/**"/> 
-      </jar>
-
     </target>
 
     <!--
