@@ -190,4 +190,6 @@
      
    JavaMail, CDDL License
      http://glassfish.dev.java.net/public/CDDLv1.0.html
-      
+           
+   Bnd, Bundle Tool, The Apache License, Version 2.0
+     http://www.aqute.biz/Code/Bnd
