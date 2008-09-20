@@ -175,9 +175,9 @@
           </manifest>
       </jar>
 
-      <echo message="Making Mailet Test Jar (${name}-${version}-tests.jar)"/>
+      <echo message="Making Mailet Test Jar (${project}-${name}-${version}-tests.jar)"/>
       <jar 
-            jarfile="${build.lib}/${name}-${version}-tests.jar" 
+            jarfile="${build.lib}/${project}-${name}-${version}-tests.jar" 
             basedir="${test.classes}">
           <include name="org/apache/**"/>
           <include name="META-INF/**"/> 
