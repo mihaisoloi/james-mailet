@@ -59,20 +59,20 @@ public class OnlyTextTest extends TestCase {
         // ----------------
 
         message = new MimeMessage(Session.getDefaultInstance(new Properties()));
-        message.setSubject("Questa \u00E8 una prova");
+        message.setSubject("prova");
         message.setText("Questa \u00E8 una prova");
         message.saveChanges();
 
         mail = new MockMail(message);
         mailet.service(mail);
 
-        assertEquals("Questa \u00E8 una prova", mail.getMessage().getSubject());
+        assertEquals("prova", mail.getMessage().getSubject());
         assertEquals("Questa \u00E8 una prova", mail.getMessage().getContent());
 
         // -----------------
 
         message = new MimeMessage(Session.getDefaultInstance(new Properties()));
-        message.setSubject("Questa \u00E8 una prova");
+        message.setSubject("prova");
         MimeMultipart mp = new MimeMultipart();
         MimeBodyPart bp = new MimeBodyPart();
         bp.setText("Questo \u00E8 un part interno1");
@@ -91,14 +91,14 @@ public class OnlyTextTest extends TestCase {
         mail = new MockMail(message);
         mailet.service(mail);
 
-        assertEquals("Questa \u00E8 una prova", mail.getMessage().getSubject());
+        assertEquals("prova", mail.getMessage().getSubject());
         assertEquals("Questo \u00E8 un part interno1", mail.getMessage()
                 .getContent());
 
         // -----------------
 
         message = new MimeMessage(Session.getDefaultInstance(new Properties()));
-        message.setSubject("Questa \u00E8 una prova");
+        message.setSubject("prova");
         mp = new MimeMultipart();
         bp = new MimeBodyPart();
         bp.setText("Questo \u00E8 un part interno1");
@@ -122,14 +122,14 @@ public class OnlyTextTest extends TestCase {
         mail = new MockMail(message);
         mailet.service(mail);
 
-        assertEquals("Questa \u00E8 una prova", mail.getMessage().getSubject());
+        assertEquals("prova", mail.getMessage().getSubject());
         assertEquals("Questo \u00E8 un part interno1", mail.getMessage()
                 .getContent());
 
         // ---------------------
 
         message = new MimeMessage(Session.getDefaultInstance(new Properties()));
-        message.setSubject("Questa \u00E8 una prova");
+        message.setSubject("prova");
         message.setContent("<p>Questa \u00E8 una prova<br />di html</p>",
                 "text/html");
         message.saveChanges();
@@ -137,7 +137,7 @@ public class OnlyTextTest extends TestCase {
         mail = new MockMail(message);
         mailet.service(mail);
 
-        assertEquals("Questa \u00E8 una prova", mail.getMessage().getSubject());
+        assertEquals("prova", mail.getMessage().getSubject());
         assertEquals("Questa \u00E8 una prova\ndi html\n", mail.getMessage()
                 .getContent());
         assertTrue(mail.getMessage().isMimeType("text/plain"));
@@ -145,7 +145,7 @@ public class OnlyTextTest extends TestCase {
         // -----------------
 
         message = new MimeMessage(Session.getDefaultInstance(new Properties()));
-        message.setSubject("Questa \u00E8 una prova");
+        message.setSubject("prova");
         mp = new MimeMultipart();
         bp = new MimeBodyPart();
         message2 = new MimeMessage(Session.getDefaultInstance(new Properties()));
@@ -160,7 +160,7 @@ public class OnlyTextTest extends TestCase {
         mail = new MockMail(message);
         mailet.service(mail);
 
-        assertEquals("Questa \u00E8 una prova", mail.getMessage().getSubject());
+        assertEquals("prova", mail.getMessage().getSubject());
         assertEquals("Questa \u00E8 una prova\ndi html\n", mail.getMessage()
                 .getContent());
         assertTrue(mail.getMessage().isMimeType("text/plain"));
