@@ -13,15 +13,23 @@ import javax.mail.internet.MimeUtility;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
+ * <p>
+ * Remove attachments from a Message.
+ * Supports simple removal, storing to file, or storing to mail attributes. 
+ * </p>
  * <p>
  * Configuration:
  * </p>
@@ -29,9 +37,11 @@ import java.util.regex.Pattern;
  * 
  * <pre>
  *   &lt;mailet match=&quot;All&quot; class=&quot;StripAttachment&quot; &gt;
- *     &lt;pattern &gt;.*\.xls &lt;/pattern &gt;  &lt;!-- The regular expression that must be matched -- &gt;
- *     &lt;directory &gt;c:\temp\james_attach &lt;/directory &gt;   &lt;!-- The directory to save to -- &gt;
- *     &lt;remove &gt;all &lt;/remove &gt;   &lt;!-- either &quot;no&quot;, &quot;matched&quot;, &quot;all&quot; -- &gt;
+ *     &lt;pattern &gt;.*\.xls &lt;/pattern&gt;  &lt;!-- The regular expression that must be matched -- &gt;
+ *     &lt;!-- notpattern &gt;.*\.xls &lt;/notpattern--&gt;  &lt;!-- The regular expression that must be matched -- &gt;
+ *     &lt;directory &gt;c:\temp\james_attach &lt;/directory&gt;   &lt;!-- The directory to save to -- &gt;
+ *     &lt;remove &gt;all &lt;/remove&gt;   &lt;!-- either &quot;no&quot;, &quot;matched&quot;, &quot;all&quot; -- &gt;
+ *     &lt;!-- attribute&gt;my.attribute.name&lt;/attribute --&gt;
  *   &lt;/mailet &gt;
  * </pre>
  * 
@@ -41,6 +51,7 @@ public class StripAttachment extends GenericMailet {
 
 	public static final String PATTERN_PARAMETER_NAME = "pattern";
 	public static final String NOTPATTERN_PARAMETER_NAME = "notpattern";
+	public static final String ATTRIBUTE_PARAMETER_NAME = "attribute";
 	public static final String DIRECTORY_PARAMETER_NAME = "directory";
 	public static final String REMOVE_ATTACHMENT_PARAMETER_NAME = "remove"; // either "no", "matched", "all"
 	public static final String DECODE_FILENAME_PARAMETER_NAME = "decodeFilename"; // either "true", "false"
@@ -55,6 +66,7 @@ public class StripAttachment extends GenericMailet {
 	private String notpatternString = null;
 	private String removeAttachments = null;
 	private String directoryName = null;
+	private String attributeName = null;
 	private Pattern regExPattern = null;
 	private Pattern notregExPattern = null;
 	
@@ -84,6 +96,7 @@ public class StripAttachment extends GenericMailet {
 		}
 
 		directoryName = getInitParameter(DIRECTORY_PARAMETER_NAME);
+		attributeName = getInitParameter(ATTRIBUTE_PARAMETER_NAME);
 
 		removeAttachments = getInitParameter(REMOVE_ATTACHMENT_PARAMETER_NAME,
 				REMOVE_NONE).toLowerCase();
@@ -130,6 +143,9 @@ public class StripAttachment extends GenericMailet {
 				+ patternString + " / " + notpatternString + "]";
 		if (directoryName != null) {
 			toLog += " and will save to directory [" + directoryName + "]";
+		}
+		if (attributeName != null) {
+			toLog += " and will store attachments to attribute [" + attributeName + "]";
 		}
 		log(toLog);
 	}
@@ -249,11 +265,24 @@ public class StripAttachment extends GenericMailet {
 						c.add(filename);
 					}
 				}
+				if (attributeName != null) {
+					Map m = (Map) mail.getAttribute(attributeName);
+					if (m == null) {
+						m = new LinkedHashMap();
+						mail.setAttribute(attributeName, (LinkedHashMap) m);
+					}
+					ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+					OutputStream os = new BufferedOutputStream(byteArrayOutputStream);
+					part.writeTo(os);
+					m.put(fileName, byteArrayOutputStream.toByteArray());
+				}
 				if (removeAttachments.equals(REMOVE_MATCHED)) {
 					ret = true;
 				}
 			}
-			ret = removeAttachments.equals(REMOVE_ALL);
+			if (!ret) {
+				ret = removeAttachments.equals(REMOVE_ALL);
+			}
 			if (ret) {
 				Collection c = (Collection) mail
 						.getAttribute(REMOVED_ATTACHMENTS_ATTRIBUTE_KEY);
@@ -307,10 +336,11 @@ public class StripAttachment extends GenericMailet {
 			if (fileName != null) {
 				pos = fileName.lastIndexOf(".");
 			}
-			String ext = pos > 0 ? (fileName.substring(pos)) : ".bin";
-			fileName = pos > 0 ? (fileName.substring(0, pos)) : fileName;
-			while (fileName.length() < 3) fileName += "_";
-			f = File.createTempFile(fileName,ext,new File(directoryName));
+			String prefix = pos > 0 ? (fileName.substring(0, pos)) : fileName;
+			String suffix = pos > 0 ? (fileName.substring(pos)) : ".bin";
+			while (prefix.length() < 3) prefix += "_";
+			if (suffix.length() == 0) suffix = ".bin";
+			f = File.createTempFile(prefix,suffix,new File(directoryName));
 			log("saving content of " + f.getName() + "...");
 			os = new BufferedOutputStream(new FileOutputStream(f));
 			is = part.getInputStream();
@@ -325,7 +355,7 @@ public class StripAttachment extends GenericMailet {
 			return f.getName();
 		} catch (Exception e) {
 			log("Error while saving contents of ["
-					+ (f != null ? f.getName() : part.getFileName()) + "].", e);
+					+ (f != null ? f.getName() : (part != null ? part.getFileName() : "NULL")) + "].", e);
 			throw e;
 		} finally {
 			is.close();
