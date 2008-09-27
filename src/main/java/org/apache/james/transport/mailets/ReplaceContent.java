@@ -96,12 +96,15 @@ public class ReplaceContent extends GenericMailet {
     
     public static final int FLAG_REPEAT = 1;
     
-    private Pattern[] subjectPatterns;
-    private String[] subjectSubstitutions;
-    private Integer[] subjectFlags;
-    private Pattern[] bodyPatterns;
-    private String[] bodySubstitutions;
-    private Integer[] bodyFlags;
+    private static class ReplaceConfig {
+        private Pattern[] subjectPatterns;
+        private String[] subjectSubstitutions;
+        private Integer[] subjectFlags;
+        private Pattern[] bodyPatterns;
+        private String[] bodySubstitutions;
+        private Integer[] bodyFlags;
+    }
+    
     private String charset;
     private int debug = 0;
     
@@ -236,7 +239,7 @@ public class ReplaceContent extends GenericMailet {
         debug = Integer.parseInt(getInitParameter("debug", "0"));
     }
     
-    private void initPatterns() throws MailetException {
+    private ReplaceConfig initPatterns() throws MailetException {
         try {
             List bodyPatternsList = new ArrayList();
             List bodySubstitutionsList = new ArrayList();
@@ -277,12 +280,15 @@ public class ReplaceContent extends GenericMailet {
                 bodyFlagsList.addAll(o[2]);
             }
             
-            subjectPatterns = (Pattern[]) subjectPatternsList.toArray(new Pattern[0]);
-            subjectSubstitutions = (String[]) subjectSubstitutionsList.toArray(new String[0]);
-            subjectFlags = (Integer[]) subjectFlagsList.toArray(new Integer[0]);
-            bodyPatterns = (Pattern[]) bodyPatternsList.toArray(new Pattern[0]);
-            bodySubstitutions = (String[]) bodySubstitutionsList.toArray(new String[0]);
-            bodyFlags = (Integer[]) bodyFlagsList.toArray(new Integer[0]);
+            ReplaceConfig rConfig = new ReplaceConfig();
+            rConfig.subjectPatterns = (Pattern[]) subjectPatternsList.toArray(new Pattern[0]);
+            rConfig.subjectSubstitutions = (String[]) subjectSubstitutionsList.toArray(new String[0]);
+            rConfig.subjectFlags = (Integer[]) subjectFlagsList.toArray(new Integer[0]);
+            rConfig.bodyPatterns = (Pattern[]) bodyPatternsList.toArray(new Pattern[0]);
+            rConfig.bodySubstitutions = (String[]) bodySubstitutionsList.toArray(new String[0]);
+            rConfig.bodyFlags = (Integer[]) bodyFlagsList.toArray(new Integer[0]);
+            
+            return rConfig;
             
         } catch (FileNotFoundException e) {
             throw new MailetException("Failed initialization", e);
@@ -297,27 +303,27 @@ public class ReplaceContent extends GenericMailet {
     }
 
     public void service(Mail mail) throws MailetException {
-        initPatterns();
+        ReplaceConfig rConfig = initPatterns();
         
         try {
             boolean mod = false;
             boolean contentChanged = false;
             
-            if (subjectPatterns != null && subjectPatterns.length > 0) {
+            if (rConfig.subjectPatterns != null && rConfig.subjectPatterns.length > 0) {
                 String subject = mail.getMessage().getSubject();
                 if (subject == null) subject = "";
-                subject = applyPatterns(subjectPatterns, subjectSubstitutions, subjectFlags, subject, debug, this);
+                subject = applyPatterns(rConfig.subjectPatterns, rConfig.subjectSubstitutions, rConfig.subjectFlags, subject, debug, this);
                 if (charset != null) mail.getMessage().setSubject(subject, charset);
                 else mail.getMessage().setSubject(subject);
                 mod = true;
             }
             
-            if (bodyPatterns != null && bodyPatterns.length > 0) {
+            if (rConfig.bodyPatterns != null && rConfig.bodyPatterns.length > 0) {
                 Object bodyObj = mail.getMessage().getContent();
                 if (bodyObj == null) bodyObj = "";
                 if (bodyObj instanceof String) {
                     String body = (String) bodyObj;
-                    body = applyPatterns(bodyPatterns, bodySubstitutions, bodyFlags, body, debug, this);
+                    body = applyPatterns(rConfig.bodyPatterns, rConfig.bodySubstitutions, rConfig.bodyFlags, body, debug, this);
                     String contentType = mail.getMessage().getContentType();
                     if (charset != null) {
                         ContentType ct = new ContentType(contentType);
