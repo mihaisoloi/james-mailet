@@ -52,7 +52,7 @@ public class ReplaceContentTest extends TestCase {
         mailet.init(mci);
 
         message = new MimeMessage(Session.getDefaultInstance(new Properties()));
-        message.setSubject("Questa \u00E8 una prova");
+        message.setSubject("una prova");
         message
                 .setText("Sto facendo una prova di scrittura/ \u00E8 solo una prova.\n"
                         + "Bla bla bla bla.\n");
@@ -60,7 +60,7 @@ public class ReplaceContentTest extends TestCase {
         mail = new MockMail(message);
         mailet.service(mail);
 
-        assertEquals("Queste \u00E8 une PRoVA", mail.getMessage().getSubject());
+        assertEquals("une PRoVA", mail.getMessage().getSubject());
         assertEquals("Sto fecendo une PRoVA di scritture, e' solo une P.\n"
                 + "Q ble ble ble.\n", mail.getMessage().getContent());
 
@@ -74,7 +74,7 @@ public class ReplaceContentTest extends TestCase {
         mailet.init(mci);
 
         message = new MimeMessage(Session.getDefaultInstance(new Properties()));
-        message.setSubject("re: r:ri:Questa \u00E8 una prova");
+        message.setSubject("re: r:ri:una prova");
         message
                 .setText("Sto facendo una prova di scrittura/ \u00E8 solo una prova.\n"
                         + "Bla bla bla bla.\n");
@@ -82,7 +82,7 @@ public class ReplaceContentTest extends TestCase {
         mail = new MockMail(message);
         mailet.service(mail);
 
-        assertEquals("Re: Re: Re: Questa \u00E8 una prova", mail.getMessage()
+        assertEquals("Re: Re: Re: una prova", mail.getMessage()
                 .getSubject());
 
         // ------------------
@@ -97,7 +97,7 @@ public class ReplaceContentTest extends TestCase {
         mailet.init(mci);
 
         message = new MimeMessage(Session.getDefaultInstance(new Properties()));
-        message.setSubject("Questa \u00E8 una prova");
+        message.setSubject("una prova");
         message.setText("Prova.\r\n" + "\r\n" + "--messaggio originale--\r\n"
                 + "parte del\r\n" + "messaggio\\ che\\0 deve0 essere\r\n"
                 + "quotato. Vediamo se\r\n" + "ce la fa.");
@@ -105,7 +105,7 @@ public class ReplaceContentTest extends TestCase {
         mail = new MockMail(message);
         mailet.service(mail);
 
-        assertEquals("Questa \u00E8 una prova", mail.getMessage().getSubject());
+        assertEquals("una prova", mail.getMessage().getSubject());
         assertEquals("Prova.\r\n" + "\r\n" + ">parte del\r\n"
                 + ">messaggio\\ che\\0 deve0 essere\r\n"
                 + ">quotato. Vediamo se\r\n" + ">ce la fa.", mail.getMessage()
@@ -119,13 +119,13 @@ public class ReplaceContentTest extends TestCase {
         mailet.init(mci);
 
         message = new MimeMessage(Session.getDefaultInstance(new Properties()));
-        message.setSubject("Questa \u00E8 una prova");
+        message.setSubject("una prova");
         message.setText("Prova \u2026 di replace \u2026");
 
         mail = new MockMail(message);
         mailet.service(mail);
 
-        assertEquals("Questa \u00E8 una prova", mail.getMessage().getSubject());
+        assertEquals("una prova", mail.getMessage().getSubject());
         assertEquals("Prova ... di replace ...", mail.getMessage().getContent());
     }
 
