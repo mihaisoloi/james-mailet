@@ -57,6 +57,15 @@ public class MockMail implements Mail {
     
     private String remoteAddr ="127.0.0.1";
     
+    public MockMail() {
+        super();
+    }
+
+    public MockMail(MimeMessage msg) {
+        this();
+        this.msg = msg;
+    }
+
     public String getName() {
         return name;
     }
