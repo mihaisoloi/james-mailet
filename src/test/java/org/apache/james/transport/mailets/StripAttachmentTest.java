@@ -60,13 +60,13 @@ public class StripAttachmentTest extends TestCase {
         mm.addBodyPart(mp);
         String body = "\u0023\u00A4\u00E3\u00E0\u00E9";
         MimeBodyPart mp2 = new MimeBodyPart(new ByteArrayInputStream(
-                ("Content-Transfer-Encoding: 8bit\r\n\r\n" + body).getBytes()));
+                ("Content-Transfer-Encoding: 8bit\r\nContent-Type: application/octet-stream; charset=utf-8\r\n\r\n" + body).getBytes("UTF-8")));
         mp2.setDisposition("attachment");
         mp2.setFileName("10.tmp");
         mm.addBodyPart(mp2);
         String body2 = "\u0014\u00A3\u00E1\u00E2\u00E4";
         MimeBodyPart mp3 = new MimeBodyPart(new ByteArrayInputStream(
-                ("Content-Transfer-Encoding: 8bit\r\n\r\n" + body2).getBytes()));
+                ("Content-Transfer-Encoding: 8bit\r\nContent-Type: application/octet-stream; charset=utf-8\r\n\r\n" + body2).getBytes("UTF-8")));
         mp3.setDisposition("attachment");
         mp3.setFileName("temp.zip");
         mm.addBodyPart(mp3);
@@ -82,9 +82,6 @@ public class StripAttachmentTest extends TestCase {
         ByteArrayOutputStream rawMessage = new ByteArrayOutputStream();
         mail.getMessage().writeTo(rawMessage,
                 new String[] { "Bcc", "Content-Length", "Message-ID" });
-        String res = rawMessage.toString();
-
-        System.out.println(res);
 
         Collection c = (Collection) mail
                 .getAttribute(StripAttachment.SAVED_ATTACHMENTS_ATTRIBUTE_KEY);
@@ -112,7 +109,7 @@ public class StripAttachmentTest extends TestCase {
             System.err.println(new String(buffer,0,n));
             sw.write(buffer, 0, n);
         }
-        return sw.toString();
+        return sw.toString("UTF-8");
     }
 
     public void testSimpleAttachment2() throws MessagingException, IOException {
@@ -134,13 +131,13 @@ public class StripAttachmentTest extends TestCase {
         mm.addBodyPart(mp);
         String body = "\u0023\u00A4\u00E3\u00E0\u00E9";
         MimeBodyPart mp2 = new MimeBodyPart(new ByteArrayInputStream(
-                ("Content-Transfer-Encoding: 8bit\r\n\r\n" + body).getBytes()));
+                ("Content-Transfer-Encoding: 8bit\r\n\r\n" + body).getBytes("UTF-8")));
         mp2.setDisposition("attachment");
         mp2.setFileName("temp.tmp");
         mm.addBodyPart(mp2);
         String body2 = "\u0014\u00A3\u00E1\u00E2\u00E4";
         MimeBodyPart mp3 = new MimeBodyPart(new ByteArrayInputStream(
-                ("Content-Transfer-Encoding: 8bit\r\n\r\n" + body2).getBytes()));
+                ("Content-Transfer-Encoding: 8bit\r\n\r\n" + body2).getBytes("UTF-8")));
         mp3.setDisposition("attachment");
         mp3.setFileName("winmail.dat");
         mm.addBodyPart(mp3);
@@ -190,14 +187,14 @@ public class StripAttachmentTest extends TestCase {
         mm.addBodyPart(mp);
         String body = "\u0023\u00A4\u00E3\u00E0\u00E9";
         MimeBodyPart mp2 = new MimeBodyPart(new ByteArrayInputStream(
-                ("Content-Transfer-Encoding: 8bit\r\n\r\n" + body).getBytes()));
+                ("Content-Transfer-Encoding: 8bit\r\n\r\n" + body).getBytes("UTF-8")));
         mp2.setDisposition("attachment");
         mp2
                 .setFileName("=?iso-8859-15?Q?=E9_++++Pubblicit=E0_=E9_vietata____Milano9052.tmp?=");
         mm.addBodyPart(mp2);
         String body2 = "\u0014\u00A3\u00E1\u00E2\u00E4";
         MimeBodyPart mp3 = new MimeBodyPart(new ByteArrayInputStream(
-                ("Content-Transfer-Encoding: 8bit\r\n\r\n" + body2).getBytes()));
+                ("Content-Transfer-Encoding: 8bit\r\n\r\n" + body2).getBytes("UTF-8")));
         mp3.setDisposition("attachment");
         mp3.setFileName("temp.zip");
         mm.addBodyPart(mp3);
