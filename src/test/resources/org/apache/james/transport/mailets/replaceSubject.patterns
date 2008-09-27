@@ -1,0 +1,4 @@
+# Substitution rules
+/re:[ ]*/Re: /i/
+/ri:[ ]*/Re: /i/
+/r:[ ]*/Re: /i/
