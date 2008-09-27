@@ -35,12 +35,12 @@ public class UnwrapTextTest extends TestCase {
         input = 
             "Prova per vedere se effettivamente il testo viene wrappato\r\n" +
             "come dovrebbe.\r\n"+
-            "Chissà se funziona davvero\r\n"+
+            "Chiss\u00E0 se funziona davvero\r\n"+
             "o se va solo come gli pare";
         
         output = 
             "Prova per vedere se effettivamente il testo viene wrappato come dovrebbe.\r\n"+
-            "Chissà se funziona davvero\r\n"+
+            "Chiss\u00E0 se funziona davvero\r\n"+
             "o se va solo come gli pare";
         
         assertEquals(output, UnwrapText.unwrap(input));
@@ -48,12 +48,12 @@ public class UnwrapTextTest extends TestCase {
         input = 
             "> Prova per vedere se effettivamente il testo viene wrappato\r\n" +
             "> come dovrebbe.\r\n"+
-            "> Chissà se funziona davvero\r\n"+
+            "> Chiss\u00E0 se funziona davvero\r\n"+
             "> o se va solo come gli pare";
         
         output = 
             "> Prova per vedere se effettivamente il testo viene wrappato come dovrebbe.\r\n"+
-            "> Chissà se funziona davvero\r\n"+
+            "> Chiss\u00E0 se funziona davvero\r\n"+
             "> o se va solo come gli pare";
         
         assertEquals(output, UnwrapText.unwrap(input));
@@ -61,14 +61,14 @@ public class UnwrapTextTest extends TestCase {
         input = 
             "> Prova per vedere se effettivamente il testo viene wrappato\r\n" +
             "> come dovrebbe.\r\n"+
-            "> Chissà se funziona davvero\r\n"+
+            "> Chiss\u00E0 se funziona davvero\r\n"+
             "> o se va solo come gli pare\r\n"+
             "> Prova per vedere se effettivamente il testo viene wrappato\r\n" +
             "> come dovrebbe.\r\n";
         
         output = 
             "> Prova per vedere se effettivamente il testo viene wrappato come dovrebbe.\r\n"+
-            "> Chissà se funziona davvero\r\n"+
+            "> Chiss\u00E0 se funziona davvero\r\n"+
             "> o se va solo come gli pare\r\n"+
             "> Prova per vedere se effettivamente il testo viene wrappato come dovrebbe.\r\n";
         
@@ -76,16 +76,16 @@ public class UnwrapTextTest extends TestCase {
 
         input = 
             "> volevo chiedervi un piccolo aiutino. Una signora con un circolare ha un\r\n"+
-            "> dente che si è scementato. Il cemento usato per la cementazione è\r\n"+
-            "> l'harvard.  Il problema è che non riesco a decementarlo. Avete qualche\r\n"+
-            "> trucco da  suggerirmi per rimuovere il ponte? Il ponte è in ceramica, per\r\n"+
+            "> dente che si \u00E8 scementato. Il cemento usato per la cementazione \u00E8\r\n"+
+            "> l'harvard.  Il problema \u00E8 che non riesco a decementarlo. Avete qualche\r\n"+
+            "> trucco da  suggerirmi per rimuovere il ponte? Il ponte \u00E8 in ceramica, per\r\n"+
             "> cui  l'utilizzo degli ultrasuoni puo' essere rischioso (?).\r\n";
         
         output = 
             "> volevo chiedervi un piccolo aiutino. Una signora con un circolare ha un "+
-            "dente che si è scementato. Il cemento usato per la cementazione è "+
-            "l'harvard.  Il problema è che non riesco a decementarlo. Avete qualche "+
-            "trucco da  suggerirmi per rimuovere il ponte? Il ponte è in ceramica, per "+
+            "dente che si \u00E8 scementato. Il cemento usato per la cementazione \u00E8 "+
+            "l'harvard.  Il problema \u00E8 che non riesco a decementarlo. Avete qualche "+
+            "trucco da  suggerirmi per rimuovere il ponte? Il ponte \u00E8 in ceramica, per "+
             "cui  l'utilizzo degli ultrasuoni puo' essere rischioso (?).\r\n";
 
         assertEquals(output, UnwrapText.unwrap(input));
@@ -150,9 +150,9 @@ public class UnwrapTextTest extends TestCase {
             "> mi trovo in difficolta,ho eseguito un lavoro di protesizzazione in\r\n"+
             "porcellana\r\n"+
             "> su 24 25 26 premetto che i denti sottostanti erano pieni di otturazioni in\r\n"+ 
-            "> amalgama ,la giovane paziente ,protesta perche sul 24 c'è un leggero\r\n"+
+            "> amalgama ,la giovane paziente ,protesta perche sul 24 c'\u00E8 un leggero\r\n"+
             "deficit\r\n"+
-            "> di chiusura,esteticamente visibile ma sicuramente la sua reazione è\r\n"+ 
+            "> di chiusura,esteticamente visibile ma sicuramente la sua reazione \u00E8\r\n"+ 
             "> sproporzionata,ha un atteggiamento rivendicativo come se l'avessi\r\n"+
             "> triffata,rifiuta un allungamenti con compositi ceramici .io sono convinto\r\n"+
             "che\r\n"+
@@ -163,9 +163,9 @@ public class UnwrapTextTest extends TestCase {
             "> mi trovo in difficolta,ho eseguito un lavoro di protesizzazione in "+
             "porcellana "+
             "su 24 25 26 premetto che i denti sottostanti erano pieni di otturazioni in "+ 
-            "amalgama ,la giovane paziente ,protesta perche sul 24 c'è un leggero "+
+            "amalgama ,la giovane paziente ,protesta perche sul 24 c'\u00E8 un leggero "+
             "deficit "+
-            "di chiusura,esteticamente visibile ma sicuramente la sua reazione è "+ 
+            "di chiusura,esteticamente visibile ma sicuramente la sua reazione \u00E8 "+ 
             "sproporzionata,ha un atteggiamento rivendicativo come se l'avessi "+
             "triffata,rifiuta un allungamenti con compositi ceramici .io sono convinto "+
             "che "+
@@ -178,7 +178,7 @@ public class UnwrapTextTest extends TestCase {
         input = 
             "Prova per vedere se effettivamente il testo viene wrappato\r\n" +
             "come dovrebbe. \r\n"+
-            "Chissà se funziona davvero \r\n"+
+            "Chiss\u00E0 se funziona davvero \r\n"+
             "o se va solo come gli pare \r\n"+ 
             "> Prova per vedere se effettivamente il testo viene wrappato \r\n" +
             "come \r\n" +
@@ -186,7 +186,7 @@ public class UnwrapTextTest extends TestCase {
         
         output = 
             "Prova per vedere se effettivamente il testo viene wrappato come dovrebbe. \r\n"+
-            "Chissà se funziona davvero \r\n"+
+            "Chiss\u00E0 se funziona davvero \r\n"+
             "o se va solo come gli pare \r\n" + 
             "> Prova per vedere se effettivamente il testo viene wrappato come dovrebbe. \r\n";
         

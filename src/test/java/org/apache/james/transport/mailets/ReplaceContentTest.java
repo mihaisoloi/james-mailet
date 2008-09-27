@@ -120,7 +120,7 @@ public class ReplaceContentTest extends TestCase {
 
         message = new MimeMessage(Session.getDefaultInstance(new Properties()));
         message.setSubject("Questa \u00E8 una prova");
-        message.setText("Prova \u2026 di replace …");
+        message.setText("Prova \u2026 di replace \u2026");
 
         mail = new MockMail(message);
         mailet.service(mail);
