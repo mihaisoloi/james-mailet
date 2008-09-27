@@ -94,7 +94,7 @@ public class StripAttachmentTest extends TestCase {
 
         String name = (String) c.iterator().next();
 
-        File f = new File("c:/" + name);
+        File f = new File("./"+name);
         InputStream is = new FileInputStream(f);
         String savedFile = toString(is);
         is.close();
@@ -109,6 +109,7 @@ public class StripAttachmentTest extends TestCase {
         final byte[] buffer = new byte[1024];
         int n = 0;
         while (-1 != (n = is.read(buffer))) {
+            System.err.println(new String(buffer,0,n));
             sw.write(buffer, 0, n);
         }
         return sw.toString();
@@ -119,7 +120,7 @@ public class StripAttachmentTest extends TestCase {
 
         MockMailetConfig mci = new MockMailetConfig("Test",
                 new MockMailContext());
-        mci.setProperty("directory", "c:/");
+        mci.setProperty("directory", "./");
         mci.setProperty("remove", "all");
         mci.setProperty("notpattern", "^(winmail\\.dat$)");
         mailet.init(mci);
@@ -155,9 +156,7 @@ public class StripAttachmentTest extends TestCase {
         ByteArrayOutputStream rawMessage = new ByteArrayOutputStream();
         mail.getMessage().writeTo(rawMessage,
                 new String[] { "Bcc", "Content-Length", "Message-ID" });
-        String res = rawMessage.toString();
-
-        System.out.println(res);
+        // String res = rawMessage.toString();
 
         Collection c = (Collection) mail
                 .getAttribute(StripAttachment.SAVED_ATTACHMENTS_ATTRIBUTE_KEY);
@@ -167,7 +166,7 @@ public class StripAttachmentTest extends TestCase {
 
         String name = (String) c.iterator().next();
 
-        File f = new File("c:/" + name);
+        File f = new File("./"+name);
         InputStream is = new FileInputStream(f);
         String savedFile = toString(is);
         is.close();
@@ -217,9 +216,7 @@ public class StripAttachmentTest extends TestCase {
         ByteArrayOutputStream rawMessage = new ByteArrayOutputStream();
         mail.getMessage().writeTo(rawMessage,
                 new String[] { "Bcc", "Content-Length", "Message-ID" });
-        String res = rawMessage.toString();
-
-        System.out.println(res);
+        // String res = rawMessage.toString();
 
         Collection c = (Collection) mail
                 .getAttribute(StripAttachment.SAVED_ATTACHMENTS_ATTRIBUTE_KEY);
@@ -233,7 +230,7 @@ public class StripAttachmentTest extends TestCase {
 
         assertTrue(name.startsWith("e_Pubblicita_e_vietata_Milano9052"));
 
-        File f = new File("c:/" + name);
+        File f = new File("./"+name);
         InputStream is = new FileInputStream(f);
         String savedFile = toString(is);
         is.close();
@@ -328,7 +325,7 @@ public class StripAttachmentTest extends TestCase {
 
         MockMailetConfig mci = new MockMailetConfig("Test",
                 new MockMailContext());
-        mci.setProperty("directory", "c:/");
+        mci.setProperty("directory", "./");
         mci.setProperty("remove", "all");
         mci.setProperty("pattern", ".*\\.tmp");
         mci.setProperty("decodeFilename", "true");
