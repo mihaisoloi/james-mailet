@@ -39,7 +39,6 @@
         <pathelement path="${javax-mail.jar}"/>
         <pathelement path="${javax-activation.jar}"/>
         <pathelement path="${mailet.jar}"/>
-        <pathelement path="${mailet-tests.jar}"/>
         <pathelement path="${java.class.path}" />
         <pathelement path="${build.classes}" />
     </path>
