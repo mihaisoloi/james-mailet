@@ -21,6 +21,8 @@
 
 package org.apache.james.test.mock.javaxmail;
 
+import org.apache.mailet.RFC2822Headers;
+
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.InternetHeaders;
 import javax.mail.internet.InternetAddress;
@@ -68,9 +70,9 @@ public class MockMimeMessage extends MimeMessage {
     }
 
     public Address[] getFrom() throws MessagingException {
-        return (Address[])m_fromAddresses.toArray();
+        return (Address[])m_fromAddresses.toArray(new Address[m_fromAddresses.size()]);
     }
-
+    
     public void setFrom(Address address) throws MessagingException {
         m_fromAddresses.clear();
         m_fromAddresses.add(address);
@@ -284,6 +286,7 @@ public class MockMimeMessage extends MimeMessage {
 
     public void setContent(Object object, String mimeType) throws MessagingException {
         m_content = object;  // trivial implementation
+        addHeader(RFC2822Headers.CONTENT_TYPE, mimeType);
     }
 
     public void setText(String string) throws MessagingException {
