@@ -3,7 +3,7 @@
    =========================================================================
 
    Apache James Mailet API 
-   Copyright 2007 The Apache Software Foundation
+   Copyright 2008 The Apache Software Foundation
 
    Please read the LICENSE.txt and README.txt files in the root directory of 
    this distribution.
