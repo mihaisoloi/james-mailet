@@ -105,8 +105,8 @@
                 <include name="**/*.properties" />
             </fileset>
         </copy>
-        <copy todir="${build.classes}/META-INF" file='LICENSE.txt' />
-        <copy todir="${build.classes}/META-INF" file='NOTICE.txt' />
+        <copy file='LICENSE.apache' tofile="${build.classes}/META-INF/LICENSE.txt"/>
+        <copy file='NOTICE.apache' tofile='${build.classes}/META-INF/NOTICE.txt' />
     </target>
 
     <!--
