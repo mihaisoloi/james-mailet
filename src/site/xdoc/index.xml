@@ -27,6 +27,13 @@
       	<p>
 A toolkit for builders of mailets and matchers with minimal dependencies.
 		</p>
+<p><a href='http://james.apache.org/mailet/base'>Apache James Mailets Base</a> 
+collects a number of utilites and lightweight frameworks useful when working 
+with the <a href='http://james.apache.org/mailet'>Apache Mailet API</a> (a framework
+assisting the rapid development of email processing functionality). 
+Mailets base is used as the basis for the email processing functions shipped 
+with the <a href='http://james.apache.org/server'>Apache James</a> server 
+but is not dependent on that server.</p>
     </section>
     <section name='Catalog'>
         <p>For more information see the <a href='apidocs/index.html'>javadocs</a>.</p>
