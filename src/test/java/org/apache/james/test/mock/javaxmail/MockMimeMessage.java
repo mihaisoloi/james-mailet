@@ -21,7 +21,7 @@
 
 package org.apache.james.test.mock.javaxmail;
 
-import org.apache.mailet.RFC2822Headers;
+import org.apache.mailet.base.RFC2822Headers;
 
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.InternetHeaders;

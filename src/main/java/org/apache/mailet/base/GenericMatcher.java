@@ -18,9 +18,15 @@
  ****************************************************************/
 
 
-package org.apache.mailet;
+package org.apache.mailet.base;
 
 import javax.mail.MessagingException;
+
+import org.apache.mailet.Mail;
+import org.apache.mailet.MailetContext;
+import org.apache.mailet.Matcher;
+import org.apache.mailet.MatcherConfig;
+
 import java.util.Collection;
 
 /**

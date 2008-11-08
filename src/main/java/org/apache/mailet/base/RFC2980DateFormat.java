@@ -18,47 +18,21 @@
  ****************************************************************/
 
 
-package org.apache.mailet.dates;
+package org.apache.mailet.base;
 
-import java.util.Date;
-
-import javax.mail.internet.MailDateFormat;
-
+import java.util.Locale;
 
 /**
- * A thread safe wrapper for the <code>javax.mail.internet.MailDateFormat</code> class.
+ * A thread-safe date formatting class to produce dates formatted in accord with the
+ * specifications of section 3.2 of RFC 2980.
  *
  */
-public class RFC822DateFormat extends SynchronizedDateFormat {
-    /**
-     * A static instance of the RFC822DateFormat, used by toString
-     */
-    private static RFC822DateFormat instance;
-
-    static {
-        instance = new RFC822DateFormat();
-    }
+public class RFC2980DateFormat extends SynchronizedDateFormat {
 
     /**
-     * This static method allows us to format RFC822 dates without
-     * explicitly instantiating an RFC822DateFormat object.
-     *
-     * @return java.lang.String
-     * @param d Date
-     *
-     * @deprecated This method is not necessary and is preserved for API
-     *             backwards compatibility.  Users of this class should
-     *             instantiate an instance and use it as they would any
-     *             other DateFormat object.
+     * Constructor for RFC2980DateFormat
      */
-    public static String toString(Date d) {
-        return instance.format(d);
-    }
-
-    /**
-     * Constructor for RFC822DateFormat
-     */
-    public RFC822DateFormat() {
-        super(new MailDateFormat());
+    public RFC2980DateFormat() {
+        super("yyyyMMddHHmmss", Locale.ENGLISH);
     }
 }

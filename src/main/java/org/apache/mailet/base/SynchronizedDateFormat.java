@@ -18,7 +18,7 @@
  ****************************************************************/
 
 
-package org.apache.mailet.dates;
+package org.apache.mailet.base;
 
 import java.text.DateFormat;
 import java.text.ParseException;

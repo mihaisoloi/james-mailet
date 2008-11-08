@@ -18,7 +18,7 @@
  ****************************************************************/
 
 
-package org.apache.mailet;
+package org.apache.mailet.base;
 
 /**
  * This utility class provides the set of header names explicitly defined in RFC 2822
