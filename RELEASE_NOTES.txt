@@ -19,5 +19,9 @@ Earlier Releases
 ----------------
 Previous versions of the components in base shipped with Apache James 
 server. This product contains repackaged versions which are otherwise
-compatible with these versions. It is recommended that anyone using
-these older versions updates.
+compatible with these versions. All classes are package 
+org.apache.mailet.base except test helpers (which are now packaged in
+org.apache.mailet.base.test).
+
+It is recommended that anyone using these older versions updates to 
+the new library.

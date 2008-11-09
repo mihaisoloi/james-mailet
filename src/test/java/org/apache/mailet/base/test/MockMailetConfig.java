@@ -17,44 +17,59 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.james.test.mock.mailet;
+package org.apache.mailet.base.test;
 
+import org.apache.mailet.MailetConfig;
 import org.apache.mailet.MailetContext;
-import org.apache.mailet.MatcherConfig;
+
+import java.util.Iterator;
+import java.util.Properties;
 
 /**
- * MatcherConfig
+ * MailetConfig over Properties
  */
-public class MockMatcherConfig implements MatcherConfig {
+public class MockMailetConfig extends Properties implements MailetConfig {
 
-    private String matcherName;
-
+    private String mailetName;
     private MailetContext mc;
 
-    public MockMatcherConfig(String matcherName, MailetContext mc) {
+    
+    public MockMailetConfig(String mailetName, MailetContext mc) {
         super();
-        this.matcherName = matcherName;
+        this.mailetName = mailetName;
         this.mc = mc;
     }
 
-    public String getCondition() {
-        if (matcherName.indexOf("=") >= 0) {
-            return matcherName.substring(getMatcherName().length() + 1);
-        } else {
-            return null;
-        }
+    public MockMailetConfig(String mailetName, MailetContext mc, Properties arg0) {
+        super(arg0);
+        this.mailetName = mailetName;
+        this.mc = mc;
+    }
+
+    public String getInitParameter(String name) {
+        return getProperty(name);
+    }
+
+    public Iterator getInitParameterNames() {
+        return keySet().iterator();
     }
 
     public MailetContext getMailetContext() {
         return mc;
     }
 
-    public String getMatcherName() {
-        if (matcherName.indexOf("=") >= 0) {
-            return matcherName.split("=")[0];
-        } else {
-            return matcherName;
-        }
+    public String getMailetName() {
+        return mailetName;
     }
 
+    // Override setProperty to work like it should in this MockMailetConfig
+    public Object setProperty(String key, String value) {
+        String oldValue = getProperty(key);
+        String newValue = value;
+
+        if (oldValue != null) {
+            newValue = oldValue + "," + value;
+        }
+        return super.setProperty(key, newValue);
+    }
 }

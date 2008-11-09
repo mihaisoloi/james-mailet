@@ -18,7 +18,7 @@
  ****************************************************************/
 
 
-package org.apache.james.test.mock.mailet;
+package org.apache.mailet.base.test;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -17,10 +17,8 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.james.test.mock.util;
+package org.apache.mailet.base.test;
 
-import org.apache.james.test.mock.javaxmail.MockMimeMessage;
-import org.apache.james.test.mock.mailet.MockMail;
 import org.apache.mailet.MailAddress;
 
 import javax.mail.MessagingException;

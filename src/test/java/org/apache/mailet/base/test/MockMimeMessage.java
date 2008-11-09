@@ -19,7 +19,7 @@
 
 
 
-package org.apache.james.test.mock.javaxmail;
+package org.apache.mailet.base.test;
 
 import org.apache.mailet.base.RFC2822Headers;
 
