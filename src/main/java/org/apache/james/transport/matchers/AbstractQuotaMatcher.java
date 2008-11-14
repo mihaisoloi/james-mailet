@@ -25,7 +25,7 @@ import java.util.Iterator;
 import java.util.Collection;
 import java.util.ArrayList;
 import javax.mail.MessagingException;
-import org.apache.mailet.GenericMatcher;
+import org.apache.mailet.base.GenericMatcher;
 import org.apache.mailet.MailAddress;
 import org.apache.mailet.Mail;
 

@@ -20,8 +20,8 @@
 
 package org.apache.james.transport.matchers;
 
-import org.apache.james.test.mock.mailet.MockMail;
-import org.apache.james.test.mock.mailet.MockMatcherConfig;
+import org.apache.mailet.base.test.MockMail;
+import org.apache.mailet.base.test.MockMatcherConfig;
 
 import org.apache.mailet.Mail;
 import org.apache.mailet.MailAddress;

@@ -19,8 +19,8 @@
 
 package org.apache.james.transport.mailets;
 
-import org.apache.james.util.mailet.FlowedMessageUtils;
-import org.apache.mailet.GenericMailet;
+import org.apache.mailet.base.FlowedMessageUtils;
+import org.apache.mailet.base.GenericMailet;
 import org.apache.mailet.Mail;
 import org.apache.mailet.MailetException;
 

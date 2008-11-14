@@ -33,8 +33,8 @@ import javax.mail.internet.ParseException;
 
 import junit.framework.TestCase;
 
-import org.apache.james.test.mock.mailet.MockMailContext;
-import org.apache.james.test.mock.mailet.MockMatcherConfig;
+import org.apache.mailet.base.test.MockMailContext;
+import org.apache.mailet.base.test.MockMatcherConfig;
 import org.apache.mailet.Mail;
 import org.apache.mailet.MailAddress;
 import org.apache.mailet.Matcher;

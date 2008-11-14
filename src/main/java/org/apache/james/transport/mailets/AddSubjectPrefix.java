@@ -24,9 +24,9 @@ package org.apache.james.transport.mailets;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.mailet.GenericMailet;
+import org.apache.mailet.base.GenericMailet;
 import org.apache.mailet.Mail;
-import org.apache.mailet.RFC2822Headers;
+import org.apache.mailet.base.RFC2822Headers;
 
 /**
  * Add an prefix (tag) to the subject of a message <br>

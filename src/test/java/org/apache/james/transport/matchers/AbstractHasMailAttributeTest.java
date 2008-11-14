@@ -29,11 +29,11 @@ import javax.mail.internet.ParseException;
 
 import junit.framework.TestCase;
 
-import org.apache.james.test.mock.mailet.MockMail;
-import org.apache.james.test.mock.mailet.MockMailContext;
-import org.apache.james.test.mock.mailet.MockMatcherConfig;
-import org.apache.james.test.mock.util.MailUtil;
-import org.apache.mailet.GenericMatcher;
+import org.apache.mailet.base.test.MockMail;
+import org.apache.mailet.base.test.MockMailContext;
+import org.apache.mailet.base.test.MockMatcherConfig;
+import org.apache.mailet.base.test.MailUtil;
+import org.apache.mailet.base.GenericMatcher;
 import org.apache.mailet.Matcher;
 
 public abstract class AbstractHasMailAttributeTest extends TestCase {

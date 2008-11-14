@@ -21,10 +21,10 @@
 package org.apache.james.transport.mailets;
 
 import junit.framework.TestCase;
-import org.apache.james.test.mock.mailet.MockMail;
-import org.apache.james.test.mock.mailet.MockMailContext;
-import org.apache.james.test.mock.mailet.MockMailetConfig;
-import org.apache.james.test.mock.util.MailUtil;
+import org.apache.mailet.base.test.MockMail;
+import org.apache.mailet.base.test.MockMailContext;
+import org.apache.mailet.base.test.MockMailetConfig;
+import org.apache.mailet.base.test.MailUtil;
 import org.apache.mailet.Mailet;
 
 import javax.mail.MessagingException;

@@ -24,7 +24,7 @@ package org.apache.james.transport.matchers;
 import java.util.Collection;
 import java.util.StringTokenizer;
 
-import org.apache.mailet.GenericMatcher;
+import org.apache.mailet.base.GenericMatcher;
 import org.apache.mailet.Mail;
 
 /**

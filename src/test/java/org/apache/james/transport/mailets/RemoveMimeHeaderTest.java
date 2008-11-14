@@ -24,11 +24,11 @@ package org.apache.james.transport.mailets;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.james.test.mock.mailet.MockMail;
-import org.apache.james.test.mock.mailet.MockMailContext;
-import org.apache.james.test.mock.mailet.MockMailetConfig;
-import org.apache.james.test.mock.util.MailUtil;
-import org.apache.mailet.GenericMailet;
+import org.apache.mailet.base.test.MockMail;
+import org.apache.mailet.base.test.MockMailContext;
+import org.apache.mailet.base.test.MockMailetConfig;
+import org.apache.mailet.base.test.MailUtil;
+import org.apache.mailet.base.GenericMailet;
 import org.apache.mailet.Mail;
 
 import junit.framework.TestCase;

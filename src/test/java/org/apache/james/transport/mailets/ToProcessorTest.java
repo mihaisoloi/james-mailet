@@ -20,9 +20,9 @@
 
 package org.apache.james.transport.mailets;
 
-import org.apache.james.test.mock.mailet.MockMail;
-import org.apache.james.test.mock.mailet.MockMailContext;
-import org.apache.james.test.mock.mailet.MockMailetConfig;
+import org.apache.mailet.base.test.MockMail;
+import org.apache.mailet.base.test.MockMailContext;
+import org.apache.mailet.base.test.MockMailetConfig;
 import org.apache.mailet.Mail;
 import org.apache.mailet.MailAddress;
 import org.apache.mailet.Mailet;

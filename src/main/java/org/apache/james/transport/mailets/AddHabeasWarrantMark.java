@@ -22,7 +22,7 @@
 package org.apache.james.transport.mailets;
 
 import org.apache.james.transport.matchers.HasHabeasWarrantMark;
-import org.apache.mailet.GenericMailet ;
+import org.apache.mailet.base.GenericMailet ;
 import org.apache.mailet.Mail ;
 
 /**

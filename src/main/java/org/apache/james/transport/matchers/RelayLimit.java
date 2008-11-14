@@ -21,8 +21,8 @@
 
 package org.apache.james.transport.matchers;
 
-import org.apache.mailet.RFC2822Headers;
-import org.apache.mailet.GenericMatcher;
+import org.apache.mailet.base.RFC2822Headers;
+import org.apache.mailet.base.GenericMatcher;
 import org.apache.mailet.Mail;
 
 import javax.mail.Header;

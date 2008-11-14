@@ -29,7 +29,7 @@ import javax.mail.internet.ParseException;
 
 import junit.framework.TestCase;
 
-import org.apache.james.test.mock.mailet.MockMail;
+import org.apache.mailet.base.test.MockMail;
 import org.apache.mailet.Mail;
 import org.apache.mailet.MailAddress;
 import org.apache.mailet.Mailet;

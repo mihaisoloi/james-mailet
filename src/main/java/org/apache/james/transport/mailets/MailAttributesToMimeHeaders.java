@@ -28,7 +28,7 @@ import java.util.StringTokenizer;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.mailet.GenericMailet;
+import org.apache.mailet.base.GenericMailet;
 import org.apache.mailet.Mail;
 
 /**
