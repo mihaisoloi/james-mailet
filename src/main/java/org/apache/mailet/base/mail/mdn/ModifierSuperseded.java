@@ -17,21 +17,19 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.james.util.mail.mdn;
+package org.apache.mailet.base.mail.mdn;
 
 
 /**
- * Class <code>ActionModeAutomatic</code>
- */
-public class ActionModeAutomatic extends Object
-        implements
-            DispositionActionMode
+ * Class <code>ModifierSuperseded</code>
+ */    
+public class ModifierSuperseded implements DispositionModifier
 {
 
     /**
      * Default Constructor
      */
-    public ActionModeAutomatic()
+    public ModifierSuperseded()
     {
         super();
     }
@@ -41,7 +39,7 @@ public class ActionModeAutomatic extends Object
      */
     public String toString()
     {
-        return "automatic-action";
-    }         
+        return "superseded";
+    }        
 
 }

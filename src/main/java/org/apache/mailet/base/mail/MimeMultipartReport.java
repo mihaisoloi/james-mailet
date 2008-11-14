@@ -17,7 +17,7 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.james.util.mail;
+package org.apache.mailet.base.mail;
 
 import javax.activation.DataSource;
 import javax.mail.MessagingException;

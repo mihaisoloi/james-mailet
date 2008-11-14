@@ -17,13 +17,13 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.james.util.mail.mdn;
+package org.apache.mailet.base.mail.mdn;
 
 /**
- * Interface <code>DispositionActionMode</code> marks a type encapsulating
- * disposition action mode information as defined by RFC 2298.
+ * Interface <code>DispositionSendingMode</code> marks a type encapsulating
+ * disposition sending mode information as defined by RFC 2298.
  */
-public interface DispositionActionMode
+public interface DispositionSendingMode
 {
 
 }

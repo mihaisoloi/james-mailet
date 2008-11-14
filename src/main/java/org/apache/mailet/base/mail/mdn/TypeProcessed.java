@@ -17,19 +17,19 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.james.util.mail.mdn;
+package org.apache.mailet.base.mail.mdn;
 
 
 /**
- * Class <code>ModifierFailed</code>
+ * Class <code>TypeProcessed</code>
  */    
-public class ModifierFailed implements DispositionModifier
+public class TypeProcessed implements DispositionType
 {
 
     /**
      * Default Constructor
      */
-    public ModifierFailed()
+    public TypeProcessed()
     {
         super();
     }
@@ -39,7 +39,6 @@ public class ModifierFailed implements DispositionModifier
      */
     public String toString()
     {
-        return "failed";
-    }        
-
+        return "processed";
+    }         
 }

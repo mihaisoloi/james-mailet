@@ -17,19 +17,19 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.james.util.mail.mdn;
+package org.apache.mailet.base.mail.mdn;
 
 
 /**
- * Class <code>TypeDeleted</code>
- */
-public class TypeDeleted implements DispositionType
+ * Class <code>TypeFailed</code>
+ */    
+public class TypeFailed implements DispositionType
 {
 
     /**
      * Default Constructor
      */
-    public TypeDeleted()
+    public TypeFailed()
     {
         super();
     }
@@ -39,7 +39,6 @@ public class TypeDeleted implements DispositionType
      */
     public String toString()
     {
-        return "deleted";
+        return "failed";
     }         
-
 }

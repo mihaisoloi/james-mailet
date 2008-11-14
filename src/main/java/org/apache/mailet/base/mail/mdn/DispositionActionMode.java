@@ -17,28 +17,13 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.james.util.mail.mdn;
-
+package org.apache.mailet.base.mail.mdn;
 
 /**
- * Class <code>TypeDisplayed</code>
+ * Interface <code>DispositionActionMode</code> marks a type encapsulating
+ * disposition action mode information as defined by RFC 2298.
  */
-public class TypeDisplayed implements DispositionType
+public interface DispositionActionMode
 {
 
-    /**
-     * Default Constructor
-     */
-    public TypeDisplayed()
-    {
-        super();
-    }
-    
-    /**
-     * @see java.lang.Object#toString()
-     */
-    public String toString()
-    {
-        return "displayed";
-    }         
 }

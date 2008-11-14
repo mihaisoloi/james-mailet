@@ -17,28 +17,31 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.james.util.mail.mdn;
+package org.apache.mailet.base.mail.mdn;
 
 
 /**
- * Class <code>ModifierError</code>
+ * Class <code>ActionModeAutomatic</code>
  */
-public class ModifierError implements DispositionModifier
+public class ActionModeAutomatic extends Object
+        implements
+            DispositionActionMode
 {
 
     /**
      * Default Constructor
      */
-    public ModifierError()
+    public ActionModeAutomatic()
     {
         super();
     }
-
+    
     /**
      * @see java.lang.Object#toString()
      */
     public String toString()
     {
-        return "error";
-    }
+        return "automatic-action";
+    }         
+
 }

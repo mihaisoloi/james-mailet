@@ -17,29 +17,28 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.james.util.mail.mdn;
+package org.apache.mailet.base.mail.mdn;
 
 
 /**
- * Class <code>ModifierExpired</code>
- */    
-public class ModifierExpired implements DispositionModifier
+ * Class <code>ModifierError</code>
+ */
+public class ModifierError implements DispositionModifier
 {
 
     /**
      * Default Constructor
      */
-    public ModifierExpired()
+    public ModifierError()
     {
         super();
     }
-    
+
     /**
      * @see java.lang.Object#toString()
      */
     public String toString()
     {
-        return "expired";
-    }        
-
+        return "error";
+    }
 }

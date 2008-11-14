@@ -17,19 +17,19 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.james.util.mail.mdn;
+package org.apache.mailet.base.mail.mdn;
 
 
 /**
- * Class <code>ModifierWarning</code>
- */    
-public class ModifierWarning implements DispositionModifier
+ * Class <code>TypeDisplayed</code>
+ */
+public class TypeDisplayed implements DispositionType
 {
 
     /**
      * Default Constructor
      */
-    public ModifierWarning()
+    public TypeDisplayed()
     {
         super();
     }
@@ -39,7 +39,6 @@ public class ModifierWarning implements DispositionModifier
      */
     public String toString()
     {
-        return "warning";
-    }        
-
+        return "displayed";
+    }         
 }

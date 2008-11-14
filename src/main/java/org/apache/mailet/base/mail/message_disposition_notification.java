@@ -17,7 +17,7 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.james.util.mail.handlers;
+package org.apache.mailet.base.mail;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -58,7 +58,7 @@ public class message_disposition_notification
     }
 
     /**
-     * @see org.apache.james.util.mail.handlers.AbstractDataContentHandler#computeDataFlavor()
+     * @see org.apache.mailet.base.mail.AbstractDataContentHandler#computeDataFlavor()
      */
     protected ActivationDataFlavor computeDataFlavor()
     {
@@ -67,7 +67,7 @@ public class message_disposition_notification
     }
 
     /**
-     * @see org.apache.james.util.mail.handlers.AbstractDataContentHandler#computeContent(javax.activation.DataSource)
+     * @see org.apache.mailet.base.mail.AbstractDataContentHandler#computeContent(javax.activation.DataSource)
      */
     protected Object computeContent(DataSource aDataSource)
             throws MessagingException

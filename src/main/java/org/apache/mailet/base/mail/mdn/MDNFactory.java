@@ -17,12 +17,12 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.james.util.mail.mdn;
+package org.apache.mailet.base.mail.mdn;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeBodyPart;
 
-import org.apache.james.util.mail.MimeMultipartReport;
+import org.apache.mailet.base.mail.MimeMultipartReport;
 
 /**
  * Class <code>MDNFactory</code> creates MimeMultipartReports containing

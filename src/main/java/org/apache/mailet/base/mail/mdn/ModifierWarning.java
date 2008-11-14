@@ -17,19 +17,19 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.james.util.mail.mdn;
+package org.apache.mailet.base.mail.mdn;
 
 
 /**
- * Class <code>ModifierMailboxTerminated</code>
+ * Class <code>ModifierWarning</code>
  */    
-public class ModifierMailboxTerminated implements DispositionModifier
+public class ModifierWarning implements DispositionModifier
 {
 
     /**
      * Default Constructor
      */
-    public ModifierMailboxTerminated()
+    public ModifierWarning()
     {
         super();
     }
@@ -39,7 +39,7 @@ public class ModifierMailboxTerminated implements DispositionModifier
      */
     public String toString()
     {
-        return "mailbox-terminated";
+        return "warning";
     }        
 
 }

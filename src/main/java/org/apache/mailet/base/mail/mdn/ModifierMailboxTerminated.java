@@ -17,21 +17,19 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.james.util.mail.mdn;
+package org.apache.mailet.base.mail.mdn;
 
 
 /**
- * Class <code>ActionModeManual</code>
- */
-public class ActionModeManual
-        implements
-            DispositionActionMode
+ * Class <code>ModifierMailboxTerminated</code>
+ */    
+public class ModifierMailboxTerminated implements DispositionModifier
 {
 
     /**
      * Default Constructor
      */
-    public ActionModeManual()
+    public ModifierMailboxTerminated()
     {
         super();
     }
@@ -41,7 +39,7 @@ public class ActionModeManual
      */
     public String toString()
     {
-        return "manual-action";
-    }         
+        return "mailbox-terminated";
+    }        
 
 }

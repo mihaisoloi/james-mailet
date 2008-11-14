@@ -17,13 +17,29 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.james.util.mail.mdn;
+package org.apache.mailet.base.mail.mdn;
+
 
 /**
- * Interface <code>DispositionType</code> marks a type encapsulating
- * disposition type information as defined by RFC 2298.
+ * Class <code>TypeDeleted</code>
  */
-public interface DispositionType
+public class TypeDeleted implements DispositionType
 {
+
+    /**
+     * Default Constructor
+     */
+    public TypeDeleted()
+    {
+        super();
+    }
+    
+    /**
+     * @see java.lang.Object#toString()
+     */
+    public String toString()
+    {
+        return "deleted";
+    }         
 
 }

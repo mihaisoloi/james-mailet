@@ -18,7 +18,7 @@
  ****************************************************************/
 
 
-package org.apache.james.util.mail.handlers;
+package org.apache.mailet.base.mail;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;

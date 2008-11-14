@@ -17,18 +17,19 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.james.util.mail.mdn;
+package org.apache.mailet.base.mail.mdn;
 
 
 /**
- * Class <code>TypeDispatched</code>
- */
-public class TypeDispatched implements DispositionType
+ * Class <code>ModifierFailed</code>
+ */    
+public class ModifierFailed implements DispositionModifier
 {
+
     /**
      * Default Constructor
      */
-    public TypeDispatched()
+    public ModifierFailed()
     {
         super();
     }
@@ -38,6 +39,7 @@ public class TypeDispatched implements DispositionType
      */
     public String toString()
     {
-        return "dispatched";
-    }         
+        return "failed";
+    }        
+
 }

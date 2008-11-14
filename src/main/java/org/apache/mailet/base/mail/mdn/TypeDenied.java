@@ -17,19 +17,19 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.james.util.mail.mdn;
+package org.apache.mailet.base.mail.mdn;
 
 
 /**
- * Class <code>TypeProcessed</code>
+ * Class <code>TypeDenied</code>
  */    
-public class TypeProcessed implements DispositionType
+public class TypeDenied implements DispositionType
 {
 
     /**
      * Default Constructor
      */
-    public TypeProcessed()
+    public TypeDenied()
     {
         super();
     }
@@ -39,6 +39,6 @@ public class TypeProcessed implements DispositionType
      */
     public String toString()
     {
-        return "processed";
+        return "denied";
     }         
 }

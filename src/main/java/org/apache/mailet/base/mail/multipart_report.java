@@ -17,7 +17,7 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.james.util.mail.handlers;
+package org.apache.mailet.base.mail;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -26,7 +26,6 @@ import javax.activation.ActivationDataFlavor;
 import javax.activation.DataSource;
 import javax.mail.MessagingException;
 
-import org.apache.james.util.mail.MimeMultipartReport;
 
 /**
  * <p>Data Content Handler for...</p>
@@ -46,7 +45,7 @@ public class multipart_report extends AbstractDataContentHandler
     }
 
     /**
-     * @see org.apache.james.util.mail.handlers.AbstractDataContentHandler#computeDataFlavor()
+     * @see org.apache.mailet.base.mail.AbstractDataContentHandler#computeDataFlavor()
      */
     protected ActivationDataFlavor computeDataFlavor()
     {
@@ -75,7 +74,7 @@ public class multipart_report extends AbstractDataContentHandler
     }
 
     /**
-     * @see org.apache.james.util.mail.handlers.AbstractDataContentHandler#computeContent(javax.activation.DataSource)
+     * @see org.apache.mailet.base.mail.AbstractDataContentHandler#computeContent(javax.activation.DataSource)
      */
     protected Object computeContent(DataSource aDataSource)
             throws MessagingException

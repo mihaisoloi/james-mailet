@@ -17,19 +17,18 @@
  * under the License.                                           *
  ****************************************************************/
 
-package org.apache.james.util.mail.mdn;
+package org.apache.mailet.base.mail.mdn;
 
 
 /**
- * Class <code>SendingModeAutomatic</code>
+ * Class <code>TypeDispatched</code>
  */
-public class SendingModeAutomatic implements DispositionSendingMode
+public class TypeDispatched implements DispositionType
 {
-
     /**
      * Default Constructor
      */
-    public SendingModeAutomatic()
+    public TypeDispatched()
     {
         super();
     }
@@ -39,7 +38,6 @@ public class SendingModeAutomatic implements DispositionSendingMode
      */
     public String toString()
     {
-        return "MDN-sent-automatically";
-    }        
-
+        return "dispatched";
+    }         
 }
