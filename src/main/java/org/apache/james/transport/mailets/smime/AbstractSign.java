@@ -23,10 +23,10 @@ package org.apache.james.transport.mailets.smime;
 
 import org.apache.james.security.KeyHolder;
 import org.apache.james.security.SMIMEAttributeNames;
-import org.apache.mailet.GenericMailet;
+import org.apache.mailet.base.GenericMailet;
 import org.apache.mailet.Mail;
 import org.apache.mailet.MailAddress;
-import org.apache.mailet.RFC2822Headers;
+import org.apache.mailet.base.RFC2822Headers;
 
 import javax.mail.MessagingException;
 import javax.mail.Session;

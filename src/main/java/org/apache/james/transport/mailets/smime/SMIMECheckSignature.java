@@ -35,7 +35,7 @@ import javax.mail.internet.MimeMultipart;
 
 import org.apache.james.security.KeyStoreHolder;
 import org.apache.james.security.SMIMESignerInfo;
-import org.apache.mailet.GenericMailet;
+import org.apache.mailet.base.GenericMailet;
 import org.apache.mailet.Mail;
 import org.apache.mailet.MailetConfig;
 import org.bouncycastle.cms.CMSException;

@@ -25,7 +25,7 @@ import java.util.Collection;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.mailet.GenericMatcher;
+import org.apache.mailet.base.GenericMatcher;
 import org.apache.mailet.Mail;
 
 /**
