@@ -19,7 +19,7 @@
 
 
 
-package org.apache.james.transport.mailets.smime;
+package org.apache.james.mailet.crypto.mailet;
 
 import java.io.IOException;
 import java.security.cert.X509Certificate;
@@ -33,8 +33,8 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import org.apache.james.security.KeyStoreHolder;
-import org.apache.james.security.SMIMESignerInfo;
+import org.apache.james.mailet.crypto.KeyStoreHolder;
+import org.apache.james.mailet.crypto.SMIMESignerInfo;
 import org.apache.mailet.base.GenericMailet;
 import org.apache.mailet.Mail;
 import org.apache.mailet.MailetConfig;

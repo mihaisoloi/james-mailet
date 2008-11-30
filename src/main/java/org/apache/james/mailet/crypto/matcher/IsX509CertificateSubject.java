@@ -19,7 +19,7 @@
 
 
 
-package org.apache.james.transport.matchers.smime;
+package org.apache.james.mailet.crypto.matcher;
 
 import java.security.Principal;
 import java.security.cert.X509Certificate;

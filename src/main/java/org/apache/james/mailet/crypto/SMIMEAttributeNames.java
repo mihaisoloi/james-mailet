@@ -19,7 +19,7 @@
 
 
 
-package org.apache.james.security;
+package org.apache.james.mailet.crypto;
 
 /**
  * Contains some SMIME related mail attribute names of general use.

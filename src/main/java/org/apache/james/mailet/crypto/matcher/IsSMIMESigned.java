@@ -18,7 +18,7 @@
  ****************************************************************/
 
 
-package org.apache.james.transport.matchers.smime;
+package org.apache.james.mailet.crypto.matcher;
 
 import java.util.Collection;
 
@@ -29,10 +29,10 @@ import org.apache.mailet.base.GenericMatcher;
 import org.apache.mailet.Mail;
 
 /**
- * Checks if a mail is smime encrypted.
- * 
+ * checks if a mail is smime signed. 
+
  */
-public class IsSMIMEEncrypted extends GenericMatcher {
+public class IsSMIMESigned extends GenericMatcher {
 
     /**
      * @see org.apache.mailet.Matcher#match(org.apache.mailet.Mail)
@@ -43,10 +43,13 @@ public class IsSMIMEEncrypted extends GenericMatcher {
         MimeMessage message = mail.getMessage();
         if (message == null) return null;
         
-        if ((message.isMimeType("application/x-pkcs7-mime") 
-                || message.isMimeType("application/pkcs7-mime")) && (message.getContentType().indexOf("smime-type=enveloped-data") != -1)) {
+        
+        if (message.isMimeType("multipart/signed") 
+                || message.isMimeType("application/pkcs7-signature")
+                || message.isMimeType("application/x-pkcs7-signature")
+                || ((message.isMimeType("application/pkcs7-mime") || message.isMimeType("application/x-pkcs7-mime")) 
+                        && message.getContentType().indexOf("signed-data") != -1)) {
             return mail.getRecipients();
         } else return null;
     }
-
 }

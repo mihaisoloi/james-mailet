@@ -19,7 +19,7 @@
 
 
 
-package org.apache.james.transport.mailets.smime;
+package org.apache.james.mailet.crypto.mailet;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -33,7 +33,7 @@ import javax.mail.Part;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.james.security.SMIMEKeyHolder;
+import org.apache.james.mailet.crypto.SMIMEKeyHolder;
 import org.apache.mailet.base.GenericMailet;
 import org.apache.mailet.Mail;
 import org.apache.mailet.MailetConfig;

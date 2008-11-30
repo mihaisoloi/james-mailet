@@ -19,10 +19,10 @@
 
 
 
-package org.apache.james.transport.mailets.smime;
+package org.apache.james.mailet.crypto.mailet;
 
-import org.apache.james.security.KeyHolder;
-import org.apache.james.security.SMIMEAttributeNames;
+import org.apache.james.mailet.crypto.KeyHolder;
+import org.apache.james.mailet.crypto.SMIMEAttributeNames;
 import org.apache.mailet.base.GenericMailet;
 import org.apache.mailet.Mail;
 import org.apache.mailet.MailAddress;

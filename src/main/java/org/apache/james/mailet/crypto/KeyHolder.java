@@ -18,7 +18,7 @@
  ****************************************************************/
 
 
-package org.apache.james.security;
+package org.apache.james.mailet.crypto;
 
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;

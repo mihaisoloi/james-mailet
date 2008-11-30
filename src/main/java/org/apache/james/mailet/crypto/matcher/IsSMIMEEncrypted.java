@@ -18,36 +18,35 @@
  ****************************************************************/
 
 
+package org.apache.james.mailet.crypto.matcher;
 
-package org.apache.james.security;
+import java.util.Collection;
 
-import java.io.Serializable;
-import java.security.cert.CertPath;
-import java.security.cert.X509Certificate;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
-public class SMIMESignerInfo implements Serializable {
-    private static final long serialVersionUID = 1L;
-    
-    public X509Certificate signerCertificate;
-    public CertPath certPath;
-    
-    public boolean valid = false;
-    
-    public SMIMESignerInfo(X509Certificate signerCertificate, CertPath certPath, boolean valid) {
-        this.signerCertificate = signerCertificate;
-        this.certPath = certPath;
-        this.valid = valid;
+import org.apache.mailet.base.GenericMatcher;
+import org.apache.mailet.Mail;
+
+/**
+ * Checks if a mail is smime encrypted.
+ * 
+ */
+public class IsSMIMEEncrypted extends GenericMatcher {
+
+    /**
+     * @see org.apache.mailet.Matcher#match(org.apache.mailet.Mail)
+     */
+    public Collection match(Mail mail) throws MessagingException {
+        if (mail == null) return null;
+        
+        MimeMessage message = mail.getMessage();
+        if (message == null) return null;
+        
+        if ((message.isMimeType("application/x-pkcs7-mime") 
+                || message.isMimeType("application/pkcs7-mime")) && (message.getContentType().indexOf("smime-type=enveloped-data") != -1)) {
+            return mail.getRecipients();
+        } else return null;
     }
-    
-    public X509Certificate getSignerCertificate() {
-        return signerCertificate;
-    }
-    
-    public CertPath getCertPath() {
-        return certPath;
-    }
-    
-    public boolean isSignValid() {
-        return valid;
-    }
+
 }

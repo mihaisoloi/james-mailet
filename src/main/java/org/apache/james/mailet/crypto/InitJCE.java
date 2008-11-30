@@ -19,7 +19,7 @@
 
 
 
-package org.apache.james.security;
+package org.apache.james.mailet.crypto;
 
 import java.security.Provider;
 import java.security.Security;
