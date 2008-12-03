@@ -44,6 +44,7 @@
       <item name="API" href="http://james.apache.org/mailet/api"/>
       <item name="Basic Toolkit" href="http://james.apache.org/mailet/base"/>
       <item name="Crypto" href="http://james.apache.org/mailet/crypto"/>
+      <item name="Sieve" href='http://james.apache.org/jsieve/mailet/index.html'/>
       <item name="MailetDocs" href="http://james.apache.org/mailet/maven-mailetdocs-plugin"/>
       <item name="Standard" href="http://james.apache.org/mailet/standard"/>
      </menu>
