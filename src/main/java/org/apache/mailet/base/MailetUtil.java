@@ -21,6 +21,8 @@
 
 package org.apache.mailet.base;
 
+import org.apache.mailet.MailetConfig;
+
 
 /**
  * The Util class provide some static methods which can be usefull in mailets
@@ -84,4 +86,27 @@ public class MailetUtil {
         return subject.toString();
     }
 
+    
+    /**
+     * <p>Gets a boolean valued init parameter.</p>
+     * @param config not null
+     * @param name name of the init parameter to be queried
+     * @param defaultValue this value will be substituted when the named value
+     * cannot be parse or when the init parameter is absent
+     * @return true when the init parameter is <code>true</code> (ignoring case);
+     * false when the init parameter is <code>false</code> (ignoring case);
+     * otherwise the default value
+     */
+    public static boolean getInitParameter(MailetConfig config, String name, boolean defaultValue) {
+        final String value = config.getInitParameter(name);
+        final boolean result;
+        if ("true".equalsIgnoreCase(value)) {
+            result = true;
+        } else if ("false".equalsIgnoreCase(value)){
+            result = false;
+        } else {
+            result = defaultValue;
+        }
+        return result;
+    }
 }

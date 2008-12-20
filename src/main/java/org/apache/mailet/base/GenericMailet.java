@@ -55,6 +55,25 @@ public abstract class GenericMailet implements Mailet, MailetConfig {
     }
 
     /**
+     * <p>Gets a boolean valued init parameter.</p>
+     * <p>A convenience method. The result is parsed
+     * from the value of the named parameter in the {@link MailetConfig}.</p>
+     * @param name name of the init parameter to be queried
+     * @param defaultValue this value will be substituted when the named value
+     * cannot be parse or when the init parameter is absent
+     * @return true when the init parameter is <code>true</code> (ignoring case);
+     * false when the init parameter is <code>false</code> (ignoring case);
+     * otherwise the default value
+     * @throws NullPointerException when {@link #config} is unset
+     */
+    public boolean getInitParameter(String name, boolean defaultValue) {
+        if (config == null) {
+            throw new NullPointerException("Mailet configuration must be set before getInitParameter is called.");
+        }
+        return MailetUtil.getInitParameter(config, name, defaultValue);
+    }
+    
+    /**
      * Returns a String containing the value of the named initialization
      * parameter, or null if the parameter does not exist.
      * <p>

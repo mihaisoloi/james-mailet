@@ -30,9 +30,12 @@ import java.util.Properties;
  */
 public class MockMailetConfig extends Properties implements MailetConfig {
 
-    private String mailetName;
-    private MailetContext mc;
+    public String mailetName;
+    public MailetContext mc;
 
+    public MockMailetConfig() {
+    	this("A Mailet", new MockMailContext());
+    }
     
     public MockMailetConfig(String mailetName, MailetContext mc) {
         super();
