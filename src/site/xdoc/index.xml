@@ -35,6 +35,18 @@ The Mailet API is a subproject of <a href='http://james.apache.org'>Apache JAMES
 All who are interested in developing the Mailet API and JAMES will be warmly
 welcomed on the <a href='mail-lists.html'>mailing lists</a>.
 </p>
+<subsection name='Releases'>
+<p>
+<strong>Apache Mailet 2.4</strong> is the current release and can be downloaded
+<a href='http://james.apache.org/download.cgi'>here</a>. 
+</p><p>
+<strong>2.4</strong> is the first independent release of the API.
+Earlier versions were released as part of the 
+<a href='http://james.apache.org/server/index.html' rel='tag'>Apache James Server</a>
+and are versioned accordingly. 2.4 differs from the last version shipped
+(with Server <strong>2.3</strong>) only by minor bug fixes and is compatible with it.
+</p>
+</subsection>
 </section>
 <section name="Quick Start">
 <subsection name='What Is A Mailet?'>
