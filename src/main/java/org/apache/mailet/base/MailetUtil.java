@@ -25,7 +25,7 @@ import org.apache.mailet.MailetConfig;
 
 
 /**
- * The Util class provide some static methods which can be usefull in mailets
+ * Collects utility methods.
  */
 public class MailetUtil {
     

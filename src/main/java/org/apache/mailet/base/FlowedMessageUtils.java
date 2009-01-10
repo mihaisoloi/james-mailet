@@ -26,22 +26,26 @@ import javax.mail.internet.ContentType;
 import java.io.IOException;
 
 /**
- * Manage texts encoded as "text/plain; format=flowed" 
- * As a reference see RFC2646 and RFC3676 (new method with DelSP support).
- * Url:
- * http://www.rfc-editor.org/rfc/rfc2646.txt (or http://www.zvon.org/tmRFC/RFC2646/Output/index.html )
- * http://www.rfc-editor.org/rfc/rfc3676.txt (or http://www.zvon.org/tmRFC/RFC3676/Output/index.html )
- * 
- * IMPORTANT NOTES:
- * - in order to decode, the input text must belong to a mail with headers similar to:
+ * <p>Manages texts encoded as <code>text/plain; format=flowed</code>.</p>
+ * <p>As a reference see:</p>
+ * <ul>
+ * <li><a href='http://www.rfc-editor.org/rfc/rfc2646.txt'>RFC2646</a></li>
+ * <li><a href='http://www.rfc-editor.org/rfc/rfc3676.txt'>RFC3676</a> (new method with DelSP support).
+ * </ul>
+ * <h4>Note</h4>
+ * <ul>
+ * <li>In order to decode, the input text must belong to a mail with headers similar to:
  *   Content-Type: text/plain; charset="CHARSET"; [delsp="yes|no"; ]format="flowed"
- *   (the quotes around CHARSET are not mandatory)
+ *   (the quotes around CHARSET are not mandatory).
  *   Furthermore the header Content-Transfer-Encoding MUST NOT BE Quoted-Printable
  *   (see RFC3676 paragraph 4.2).(In fact this happens often for non 7bit messages).
- * - when encoding the input text will be changed eliminating every space found before CRLF,
+ * </li>
+ * <li>When encoding the input text will be changed eliminating every space found before CRLF,
  *   otherwise it won't be possible to recognize hard breaks from soft breaks.
  *   In this scenario encoding and decoding a message will not return a message identical to 
  *   the original (lines with hard breaks will be trimmed)
+ * </li>
+ * </ul>
  */
 public final class FlowedMessageUtils {
     public static final char RFC2646_SPACE = ' ';
