@@ -45,7 +45,7 @@ import java.util.Set;
 public class DefaultDescriptorsExtractor implements DescriptorsExtractor {
 
     /**
-     * @see org.apache.james.mailet.DescriptorsExtractor#extractDescriptors()
+     * @see org.apache.james.mailet.DescriptorsExtractor#extractDescriptors(MavenProject, Log)
      */
     public List extractDescriptors(MavenProject project, Log log) {
 
