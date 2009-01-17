@@ -33,7 +33,8 @@
   <body>
 
     <menu name="MailetDocs Maven Plugin">
-      <item name="Overview" href="index.html"/>
+      <item name="Introduction" href="index.html"/>
+      <item name="Goals" href="plugin-info.html"/>
       <item 
       	name="DOAP" 
       	href="doap_crypto-mailets.rdf" 
