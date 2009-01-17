@@ -26,7 +26,7 @@
   	This plugin generates documentation for Mailets by collating
   	information available from implementation source.
   </description>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.1-SNAPSHOT</version>
   <name>Mailetdocs Maven Plugin</name>
   <parent>
     <groupId>org.apache.james</groupId>
