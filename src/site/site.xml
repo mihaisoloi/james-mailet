@@ -36,6 +36,7 @@
       <item name="Introduction" href="index.html"/>
       <item name="Goals" href="plugin-info.html"/>
       <item name="Usage" href="usage.html"/>
+      <item name="Release Notes" href="release-notes.html"/>
       <item 
       	name="DOAP" 
       	href="doap_crypto-mailets.rdf" 
