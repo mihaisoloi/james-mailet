@@ -21,7 +21,7 @@
   <bannerLeft>
     <name>JAMES MailetDocs Maven Plugin</name>
     <src>http://james.apache.org/mailet/images/james-mailets-logo.gif</src>
-    <href>http://james.apache.org/mailets/crypto/index.html</href>
+    <href>http://james.apache.org/mailet/index.html</href>
   </bannerLeft>
 
   <bannerRight>
