@@ -33,8 +33,14 @@ import java.util.List;
 import java.util.Locale;
 
 /**
+ * <p>Generates catelog and reports on mailets and matchers.</p>
+ * <h4>Notes</h4>
+ * <ul>
+ * <li>Should only used as a report.</li>
+ * <li>Mailets are instantiated during report production. </li>
+ * </ul>
  * @goal mailetdocs
- * 
+ * @since 0.1
  * @requiresDependencyResolution compile
  */
 public class MailetdocsMojo extends AbstractMavenReport {
@@ -60,6 +66,7 @@ public class MailetdocsMojo extends AbstractMavenReport {
      * 
      * @parameter expression="${project.reporting.outputDirectory}"
      * @required
+     * @since 0.1
      */
     private File outputDirectory;
 

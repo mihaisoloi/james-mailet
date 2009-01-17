@@ -27,6 +27,12 @@
       	<p>MailetDocs is a <a href='http://maven.apache.org'>Maven</a> plugin which
       	generates documentation for mailets. For example, this 
       	<a href='http://james.apache.org/mailet/standard/mailet-report.html'>report</a>.</p>
+        <subsection name='Goals Overview'>
+          <p>MailetDocs plugin has one goal:</p>
+          <ul>
+            <li><a href='mailetdocs-mojo.html'>mailetdocs:mailetdocs</a> Generates catelog and reports on mailets and matchers</li>
+          </ul>
+        </subsection>
     </section> 
   </body>
 </document>
