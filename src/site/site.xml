@@ -41,6 +41,10 @@
       	href="doap_crypto-mailets.rdf" 
       	img='http://www.w3.org/RDF/icons/rdf_metadata_button.32'/>
     </menu>
+    
+    <menu name='Examples'>
+      <item name='Large Catalog' href='examples/standard.html'/>
+    </menu>
 
      <menu name="Mailet">
       <item name="API" href="http://james.apache.org/mailet/api"/>
