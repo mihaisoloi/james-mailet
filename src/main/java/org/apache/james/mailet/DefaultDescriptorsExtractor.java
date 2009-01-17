@@ -39,9 +39,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Looks for any class implementing Mailet or Matchers in the maven source trees.
- * Extract javadocs using QDox and extract MailetInfo informations instantiating
- * them.
+ * Finds implementations of Mailet and Matchers in the source trees.
+ * Extracts javadocs using QDox. <code>MailetInfo</code> is obtained by instantiation.
  */
 public class DefaultDescriptorsExtractor implements DescriptorsExtractor {
 

@@ -64,7 +64,7 @@ public class MailetdocsMojo extends AbstractMavenReport {
     private File outputDirectory;
 
     /**
-     * A imple Predicate to extract only a given type from a list
+     * Extracts only a given type from a list.
      */
     private static final class TypePredicate implements Predicate {
         private int type;
