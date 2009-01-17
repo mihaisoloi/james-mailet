@@ -61,6 +61,16 @@
     </url>
   </scm>
   
+  <repositories>
+    <!-- enable central that is otherwise disabled by the parent pom. -->
+    <repository>
+      <id>central</id>
+      <url>http://repo1.maven.org/maven2</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </repository>
+  </repositories>
   
   <dependencies>
     <dependency>
@@ -152,6 +162,28 @@
             </goals>
           </execution>
         </executions>
+       </plugin>
+       <!-- Add NOTICE and LICENSE to generated JAR -->
+       <plugin>
+         <artifactId>maven-remote-resources-plugin</artifactId>
+         <version>1.0</version>
+         <executions>
+           <execution>
+             <goals>
+               <goal>process</goal>
+             </goals>
+             <configuration>
+               <resourceBundles>
+                 <resourceBundle>
+                   org.apache:apache-jar-resource-bundle:1.4
+                 </resourceBundle>
+               </resourceBundles>
+               <properties>
+                 <addLicense>true</addLicense>
+               </properties>
+             </configuration>
+           </execution>
+         </executions>
        </plugin>
        <plugin>
         <groupId>org.apache.maven.plugins</groupId>
