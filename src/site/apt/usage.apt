@@ -27,7 +27,7 @@ Usage
  
  The MailetDocs plugin for {{{http://maven.apache.org} Maven2}} finds all 
  mailets and matchers (as defined by the {{{http://james.apache.org/mailet/api} Mailet API}}).
- It generates reports on each and then combines all into a single catelog.
+ It generates reports on each and then combines all into a single catalog.
  
 * The <<<mailetdocs:mailetdocs>>> Goal
 

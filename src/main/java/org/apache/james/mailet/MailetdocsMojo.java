@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * <p>Generates catelog and reports on mailets and matchers.</p>
+ * <p>Generates catalog and reports on mailets and matchers.</p>
  * <h4>Notes</h4>
  * <ul>
  * <li>Should only used as a report.</li>
