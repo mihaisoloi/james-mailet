@@ -33,7 +33,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 /**
- * use: <pre><code>&lt;mailet match="{&lt;header&gt;[=value]}+" class="..." /&gt;</code></pre>
+ * use: <pre><code>&lt;mailet match="HasHeader={&lt;header&gt;[=value]}+" class="..." /&gt;</code></pre>
  * 
  * <p>This matcher checks if the header named is present. If complements the
  * AddHeader mailet.</p>
