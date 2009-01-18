@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
@@ -26,7 +25,7 @@
   	This plugin generates documentation for Mailets by collating
   	information available from implementation source.
   </description>
-  <version>0.1-SNAPSHOT</version>
+  <version>0.1RC1</version>
   <name>Mailetdocs Maven Plugin</name>
   <parent>
     <groupId>org.apache.james</groupId>
@@ -50,15 +49,9 @@
   </issueManagement>
 
   <scm>
-    <connection>
-      scm:svn:http://svn.apache.org/repos/asf/james/mailet/maven-mailetdocs-plugin/trunk
-    </connection>
-    <developerConnection>
-      scm:svn:https://svn.apache.org/repos/asf/james/mailet/maven-mailetdocs-plugin/trunk
-    </developerConnection>
-    <url>
-      http://svn.apache.org/viewcvs.cgi/james/mailet/maven-mailetdocs-plugin/trunk/?root=Apache-SVN
-    </url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/james/mailet/maven-mailetdocs-plugin/tags/maven-mailetdocs-plugin-0.1RC1</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/james/mailet/maven-mailetdocs-plugin/tags/maven-mailetdocs-plugin-0.1RC1</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/james/mailet/maven-mailetdocs-plugin/tags/maven-mailetdocs-plugin-0.1RC1?root=Apache-SVN</url>
   </scm>
   
   <repositories>
