@@ -73,7 +73,7 @@
                                   compile
     ===================================================================
     -->
-    <target name="compile" depends="prepare">
+    <target name="compile" depends="prepare" description='Compiles main source'>
       <echo message="Compiling Java sources"/>
       <mkdir dir="${build.classes}"/>
       <javac 
@@ -103,7 +103,7 @@
                                   Javadocs
     ===================================================================
     -->
-    <target name="javadocs" depends="compile">
+    <target name="javadocs" depends="compile" description='Creates Javadocs. Maven used for main website.'>
 
       <echo message="Making Mailet Javadocs"/>
 
@@ -188,7 +188,7 @@
     ===================================================================
     -->
 
-    <target name="dist" depends="jar, javadocs">
+    <target name="dist" depends="jar, javadocs" description='Creates packaged binary distributions'>
         <echo message="Installing Mailet to ${dist.dir}"/>
 
         <!--Copies the Mailet jars into ./dist/lib -->
@@ -221,7 +221,7 @@
                                   delete dist/, build/ and www/
     ===================================================================
     -->
-    <target name="clean">
+    <target name="clean" description='Cleans Directories'>
         <echo message ="deleting working directories ready for a clean build"/>
         <delete dir="${dist.dir}"/>
         <delete dir="${build.dir}"/>
@@ -234,25 +234,11 @@
     =================================================================== 
     -->
     <target name="usage">
-        <echo message=""/>
-        <echo message=""/>
-        <echo message="Mailet Build file"/>
-        <echo message="-------------------------------------------------------------"/>
-        <echo message=""/>
-        <echo message=" available targets are:"/>
-        <echo message=""/>
-        <echo message="   dist-lite --> generates unpacked distribution (default)"/>
-        <echo message="   test      --> tests the compiled classes"/>
-        <echo message="   website   --> makes all the docs and javadocs"/>
-        <echo message="   compile   --> compiles the source code"/>
-        <echo message="   dist      --> generates all the distributions, packed"/>
-        <echo message="   clean     --> cleans up the directory"/>
-        <echo message="   javadocs  --> creates the Javadoc"/>
-        <echo message=""/>
-        <echo message=" See the comments inside the build.xml file for more details."/>
-        <echo message="-------------------------------------------------------------"/>
-        <echo message=""/>
-        <echo message=""/>
+        <java classname="org.apache.tools.ant.Main">
+           <arg value="-buildfile"/>
+           <arg value="${ant.file}"/>
+           <arg value="-projecthelp"/>
+        </java>
     </target>
     
     <!--
