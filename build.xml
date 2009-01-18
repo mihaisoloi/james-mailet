@@ -18,7 +18,7 @@
   under the License.                                           
 -->
 
-<project name="mailet-base" default="main" basedir=".">
+<project name="mailet-base" default="dist" basedir=".">
     <!--
     Give user a chance to override without editing this file
     (and without typing -D each time he compiles it)
@@ -42,13 +42,6 @@
         <pathelement path="${java.class.path}" />
         <pathelement path="${build.classes}" />
     </path>
-
-    <!--
-    ===================================================================
-                                  Main target
-    ===================================================================
-    -->
-    <target name="main" depends="dist-lite"/>
 
     <!--
     ===================================================================
@@ -80,9 +73,7 @@
                                   compile
     ===================================================================
     -->
-    <target name="compile" depends="compile-main"/>
-    
-    <target name="compile-main" depends="prepare">
+    <target name="compile" depends="prepare">
       <echo message="Compiling Java sources"/>
       <mkdir dir="${build.classes}"/>
       <javac 
@@ -193,32 +184,20 @@
 
     <!--
     ===================================================================
-            Make dist directory with unpacked dist ready to run
-    ===================================================================
-    -->
-    
-
-    <target name="dist-lite" depends="jar">
-
-      <echo message="Installing Mailet to ${dist.dir}"/>
-
-      <!--Copies the Mailet jars into ./dist/lib -->
-      <copy todir="${dist.dir}/lib">
-        <fileset dir="${build.lib}">
-          <include name="*.jar"/>
-        </fileset>
-      </copy>
-    </target>
-
-    
-
-    <!--
-    ===================================================================
-                                  binary distribution
+                                  Distribution
     ===================================================================
     -->
 
-    <target name="dist" depends="dist-lite, javadocs">
+    <target name="dist" depends="jar, javadocs">
+        <echo message="Installing Mailet to ${dist.dir}"/>
+
+        <!--Copies the Mailet jars into ./dist/lib -->
+        <copy todir="${dist.dir}/lib">
+          <fileset dir="${build.lib}">
+            <include name="*.jar"/>
+          </fileset>
+        </copy>
+        
       <echo message ="Building binary distribution"/>
       <mkdir dir="${dist.dir}"/>
         <zip zipfile="${dist.base}/${dist.name}.zip">
