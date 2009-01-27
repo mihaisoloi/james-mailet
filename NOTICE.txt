@@ -2,14 +2,17 @@
    ==      NOTICE file for use with the Apache License, Version 2.0,      ==
    =========================================================================
 
-   Apache JAMES Standard Mailets
-   Copyright 2008 The Apache Software Foundation
+   Apache JAMES Base Mailets
+   Copyright 2009 The Apache Software Foundation
 
    This product includes software developed at
    The Apache Software Foundation (http://www.apache.org/).
 
-   This product also includes software developed by :
+   This product may include software developed by :
      - Sun Microsystems (http://java.sun.com/)
+
+   This product may include software developed by:
+     - JUnit http://www.junit.org/
 
    This product may include software developed at
    aQute / Peter Kriens (http://www.aqute.biz/)
