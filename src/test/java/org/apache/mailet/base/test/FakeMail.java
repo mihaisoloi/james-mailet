@@ -33,7 +33,7 @@ import javax.mail.internet.MimeMessage;
 import org.apache.mailet.Mail;
 import org.apache.mailet.MailAddress;
 
-public class MockMail implements Mail {
+public class FakeMail implements Mail {
 
     private MimeMessage msg = null;
 
@@ -57,11 +57,11 @@ public class MockMail implements Mail {
     
     private String remoteAddr ="127.0.0.1";
     
-    public MockMail() {
+    public FakeMail() {
         super();
     }
 
-    public MockMail(MimeMessage msg) {
+    public FakeMail(MimeMessage msg) {
         this();
         this.msg = msg;
     }

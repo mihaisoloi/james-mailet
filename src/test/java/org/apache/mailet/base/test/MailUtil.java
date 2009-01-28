@@ -40,8 +40,8 @@ public class MailUtil {
         return "MockMailUtil-ID-" + m_counter;
     }
     
-    public static MockMail createMockMail2Recipients(MimeMessage m) throws ParseException {
-        MockMail mockedMail = new MockMail();
+    public static FakeMail createMockMail2Recipients(MimeMessage m) throws ParseException {
+        FakeMail mockedMail = new FakeMail();
         mockedMail.setName(newId());
         mockedMail.setMessage(m);
         mockedMail.setRecipients(Arrays.asList(new MailAddress[] {
@@ -50,27 +50,27 @@ public class MailUtil {
         return mockedMail;
     }
 
-    public static MockMimeMessage createMimeMessage() throws MessagingException {
+    public static FakeMimeMessage createMimeMessage() throws MessagingException {
         return createMimeMessage(null, null);
     }
     
-    public static MockMimeMessage createMimeMessageWithSubject(String subject) throws MessagingException {
+    public static FakeMimeMessage createMimeMessageWithSubject(String subject) throws MessagingException {
         return createMimeMessage(null, null, subject, 0);
     }
     
-    public static MockMimeMessage createMimeMessage(String subject, int number) throws MessagingException {
+    public static FakeMimeMessage createMimeMessage(String subject, int number) throws MessagingException {
         return createMimeMessage(null, null, subject, number);
     }
     
-    public static MockMimeMessage createMimeMessage(String headerName, String headerValue) throws MessagingException {
+    public static FakeMimeMessage createMimeMessage(String headerName, String headerValue) throws MessagingException {
         return createMimeMessage(headerName, headerValue, "testmail", 0);
     }
     
-    public static MockMimeMessage createMimeMessage(String headerName, String headerValue, String subject, int number) throws MessagingException {
+    public static FakeMimeMessage createMimeMessage(String headerName, String headerValue, String subject, int number) throws MessagingException {
         String sender = "test@james.apache.org";
         String rcpt = "test2@james.apache.org";
 
-        MockMimeMessage mockedMimeMessage = new MockMimeMessage(number);
+        FakeMimeMessage mockedMimeMessage = new FakeMimeMessage(number);
         mockedMimeMessage.setFrom(new InternetAddress(sender));
         mockedMimeMessage.setRecipients(MimeMessage.RecipientType.TO, rcpt);
         if (headerName != null) mockedMimeMessage.setHeader(headerName, headerValue);

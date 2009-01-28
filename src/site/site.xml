@@ -36,7 +36,7 @@
       <item name="Overview" href="index.html"/>
       <item 
       	name="DOAP" 
-      	href="doap_apache-james-mailet-base.rdf" 
+      	href="doap_apache-mailet-base.rdf" 
       	img='http://www.w3.org/RDF/icons/rdf_metadata_button.32'/>
     </menu>
 

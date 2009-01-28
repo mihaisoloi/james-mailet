@@ -36,7 +36,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 
-public class MockMimeMessage extends MimeMessage {
+public class FakeMimeMessage extends MimeMessage {
 
     private final List m_fromAddresses = new ArrayList();
     private Address m_senderAddress;
@@ -56,16 +56,16 @@ public class MockMimeMessage extends MimeMessage {
     private Flags m_setFlags = new Flags();
     private boolean m_doMatch;
 
-    public MockMimeMessage() throws MessagingException {
+    public FakeMimeMessage() throws MessagingException {
         super((Session)null);
     }
 
-    public MockMimeMessage(int messageNumber) throws MessagingException {
+    public FakeMimeMessage(int messageNumber) throws MessagingException {
         super((Session)null);
         m_iMessageNumber = messageNumber;
     }
 
-    public MockMimeMessage(MimeMessage mimeMessage) throws MessagingException {
+    public FakeMimeMessage(MimeMessage mimeMessage) throws MessagingException {
         super(mimeMessage); // trivial implementation
     }
 
@@ -306,7 +306,7 @@ public class MockMimeMessage extends MimeMessage {
     }
 
     public Message reply(boolean b) throws MessagingException {
-        return new MockMimeMessage(this); // trivial implementation
+        return new FakeMimeMessage(this); // trivial implementation
     }
 
     public void writeTo(OutputStream outputStream) throws IOException, MessagingException {

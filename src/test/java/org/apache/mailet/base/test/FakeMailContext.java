@@ -29,7 +29,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class MockMailContext implements MailetContext {
+public class FakeMailContext implements MailetContext {
     
     HashMap attributes = new HashMap();
 

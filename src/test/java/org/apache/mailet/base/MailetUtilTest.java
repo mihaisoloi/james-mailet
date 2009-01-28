@@ -19,7 +19,7 @@
 
 package org.apache.mailet.base;
 
-import org.apache.mailet.base.test.MockMailetConfig;
+import org.apache.mailet.base.test.FakeMailetConfig;
 
 import junit.framework.TestCase;
 
@@ -27,11 +27,11 @@ public class MailetUtilTest extends TestCase {
 
 	private static final String A_PARAMETER = "aParameter";
 
-	MockMailetConfig config;
+	FakeMailetConfig config;
 	
 	protected void setUp() throws Exception {
 		super.setUp();
-		config = new MockMailetConfig();
+		config = new FakeMailetConfig();
 	}
 
 	protected void tearDown() throws Exception {
