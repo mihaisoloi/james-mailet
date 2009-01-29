@@ -19,5 +19,5 @@
    Package bnd-0.0.249.jar
    License bnd-0.0.249.LICENSE
 
-   Please read the LICENSE.txt and README.txt files in the root directory of 
+   Please read the LICENSE.txt and RELEASE_NOTES.txt files in the root directory of 
    this distribution.
