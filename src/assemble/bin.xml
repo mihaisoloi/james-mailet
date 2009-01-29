@@ -50,6 +50,10 @@
         <include>**/mail.LICENSE</include>
       </includes>
     </fileSet>
+    <fileSet>
+      <directory>target/site/apidocs</directory>
+      <outputDirectory>javadocs</outputDirectory>
+    </fileSet>
   </fileSets>
   <dependencySets>
     <dependencySet>
