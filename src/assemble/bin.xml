@@ -61,6 +61,13 @@
       <outputDirectory>javadocs</outputDirectory>
     </fileSet>
   </fileSets>
+  <files>
+    <file>
+      <source>LICENSE.apache</source>
+      <outputDirectory>lib</outputDirectory>
+      <destName>apache-mailet-2.4.LICENSE</destName>
+    </file>
+  </files>
   <dependencySets>
     <dependencySet>
       <outputDirectory>/lib/</outputDirectory>
