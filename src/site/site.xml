@@ -20,7 +20,7 @@
 <project name="Apache JAMES MailetDocs Maven Plugin">
   <bannerLeft>
     <name>JAMES MailetDocs Maven Plugin</name>
-    <src>http://james.apache.org/mailet/images/james-mailets-logo.gif</src>
+    <src>/images/james-mailetdocs-logo.gif</src>
     <href>http://james.apache.org/mailet/index.html</href>
   </bannerLeft>
 
