@@ -7,6 +7,6 @@ A catalog of mailets and matchers is created, together with reports on each one.
 
 0.1
 
- 0.1 is the first release of this plugin. Basic function is complete but the API 
- may change as the code is developed. Feedback to server-dev@james.apache.org 
- is appreciated.
+ 0.1 is the first release of this plugin. Basic function is complete. The API 
+ is expected to change as the code is developed. Feedback to 
+ server-dev@james.apache.org is appreciated.
