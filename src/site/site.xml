@@ -36,6 +36,7 @@
       <item name="Overview" href="index.html"/>
       <item name="Configuration" href="conf.html"/>
       <item name="Catalog" href="mailet-report.html" />
+      <item name="Release Notes" href="release-notes.html" />
       <item 
       	name="DOAP" 
       	href="doap_standard-mailets.rdf" 
