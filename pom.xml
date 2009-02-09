@@ -189,7 +189,7 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Export-Package>org.apache.jsieve.*</Export-Package>
+            <Export-Package>org.apache.mailet.base.*</Export-Package>
             <Embed-Dependency>*;scope=runtime</Embed-Dependency>
           </instructions>
         </configuration>
