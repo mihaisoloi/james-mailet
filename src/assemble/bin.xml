@@ -39,7 +39,7 @@
       <directory>target</directory>
       <outputDirectory>/</outputDirectory>
       <includes>
-        <include> apache-mailet-base-*.jar</include>
+        <include>apache-mailet-base-*.jar</include>
       </includes>
     </fileSet>
     <fileSet>
