@@ -56,14 +56,18 @@
               <james.www.id>localhost</james.www.id>
       ...
     -->
+    <!-- General location for site stage -->
     <james.www>scp://people.apache.org/www/james.apache.org/</james.www>
+    <!-- Project specific location, allowing specific override -->
+    <james.mailetbase.www>${james.www}/mailet/base/</james.mailetbase.www>
+    <!-- Overridding this value allows single set of loopback settings to be maintained -->
     <james.www.id>>mailet-base-website</james.www.id>
   </properties>
 
   <distributionManagement>
     <site>
       <id>${james.www.id}</id>
-      <url>${james.www}</url>
+      <url>${james.mailetbase.www}</url>
     </site>
   </distributionManagement>
 
