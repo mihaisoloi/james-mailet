@@ -19,9 +19,9 @@
 
 package org.apache.james.transport.mailets;
 
-import org.apache.mailet.base.test.MockMail;
-import org.apache.mailet.base.test.MockMailContext;
-import org.apache.mailet.base.test.MockMailetConfig;
+import org.apache.mailet.base.test.FakeMail;
+import org.apache.mailet.base.test.FakeMailContext;
+import org.apache.mailet.base.test.FakeMailetConfig;
 import org.apache.mailet.Mail;
 import org.apache.mailet.Mailet;
 
@@ -48,12 +48,12 @@ public class OnlyTextTest extends TestCase {
      */
     public void testService() throws MessagingException, IOException {
         Mailet mailet;
-        MockMailetConfig mci;
+        FakeMailetConfig mci;
         MimeMessage message;
         Mail mail;
 
         mailet = new OnlyText();
-        mci = new MockMailetConfig("Test", new MockMailContext());
+        mci = new FakeMailetConfig("Test", new FakeMailContext());
         mailet.init(mci);
 
         // ----------------
@@ -63,7 +63,7 @@ public class OnlyTextTest extends TestCase {
         message.setText("Questa \u00E8 una prova");
         message.saveChanges();
 
-        mail = new MockMail(message);
+        mail = new FakeMail(message);
         mailet.service(mail);
 
         assertEquals("prova", mail.getMessage().getSubject());
@@ -88,7 +88,7 @@ public class OnlyTextTest extends TestCase {
         message.setContent(mp);
         message.saveChanges();
 
-        mail = new MockMail(message);
+        mail = new FakeMail(message);
         mailet.service(mail);
 
         assertEquals("prova", mail.getMessage().getSubject());
@@ -119,7 +119,7 @@ public class OnlyTextTest extends TestCase {
         message.setContent(mpext);
         message.saveChanges();
 
-        mail = new MockMail(message);
+        mail = new FakeMail(message);
         mailet.service(mail);
 
         assertEquals("prova", mail.getMessage().getSubject());
@@ -134,7 +134,7 @@ public class OnlyTextTest extends TestCase {
                 "text/html");
         message.saveChanges();
 
-        mail = new MockMail(message);
+        mail = new FakeMail(message);
         mailet.service(mail);
 
         assertEquals("prova", mail.getMessage().getSubject());
@@ -157,7 +157,7 @@ public class OnlyTextTest extends TestCase {
         message.setContent(mp);
         message.saveChanges();
 
-        mail = new MockMail(message);
+        mail = new FakeMail(message);
         mailet.service(mail);
 
         assertEquals("prova", mail.getMessage().getSubject());
@@ -168,7 +168,7 @@ public class OnlyTextTest extends TestCase {
 
     public void testHtml2Text() throws MessagingException {
         OnlyText mailet = new OnlyText();
-        mailet.init(new MockMailetConfig("Test", new MockMailContext()));
+        mailet.init(new FakeMailetConfig("Test", new FakeMailContext()));
 
         String html;
         html = "<b>Prova di html</b><br /><p>Un paragrafo</p><LI>e ci mettiamo anche una lista</LI><br>";

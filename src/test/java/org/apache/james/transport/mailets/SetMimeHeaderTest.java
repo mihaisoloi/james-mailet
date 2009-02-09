@@ -21,9 +21,9 @@
 package org.apache.james.transport.mailets;
 
 import junit.framework.TestCase;
-import org.apache.mailet.base.test.MockMail;
-import org.apache.mailet.base.test.MockMailContext;
-import org.apache.mailet.base.test.MockMailetConfig;
+import org.apache.mailet.base.test.FakeMail;
+import org.apache.mailet.base.test.FakeMailContext;
+import org.apache.mailet.base.test.FakeMailetConfig;
 import org.apache.mailet.base.test.MailUtil;
 import org.apache.mailet.Mailet;
 
@@ -57,8 +57,8 @@ public class SetMimeHeaderTest extends TestCase {
 
     private void setupMailet() throws MessagingException {
         mailet = new SetMimeHeader();
-        MockMailetConfig mci = new MockMailetConfig("Test",
-                new MockMailContext());
+        FakeMailetConfig mci = new FakeMailetConfig("Test",
+                new FakeMailContext());
         mci.setProperty("name", HEADER_NAME);
         mci.setProperty("value", HEADER_VALUE);
 
@@ -68,7 +68,7 @@ public class SetMimeHeaderTest extends TestCase {
     // test if the Header was add
     public void testHeaderIsPresent() throws MessagingException {
         MimeMessage mockedMimeMessage = MailUtil.createMimeMessage(headerName, headerValue);
-        MockMail mockedMail = MailUtil.createMockMail2Recipients(mockedMimeMessage);
+        FakeMail mockedMail = MailUtil.createMockMail2Recipients(mockedMimeMessage);
         setupMailet();
 
         mailet.service(mockedMail);
@@ -84,7 +84,7 @@ public class SetMimeHeaderTest extends TestCase {
         setHeaderValue(headerValue);
 
         MimeMessage mockedMimeMessage = MailUtil.createMimeMessage(headerName, headerValue);
-        MockMail mockedMail = MailUtil.createMockMail2Recipients(mockedMimeMessage);
+        FakeMail mockedMail = MailUtil.createMockMail2Recipients(mockedMimeMessage);
         setupMailet();
 
         mailet.service(mockedMail);

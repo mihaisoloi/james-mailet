@@ -29,9 +29,9 @@ import javax.mail.internet.ParseException;
 
 import junit.framework.TestCase;
 
-import org.apache.mailet.base.test.MockMail;
-import org.apache.mailet.base.test.MockMailContext;
-import org.apache.mailet.base.test.MockMatcherConfig;
+import org.apache.mailet.base.test.FakeMail;
+import org.apache.mailet.base.test.FakeMailContext;
+import org.apache.mailet.base.test.FakeMatcherConfig;
 import org.apache.mailet.base.test.MailUtil;
 import org.apache.mailet.base.GenericMatcher;
 import org.apache.mailet.Matcher;
@@ -39,7 +39,7 @@ import org.apache.mailet.Matcher;
 public abstract class AbstractHasMailAttributeTest extends TestCase {
     protected MimeMessage mockedMimeMessage;
 
-    protected MockMail mockedMail;
+    protected FakeMail mockedMail;
 
     protected Matcher matcher;
 
@@ -71,8 +71,8 @@ public abstract class AbstractHasMailAttributeTest extends TestCase {
 
     protected void setupMatcher() throws MessagingException {
         matcher = createMatcher();
-        MockMatcherConfig mci = new MockMatcherConfig(getConfigOption()
-                + getHasMailAttribute(), new MockMailContext());
+        FakeMatcherConfig mci = new FakeMatcherConfig(getConfigOption()
+                + getHasMailAttribute(), new FakeMailContext());
         matcher.init(mci);
     }
 

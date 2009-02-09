@@ -19,9 +19,9 @@
 
 package org.apache.james.transport.mailets;
 
-import org.apache.mailet.base.test.MockMail;
-import org.apache.mailet.base.test.MockMailContext;
-import org.apache.mailet.base.test.MockMailetConfig;
+import org.apache.mailet.base.test.FakeMail;
+import org.apache.mailet.base.test.FakeMailContext;
+import org.apache.mailet.base.test.FakeMailetConfig;
 import org.apache.mailet.Mail;
 import org.apache.mailet.Mailet;
 
@@ -74,7 +74,7 @@ public class StripAttachmentTest extends TestCase {
         message.setContent(mm);
         message.saveChanges();
 
-        Mail mail = new MockMail();
+        Mail mail = new FakeMail();
         mail.setMessage(message);
 
         mailet.service(mail);
@@ -115,8 +115,8 @@ public class StripAttachmentTest extends TestCase {
     public void testSimpleAttachment2() throws MessagingException, IOException {
         Mailet mailet = new StripAttachment();
 
-        MockMailetConfig mci = new MockMailetConfig("Test",
-                new MockMailContext());
+        FakeMailetConfig mci = new FakeMailetConfig("Test",
+                new FakeMailContext());
         mci.setProperty("directory", "./");
         mci.setProperty("remove", "all");
         mci.setProperty("notpattern", "^(winmail\\.dat$)");
@@ -145,7 +145,7 @@ public class StripAttachmentTest extends TestCase {
         message.setContent(mm);
         message.saveChanges();
 
-        Mail mail = new MockMail();
+        Mail mail = new FakeMail();
         mail.setMessage(message);
 
         mailet.service(mail);
@@ -205,7 +205,7 @@ public class StripAttachmentTest extends TestCase {
         // message.writeTo(System.out);
         // System.out.println("--------------------------\n\n\n");
 
-        Mail mail = new MockMail();
+        Mail mail = new FakeMail();
         mail.setMessage(message);
 
         mailet.service(mail);
@@ -240,21 +240,21 @@ public class StripAttachmentTest extends TestCase {
     public void testToAndFromAttributes() throws MessagingException,
             IOException {
         Mailet strip = new StripAttachment();
-        MockMailetConfig mci = new MockMailetConfig("Test",
-                new MockMailContext());
+        FakeMailetConfig mci = new FakeMailetConfig("Test",
+                new FakeMailContext());
         mci.setProperty("attribute", "my.attribute");
         mci.setProperty("remove", "all");
         mci.setProperty("notpattern", ".*\\.tmp.*");
         strip.init(mci);
 
         Mailet recover = new RecoverAttachment();
-        MockMailetConfig mci2 = new MockMailetConfig("Test",
-                new MockMailContext());
+        FakeMailetConfig mci2 = new FakeMailetConfig("Test",
+                new FakeMailContext());
         mci2.setProperty("attribute", "my.attribute");
         recover.init(mci2);
 
         Mailet onlyText = new OnlyText();
-        onlyText.init(new MockMailetConfig("Test", new MockMailContext()));
+        onlyText.init(new FakeMailetConfig("Test", new FakeMailContext()));
 
         MimeMessage message = new MimeMessage(Session
                 .getDefaultInstance(new Properties()));
@@ -279,7 +279,7 @@ public class StripAttachmentTest extends TestCase {
         message.setSubject("test");
         message.setContent(mm);
         message.saveChanges();
-        Mail mail = new MockMail();
+        Mail mail = new FakeMail();
         mail.setMessage(message);
 
         assertTrue(mail.getMessage().getContent() instanceof MimeMultipart);
@@ -328,8 +328,8 @@ public class StripAttachmentTest extends TestCase {
     private Mailet initMailet() throws MessagingException {
         Mailet mailet = new StripAttachment();
 
-        MockMailetConfig mci = new MockMailetConfig("Test",
-                new MockMailContext());
+        FakeMailetConfig mci = new FakeMailetConfig("Test",
+                new FakeMailContext());
         mci.setProperty("directory", "./");
         mci.setProperty("remove", "all");
         mci.setProperty("pattern", ".*\\.tmp");

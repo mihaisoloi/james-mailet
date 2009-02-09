@@ -20,8 +20,8 @@
 
 package org.apache.james.transport.matchers;
 
-import org.apache.mailet.base.test.MockMail;
-import org.apache.mailet.base.test.MockMatcherConfig;
+import org.apache.mailet.base.test.FakeMail;
+import org.apache.mailet.base.test.FakeMatcherConfig;
 
 import org.apache.mailet.Mail;
 import org.apache.mailet.MailAddress;
@@ -41,7 +41,7 @@ import junit.framework.TestCase;
 
 public class HostIsLocalTest extends TestCase {
 
-    private MockMail mockedMail;
+    private FakeMail mockedMail;
 
     private Matcher matcher;
 
@@ -58,14 +58,14 @@ public class HostIsLocalTest extends TestCase {
     }
 
     private void setupMockedMail() {
-        mockedMail = new MockMail();
+        mockedMail = new FakeMail();
         mockedMail.setRecipients(Arrays.asList(recipients));
 
     }
 
     private void setupMatcher() throws MessagingException {
 
-        MailetContext mockMailContext = new MailetContext() {
+        MailetContext FakeMailContext = new MailetContext() {
 
             Collection localServer = new ArrayList(Arrays.asList(LOCALSERVER));
 
@@ -188,8 +188,8 @@ public class HostIsLocalTest extends TestCase {
         };
 
         matcher = new HostIsLocal();
-        MockMatcherConfig mci = new MockMatcherConfig("HostIsLocal",
-                mockMailContext);
+        FakeMatcherConfig mci = new FakeMatcherConfig("HostIsLocal",
+                FakeMailContext);
         matcher.init(mci);
     }
 

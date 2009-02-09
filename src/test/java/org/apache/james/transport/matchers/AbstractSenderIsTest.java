@@ -33,8 +33,8 @@ import javax.mail.internet.ParseException;
 
 import junit.framework.TestCase;
 
-import org.apache.mailet.base.test.MockMailContext;
-import org.apache.mailet.base.test.MockMatcherConfig;
+import org.apache.mailet.base.test.FakeMailContext;
+import org.apache.mailet.base.test.FakeMatcherConfig;
 import org.apache.mailet.Mail;
 import org.apache.mailet.MailAddress;
 import org.apache.mailet.Matcher;
@@ -180,8 +180,8 @@ public abstract class AbstractSenderIsTest extends TestCase {
 
     protected void setupMatcher() throws MessagingException {
         matcher = createMatcher();
-        MockMatcherConfig mci = new MockMatcherConfig(getConfigOption()
-                + getConfigValue(), new MockMailContext());
+        FakeMatcherConfig mci = new FakeMatcherConfig(getConfigOption()
+                + getConfigValue(), new FakeMailContext());
         matcher.init(mci);
     }
 

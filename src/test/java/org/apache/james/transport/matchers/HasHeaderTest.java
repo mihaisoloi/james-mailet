@@ -21,9 +21,9 @@
 package org.apache.james.transport.matchers;
 
 import junit.framework.TestCase;
-import org.apache.mailet.base.test.MockMail;
-import org.apache.mailet.base.test.MockMailContext;
-import org.apache.mailet.base.test.MockMatcherConfig;
+import org.apache.mailet.base.test.FakeMail;
+import org.apache.mailet.base.test.FakeMailContext;
+import org.apache.mailet.base.test.FakeMatcherConfig;
 import org.apache.mailet.base.test.MailUtil;
 import org.apache.mailet.Matcher;
 
@@ -36,7 +36,7 @@ public class HasHeaderTest extends TestCase {
 
     private MimeMessage mockedMimeMessage;
 
-    private MockMail mockedMail;
+    private FakeMail mockedMail;
 
     private Matcher matcher;
 
@@ -67,8 +67,8 @@ public class HasHeaderTest extends TestCase {
     private void setupMatcher() throws MessagingException {
         setupMockedMimeMessage();
         matcher = new HasHeader();
-        MockMatcherConfig mci = new MockMatcherConfig("HasHeader="
-                + HEADER_NAME, new MockMailContext());
+        FakeMatcherConfig mci = new FakeMatcherConfig("HasHeader="
+                + HEADER_NAME, new FakeMailContext());
         matcher.init(mci);
     }
 

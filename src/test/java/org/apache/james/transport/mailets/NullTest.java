@@ -29,7 +29,7 @@ import javax.mail.internet.ParseException;
 
 import junit.framework.TestCase;
 
-import org.apache.mailet.base.test.MockMail;
+import org.apache.mailet.base.test.FakeMail;
 import org.apache.mailet.Mail;
 import org.apache.mailet.MailAddress;
 import org.apache.mailet.Mailet;
@@ -49,7 +49,7 @@ public class NullTest extends TestCase {
     }
 
     private void setupMockedMail(MimeMessage m) throws ParseException {
-        mockedMail = new MockMail();
+        mockedMail = new FakeMail();
         mockedMail.setMessage(m);
         mockedMail.setRecipients(Arrays.asList(new MailAddress[] {
                 new MailAddress("test@james.apache.org"),

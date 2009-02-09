@@ -21,10 +21,10 @@
 package org.apache.james.transport.matchers;
 
 import junit.framework.TestCase;
-import org.apache.mailet.base.test.MockMimeMessage;
-import org.apache.mailet.base.test.MockMail;
-import org.apache.mailet.base.test.MockMailContext;
-import org.apache.mailet.base.test.MockMatcherConfig;
+import org.apache.mailet.base.test.FakeMimeMessage;
+import org.apache.mailet.base.test.FakeMail;
+import org.apache.mailet.base.test.FakeMailContext;
+import org.apache.mailet.base.test.FakeMatcherConfig;
 import org.apache.mailet.base.test.MailUtil;
 import org.apache.mailet.Matcher;
 
@@ -34,13 +34,13 @@ import java.io.UnsupportedEncodingException;
 
 public abstract class AbstractSubjectIsTest extends TestCase {
 
-    protected MockMail mockedMail;
+    protected FakeMail mockedMail;
 
     protected Matcher matcher;
 
     private String subject = null;
 
-    private MockMimeMessage mockedMimeMessage;
+    private FakeMimeMessage mockedMimeMessage;
 
     public AbstractSubjectIsTest(String arg0)
             throws UnsupportedEncodingException {
@@ -52,7 +52,7 @@ public abstract class AbstractSubjectIsTest extends TestCase {
     }
 
     protected void setupMockedMail(MimeMessage m) {
-        mockedMail = new MockMail();
+        mockedMail = new FakeMail();
         mockedMail.setMessage(m);
 
     }
@@ -64,8 +64,8 @@ public abstract class AbstractSubjectIsTest extends TestCase {
 
     protected void setupMatcher() throws MessagingException {
         matcher = createMatcher();
-        MockMatcherConfig mci = new MockMatcherConfig(getConfigOption()
-                + getSubjectName(), new MockMailContext());
+        FakeMatcherConfig mci = new FakeMatcherConfig(getConfigOption()
+                + getSubjectName(), new FakeMailContext());
         matcher.init(mci);
     }
 

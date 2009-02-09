@@ -26,15 +26,15 @@ import javax.mail.MessagingException;
 
 import junit.framework.TestCase;
 
-import org.apache.mailet.base.test.MockMail;
-import org.apache.mailet.base.test.MockMailContext;
-import org.apache.mailet.base.test.MockMatcherConfig;
+import org.apache.mailet.base.test.FakeMail;
+import org.apache.mailet.base.test.FakeMailContext;
+import org.apache.mailet.base.test.FakeMatcherConfig;
 import org.apache.mailet.MailAddress;
 import org.apache.mailet.Matcher;
 
 public abstract class AbstractRecipientIsTest extends TestCase {
 
-    protected MockMail mockedMail;
+    protected FakeMail mockedMail;
 
     protected Matcher matcher;
 
@@ -50,15 +50,15 @@ public abstract class AbstractRecipientIsTest extends TestCase {
     }
 
     protected void setupMockedMail() {
-        mockedMail = new MockMail();
+        mockedMail = new FakeMail();
         mockedMail.setRecipients(Arrays.asList(recipients));
 
     }
 
     protected void setupMatcher() throws MessagingException {
         matcher = createMatcher();
-        MockMatcherConfig mci = new MockMatcherConfig("RecipientIs="
-                + getRecipientName(), new MockMailContext());
+        FakeMatcherConfig mci = new FakeMatcherConfig("RecipientIs="
+                + getRecipientName(), new FakeMailContext());
         matcher.init(mci);
     }
 

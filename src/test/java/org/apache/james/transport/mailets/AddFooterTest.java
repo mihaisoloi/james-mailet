@@ -19,9 +19,9 @@
 
 package org.apache.james.transport.mailets;
 
-import org.apache.mailet.base.test.MockMail;
-import org.apache.mailet.base.test.MockMailContext;
-import org.apache.mailet.base.test.MockMailetConfig;
+import org.apache.mailet.base.test.FakeMail;
+import org.apache.mailet.base.test.FakeMailContext;
+import org.apache.mailet.base.test.FakeMailetConfig;
 import org.apache.mailet.Mail;
 import org.apache.mailet.Mailet;
 
@@ -288,12 +288,12 @@ public class AddFooterTest extends TestCase {
             throws MessagingException, IOException {
         Mailet mailet = new AddFooter();
 
-        MockMailetConfig mci = new MockMailetConfig("Test",new MockMailContext());
+        FakeMailetConfig mci = new FakeMailetConfig("Test",new FakeMailContext());
         mci.setProperty("text",footer);
 
         mailet.init(mci);
 
-        Mail mail = new MockMail();
+        Mail mail = new FakeMail();
         mail.setMessage(new MimeMessage(Session
                 .getDefaultInstance(new Properties()),
                 new ByteArrayInputStream(asciisource.getBytes())));

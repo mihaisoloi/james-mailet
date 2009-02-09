@@ -21,9 +21,9 @@ package org.apache.james.transport.mailets;
 
 import junit.framework.TestCase;
 
-import org.apache.mailet.base.test.MockMail;
-import org.apache.mailet.base.test.MockMailContext;
-import org.apache.mailet.base.test.MockMailetConfig;
+import org.apache.mailet.base.test.FakeMail;
+import org.apache.mailet.base.test.FakeMailContext;
+import org.apache.mailet.base.test.FakeMailetConfig;
 import org.apache.mailet.Mail;
 import org.apache.mailet.Mailet;
 
@@ -37,7 +37,7 @@ public class RemoveMailAttributeTest extends TestCase {
     public static final String MAIL_ATTRIBUTE_NAME2 = "org.apache.james.test.junit2";
 
     private Mail setupMockedMail() throws ParseException {
-        Mail mockedMail = new MockMail();
+        Mail mockedMail = new FakeMail();
         mockedMail.setAttribute(MAIL_ATTRIBUTE_NAME1, "true");
         mockedMail.setAttribute(MAIL_ATTRIBUTE_NAME2, "true");
         return mockedMail;
@@ -45,8 +45,8 @@ public class RemoveMailAttributeTest extends TestCase {
 
     private Mailet setupMailet(String attribute) throws MessagingException {
         Mailet mailet = new RemoveMailAttribute();
-        MockMailetConfig mci = new MockMailetConfig("Test",
-                new MockMailContext());
+        FakeMailetConfig mci = new FakeMailetConfig("Test",
+                new FakeMailContext());
         if (attribute != null) {
             mci.setProperty("name", attribute);
         }

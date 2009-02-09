@@ -20,9 +20,9 @@
 
 package org.apache.james.transport.matchers;
 
-import org.apache.mailet.base.test.MockMail;
-import org.apache.mailet.base.test.MockMailContext;
-import org.apache.mailet.base.test.MockMatcherConfig;
+import org.apache.mailet.base.test.FakeMail;
+import org.apache.mailet.base.test.FakeMailContext;
+import org.apache.mailet.base.test.FakeMatcherConfig;
 import org.apache.mailet.base.test.MailUtil;
 
 import org.apache.mailet.Matcher;
@@ -36,7 +36,7 @@ import junit.framework.TestCase;
 
 public class AllTest extends TestCase {
 
-    private MockMail mockedMail;
+    private FakeMail mockedMail;
 
     private Matcher matcher;
 
@@ -46,8 +46,8 @@ public class AllTest extends TestCase {
 
     private void setupMatcher() throws MessagingException {
         matcher = new All();
-        MockMatcherConfig mci = new MockMatcherConfig("All",
-                new MockMailContext());
+        FakeMatcherConfig mci = new FakeMatcherConfig("All",
+                new FakeMailContext());
         matcher.init(mci);
     }
 

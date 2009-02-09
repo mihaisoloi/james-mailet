@@ -21,8 +21,8 @@
 package org.apache.james.transport.mailets;
 
 import junit.framework.TestCase;
-import org.apache.mailet.base.test.MockMailContext;
-import org.apache.mailet.base.test.MockMailetConfig;
+import org.apache.mailet.base.test.FakeMailContext;
+import org.apache.mailet.base.test.FakeMailetConfig;
 import org.apache.mailet.base.test.MailUtil;
 import org.apache.mailet.Mail;
 import org.apache.mailet.Mailet;
@@ -51,8 +51,8 @@ public class RemoveAllMailAttributesTest extends TestCase {
 
     private void setupMailet() throws MessagingException {
         mailet = new RemoveAllMailAttributes();
-        MockMailetConfig mci = new MockMailetConfig("Test",
-                new MockMailContext());
+        FakeMailetConfig mci = new FakeMailetConfig("Test",
+                new FakeMailContext());
         mailet.init(mci);
     }
 

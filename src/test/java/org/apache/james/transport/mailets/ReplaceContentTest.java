@@ -19,9 +19,9 @@
 
 package org.apache.james.transport.mailets;
 
-import org.apache.mailet.base.test.MockMail;
-import org.apache.mailet.base.test.MockMailContext;
-import org.apache.mailet.base.test.MockMailetConfig;
+import org.apache.mailet.base.test.FakeMail;
+import org.apache.mailet.base.test.FakeMailContext;
+import org.apache.mailet.base.test.FakeMailetConfig;
 import org.apache.mailet.Mail;
 import org.apache.mailet.Mailet;
 
@@ -39,12 +39,12 @@ public class ReplaceContentTest extends TestCase {
 
     public void testService() throws MessagingException, IOException {
         Mailet mailet;
-        MockMailetConfig mci;
+        FakeMailetConfig mci;
         MimeMessage message;
         Mail mail;
 
         mailet = new ReplaceContent();
-        mci = new MockMailetConfig("Test", new MockMailContext());
+        mci = new FakeMailetConfig("Test", new FakeMailContext());
         mci.setProperty("subjectPattern", "/prova/PROVA/i/,/a/e//,/o/o/i/");
         mci.setProperty("bodyPattern", "/prova/PROVA/i/," + "/a/e//,"
                 + "/o/o/i/,/\\u00E8/e'//," + "/prova([^\\/]*?)ble/X$1Y/im/,"
@@ -57,7 +57,7 @@ public class ReplaceContentTest extends TestCase {
                 .setText("Sto facendo una prova di scrittura/ \u00E8 solo una prova.\n"
                         + "Bla bla bla bla.\n");
 
-        mail = new MockMail(message);
+        mail = new FakeMail(message);
         mailet.service(mail);
 
         assertEquals("une PRoVA", mail.getMessage().getSubject());
@@ -67,7 +67,7 @@ public class ReplaceContentTest extends TestCase {
         // ------------------
 
         mailet = new ReplaceContent();
-        mci = new MockMailetConfig("Test", new MockMailContext());
+        mci = new FakeMailetConfig("Test", new FakeMailContext());
         mci
                 .setProperty("subjectPatternFile",
                         "#/org/apache/james/transport/mailets/replaceSubject.patterns");
@@ -79,7 +79,7 @@ public class ReplaceContentTest extends TestCase {
                 .setText("Sto facendo una prova di scrittura/ \u00E8 solo una prova.\n"
                         + "Bla bla bla bla.\n");
 
-        mail = new MockMail(message);
+        mail = new FakeMail(message);
         mailet.service(mail);
 
         assertEquals("Re: Re: Re: una prova", mail.getMessage()
@@ -88,7 +88,7 @@ public class ReplaceContentTest extends TestCase {
         // ------------------
 
         mailet = new ReplaceContent();
-        mci = new MockMailetConfig("Test", new MockMailContext());
+        mci = new FakeMailetConfig("Test", new FakeMailContext());
         mci.setProperty("bodyPattern", "/--messaggio originale--/<quote>/i/,"
                 +
                 // "/<quote>([^\\0]*)(\\r\\n)([^>]+)/<quote>$1$2>$3/imr/,"+
@@ -102,7 +102,7 @@ public class ReplaceContentTest extends TestCase {
                 + "parte del\r\n" + "messaggio\\ che\\0 deve0 essere\r\n"
                 + "quotato. Vediamo se\r\n" + "ce la fa.");
 
-        mail = new MockMail(message);
+        mail = new FakeMail(message);
         mailet.service(mail);
 
         assertEquals("una prova", mail.getMessage().getSubject());
@@ -114,7 +114,7 @@ public class ReplaceContentTest extends TestCase {
         // ------------------
 
         mailet = new ReplaceContent();
-        mci = new MockMailetConfig("Test", new MockMailContext());
+        mci = new FakeMailetConfig("Test", new FakeMailContext());
         mci.setProperty("bodyPattern", "/\\u2026/...//");
         mailet.init(mci);
 
@@ -122,7 +122,7 @@ public class ReplaceContentTest extends TestCase {
         message.setSubject("una prova");
         message.setText("Prova \u2026 di replace \u2026");
 
-        mail = new MockMail(message);
+        mail = new FakeMail(message);
         mailet.service(mail);
 
         assertEquals("una prova", mail.getMessage().getSubject());
@@ -137,12 +137,12 @@ public class ReplaceContentTest extends TestCase {
                 + "=93prova=94 con l=92apice";
 
         Mailet mailet;
-        MockMailetConfig mci;
+        FakeMailetConfig mci;
         MimeMessage message;
         Mail mail;
 
         mailet = new ReplaceContent();
-        mci = new MockMailetConfig("Test", new MockMailContext());
+        mci = new FakeMailetConfig("Test", new FakeMailContext());
         mci.setProperty("bodyPattern", "/[\\u2018\\u2019\\u201A]/'//,"
                 + "/[\\u201C\\u201D\\u201E]/\"//," + "/[\\x91\\x92\\x82]/'//,"
                 + "/[\\x93\\x94\\x84]/\"//," + "/\\x85/...//," + "/\\x8B/<//,"
@@ -152,7 +152,7 @@ public class ReplaceContentTest extends TestCase {
         message = new MimeMessage(Session.getDefaultInstance(new Properties()),
                 new ByteArrayInputStream(messageSource.getBytes()));
 
-        mail = new MockMail(message);
+        mail = new FakeMail(message);
         mailet.service(mail);
 
         assertEquals("\"prova\" con l'apice", mail.getMessage().getContent());

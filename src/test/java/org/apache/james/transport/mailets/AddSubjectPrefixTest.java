@@ -21,8 +21,8 @@
 package org.apache.james.transport.mailets;
 
 import junit.framework.TestCase;
-import org.apache.mailet.base.test.MockMailContext;
-import org.apache.mailet.base.test.MockMailetConfig;
+import org.apache.mailet.base.test.FakeMailContext;
+import org.apache.mailet.base.test.FakeMailetConfig;
 import org.apache.mailet.base.test.MailUtil;
 import org.apache.mailet.Mail;
 import org.apache.mailet.Mailet;
@@ -64,7 +64,7 @@ public class AddSubjectPrefixTest extends TestCase {
     private void setupMailet() throws MessagingException {
         setupMockedMimeMessage();
         mailet = new AddSubjectPrefix();
-        MockMailetConfig mci = new MockMailetConfig("Test", new MockMailContext());
+        FakeMailetConfig mci = new FakeMailetConfig("Test", new FakeMailContext());
         mci.setProperty("subjectPrefix", SUBJECT_PREFIX);
 
         mailet.init(mci);
@@ -73,7 +73,7 @@ public class AddSubjectPrefixTest extends TestCase {
     private void setupInvalidMailet() throws MessagingException {
         setupMockedMimeMessage();
         mailet = new AddSubjectPrefix();
-        MockMailetConfig mci = new MockMailetConfig("Test", new MockMailContext());
+        FakeMailetConfig mci = new FakeMailetConfig("Test", new FakeMailContext());
         mci.setProperty("subjectPrefix", "");
 
         mailet.init(mci);

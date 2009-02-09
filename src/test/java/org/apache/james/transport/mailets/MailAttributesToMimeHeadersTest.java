@@ -21,9 +21,9 @@
 package org.apache.james.transport.mailets;
 
 import junit.framework.TestCase;
-import org.apache.mailet.base.test.MockMail;
-import org.apache.mailet.base.test.MockMailContext;
-import org.apache.mailet.base.test.MockMailetConfig;
+import org.apache.mailet.base.test.FakeMail;
+import org.apache.mailet.base.test.FakeMailContext;
+import org.apache.mailet.base.test.FakeMailetConfig;
 import org.apache.mailet.base.test.MailUtil;
 import org.apache.mailet.Mailet;
 
@@ -68,15 +68,15 @@ public class MailAttributesToMimeHeadersTest extends TestCase {
 
     private void setupMailet() throws MessagingException {
         mailet = new MailAttributesToMimeHeaders();
-        MockMailetConfig mci = new MockMailetConfig("Test",
-                new MockMailContext());
+        FakeMailetConfig mci = new FakeMailetConfig("Test",
+                new FakeMailContext());
         mci.setProperty("simplemapping", getConfig1());
         mci.setProperty("simplemapping", config2);
         mailet.init(mci);
     }
 
-    private MockMail setupMail(MimeMessage m) throws ParseException {
-        MockMail mockedMail = MailUtil.createMockMail2Recipients(m);
+    private FakeMail setupMail(MimeMessage m) throws ParseException {
+        FakeMail mockedMail = MailUtil.createMockMail2Recipients(m);
         mockedMail.setAttribute(MAIL_ATTRIBUTE_NAME1, MAIL_ATTRIBUTE_VALUE1);
         mockedMail.setAttribute(MAIL_ATTRIBUTE_NAME2, MAIL_ATTRIBUTE_VALUE2);
         return mockedMail;
@@ -84,7 +84,7 @@ public class MailAttributesToMimeHeadersTest extends TestCase {
 
     // test if the Headers were added
     public void testHeadersArePresent() throws MessagingException {
-        MockMail mockedMail = setupMail(MailUtil.createMimeMessage());
+        FakeMail mockedMail = setupMail(MailUtil.createMimeMessage());
         setupMailet();
 
         mailet.service(mockedMail);
@@ -100,7 +100,7 @@ public class MailAttributesToMimeHeadersTest extends TestCase {
     // test if exception was thrown
     public void testInvalidConfig() throws MessagingException {
         boolean exception = false;
-        MockMail mockedMail = setupMail(MailUtil.createMimeMessage());
+        FakeMail mockedMail = setupMail(MailUtil.createMimeMessage());
         setConfig1("test");
 
         try {
