@@ -55,7 +55,7 @@
 
   <issueManagement>
     <system>JIRA</system>
-    <url>http://issues.apache.org/jira/browse/MAILET</url>
+    <url>http://issues.apache.org/jira/browse/MAILETSTANDARD</url>
   </issueManagement>
 
   <scm>
