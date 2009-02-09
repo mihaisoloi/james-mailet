@@ -18,15 +18,6 @@
     specific language governing permissions and limitations
     under the License.    
   -->
-  <!--
-   | DISCLAIMER DISCLAIMER DISCLAIMER DISCLAIMER DISCLAIMER 
-   | 
-   | This file is only intended to be used to build the jsieve
-   | website. It must not be used to build packages for jsieve
-   | library.
-   | 
-   | DISCLAIMER DISCLAIMER DISCLAIMER DISCLAIMER DISCLAIMER 
-   -->
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.james</groupId>
   <artifactId>apache-mailet-base</artifactId>
