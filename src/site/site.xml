@@ -39,7 +39,7 @@
       <item name="Release Notes" href="release-notes.html" />
       <item 
       	name="DOAP" 
-      	href="doap_standard-mailets.rdf" 
+      	href="doap_apache-standard-mailets.rdf" 
       	img='http://www.w3.org/RDF/icons/rdf_metadata_button.32'/>
     </menu>
 
