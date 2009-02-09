@@ -20,7 +20,7 @@
   -->
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.james</groupId>
-  <artifactId>crypto-mailets</artifactId>
+  <artifactId>apache-crypto-mailets</artifactId>
   <name>Apache JAMES Crypto Mailets</name>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
