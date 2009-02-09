@@ -47,6 +47,7 @@
       <outputDirectory>/</outputDirectory>
       <includes>
         <include>RELEASE_NOTES.txt</include>
+        <include>README.txt</include>
       </includes>
     </fileSet>
     <fileSet>
