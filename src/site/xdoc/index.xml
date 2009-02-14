@@ -25,6 +25,16 @@
   <body>
     <section name="Crytography Mailets">
       	<p>Mailets which encode, decode, sign and verify mail plus cryptology utilities.</p>
+        <subsection name='Versions'>
+          <table>
+            <thead>
+              <tr><td>Cryptography Mailets</td><td>Java</td></tr>
+            </thead>
+            <tbody>
+              <tr><td>1.0</td><td>1.4</td></tr>
+            </tbody>
+          </table>
+        </subsection>
     </section>
     <section name='S/MIME Mailets'>
     	<p><acronym title='Secure / Multipurpose Internet Mail Extensions'>S/MIME</acronym> provides
