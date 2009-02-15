@@ -31,7 +31,7 @@ import javax.mail.internet.MimeMultipart;
 import java.io.IOException;
 
 /**
- * <p>Puts a <I>server-side</I> SMIME signature on a message.<br>
+ * <p>Puts a <I>server-side</I> SMIME signature on a message.
  * It is a concrete subclass of {@link Sign}, with very few modifications to it,
  * to specialize for SMIME.</p>
  *

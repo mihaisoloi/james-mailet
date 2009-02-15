@@ -101,7 +101,8 @@ public class SMIMEDecrypt extends GenericMailet {
 
         
     }
-    /* (non-Javadoc)
+    
+    /**
      * @see org.apache.mailet.Mailet#service(org.apache.mailet.Mail)
      */
     public void service(Mail mail) throws MessagingException {
