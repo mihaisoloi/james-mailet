@@ -31,7 +31,7 @@ import javax.mail.internet.MimeMultipart;
 import java.io.IOException;
 
 /**
- * <p>Puts a <I>server-side</I> signature on a message.<br>
+ * <p>Puts a <I>server-side</I> signature on a message.
  * It is a concrete subclass of {@link AbstractSign}, with very few modifications to it.</p>
  * <p>A text file with an explanation text is attached to the original message,
  * and the resulting message with all its attachments is signed.

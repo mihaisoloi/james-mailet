@@ -41,8 +41,8 @@ import java.util.Enumeration;
 import java.lang.reflect.Constructor;
 
 /**
- * <P>Abstract mailet providing common SMIME signature services.<BR>
- * It can be subclassed to make authoring signing mailets simple.<BR>
+ * <P>Abstract mailet providing common SMIME signature services.
+ * It can be subclassed to make authoring signing mailets simple.
  * By extending it and overriding one or more of the following methods a new behaviour can
  * be quickly created without the author having to address any issue other than
  * the relevant one:</P>
