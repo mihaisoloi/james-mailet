@@ -87,6 +87,7 @@ public class SMIMESign extends Sign {
     /* ******************************************************************** */    
     
     /**
+     * Gets text offering an explanation.
      * If the <CODE>&lt;explanationText&gt;</CODE> init parameter is missing
      * returns the following default explanation template string:
      * <pre><code>
