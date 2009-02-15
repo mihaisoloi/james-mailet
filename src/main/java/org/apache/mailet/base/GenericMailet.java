@@ -64,7 +64,7 @@ public abstract class GenericMailet implements Mailet, MailetConfig {
      * @return true when the init parameter is <code>true</code> (ignoring case);
      * false when the init parameter is <code>false</code> (ignoring case);
      * otherwise the default value
-     * @throws NullPointerException when {@link #config} is unset
+     * @throws NullPointerException before {@link #init(MailetConfig)}
      */
     public boolean getInitParameter(String name, boolean defaultValue) {
         if (config == null) {

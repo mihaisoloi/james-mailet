@@ -33,11 +33,11 @@ public final class StringUtils {
     }
     
     /**
-     * Split a string given a pattern (regex), considering escapes
-     * <p> E.g: considering a pattern "," we have:
+     * Splits a string given a pattern (regex), considering escapes.
+     * <p> For example considering a pattern "," we have:
      * one,two,three => {one},{two},{three}
      * one\,two\\,three => {one,two\\},{three}
-     *
+     * <p>
      * NOTE: Untested with pattern regex as pattern and untested for escape chars in text or pattern.
      */
     public static String[] split(String text, String pattern) {

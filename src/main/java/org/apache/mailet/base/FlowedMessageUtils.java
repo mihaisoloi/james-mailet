@@ -60,7 +60,7 @@ public final class FlowedMessageUtils {
     }
     
     /**
-     * Decodes a text previously wrapped using "format=flowed"
+     * Decodes a text previously wrapped using "format=flowed".
      */
     public static String deflow(String text, boolean delSp) {
         String[] lines = text.split("\r\n|\n", -1);
@@ -129,7 +129,7 @@ public final class FlowedMessageUtils {
     }
     
     /**
-     * Obtains the content of the encoded message, if previously encoded as format=flowed.
+     * Obtains the content of the encoded message, if previously encoded as <code>format=flowed</code>.
      */
     public static String deflow(Message m) throws IOException, MessagingException {
         ContentType ct = new ContentType(m.getContentType());
@@ -144,7 +144,8 @@ public final class FlowedMessageUtils {
     }
     
     /**
-     * If the message is formad=flowed set the encoded version as message content
+     * If the message is <code>format=flowed</code> 
+     * set the encoded version as message content.
      */
     public static void deflowMessage(Message m) throws MessagingException, IOException {
         ContentType ct = new ContentType(m.getContentType());
@@ -166,14 +167,14 @@ public final class FlowedMessageUtils {
     
     
     /**
-     * Encode a text (using standard with)
+     * Encodes a text (using standard with).
      */
     public static String flow(String text, boolean delSp) {
         return flow(text, delSp, RFC2646_WIDTH);
     }
 
     /**
-     * Decode a text
+     * Decodes a text.
      */
     public static String flow(String text, boolean delSp, int width) {
         StringBuffer result = new StringBuffer();
@@ -235,14 +236,14 @@ public final class FlowedMessageUtils {
     }
     
     /**
-     * Encode the input text and sets it as the new message content
+     * Encodes the input text and sets it as the new message content.
      */
     public static void setFlowedContent(Message m, String text, boolean delSp) throws MessagingException {
         setFlowedContent(m, text, delSp, RFC2646_WIDTH, true, null);
     }
     
     /**
-     * Encode the input text and sets it as the new message content
+     * Encodes the input text and sets it as the new message content.
      */
     public static void setFlowedContent(Message m, String text, boolean delSp, int width, boolean preserveCharset, String charset) throws MessagingException {
         String coded = flow(text, delSp, width);
@@ -261,14 +262,14 @@ public final class FlowedMessageUtils {
     }
     
     /**
-     * Encode the message content (if text/plain).
+     * Encodes the message content (if text/plain).
      */
     public static void flowMessage(Message m, boolean delSp) throws MessagingException, IOException {
         flowMessage(m, delSp, RFC2646_WIDTH);
     }
 
     /**
-     * Encode the message content (if text/plain).
+     * Encodes the message content (if text/plain).
      */
     public static void flowMessage(Message m, boolean delSp, int width) throws MessagingException, IOException {
         ContentType ct = new ContentType(m.getContentType());
@@ -283,8 +284,8 @@ public final class FlowedMessageUtils {
     }
     
     /**
-     * Check wether the char is part of a word
-     * <p>RFC assert a word cannot be splitted (even if the length is greater than the maximum length)
+     * Checks whether the char is part of a word.
+     * <p>RFC assert a word cannot be splitted (even if the length is greater than the maximum length).
      */
     public static boolean isAlphaChar(String text, int index) {
         // Note: a list of chars is available here:
@@ -294,7 +295,7 @@ public final class FlowedMessageUtils {
     }
 
     /**
-     * Check wether the input message is formad=flowed
+     * Checks whether the input message is <code>format=flowed</code>.
      */
     public static boolean isFlowedTextMessage(Message m) throws MessagingException {
         ContentType ct = new ContentType(m.getContentType());
