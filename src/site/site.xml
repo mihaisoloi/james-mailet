@@ -40,6 +40,7 @@
 
     <menu name="Basic Mailet Toolkit">
       <item name="Overview" href="index.html"/>
+      <item name="Release Notes" href="release-notes.html"/>
       <item 
       	name="DOAP" 
       	href="doap_apache-mailet-base.rdf" 
