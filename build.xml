@@ -51,7 +51,10 @@
                                   Main target
     ===================================================================
     -->
-    <target name="main" depends="dist-lite"/>
+    <target name="main">
+        <echo>Note that the Maven build is used for releases</echo>
+        <antcall target='dist-lite'/>
+    </target>
 
     <!--
     ===================================================================
