@@ -21,7 +21,7 @@
   <groupId>org.apache.james</groupId>
   <artifactId>apache-crypto-mailets</artifactId>
   <name>Apache JAMES Crypto Mailets</name>
-  <version>1.0RC3</version>
+  <version>1.0RC4-SNAPSHOT</version>
   <packaging>jar</packaging>
   <description>
     Apache JAMES Cryptographic Mailets is a collection of mailets which use cryptography.
@@ -75,9 +75,9 @@
   </issueManagement>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/james/mailet/crypto/tags/apache-crypto-mailets-1.0RC3</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/james/mailet/crypto/tags/apache-crypto-mailets-1.0RC3</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/james/mailet/crypto/tags/apache-crypto-mailets-1.0RC3?root=Apache-SVN</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/james/mailet/crypto/trunk</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/james/mailet/crypto/trunk</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/james/mailet/crypto/trunk/?root=Apache-SVN</url>
   </scm>
 
   <dependencies>
