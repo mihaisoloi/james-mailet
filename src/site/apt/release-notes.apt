@@ -39,4 +39,16 @@ Release Notes
    (an advanced mail server). This release is not dependent on 
    that server but can be used in any Mailet container. 
   
-  
+*Since James Server 2.3.1
+
+  * Upgrade to Apache Mailet API 2.4 and Apache Mailets Base 1.0
+
+  * [{{{https://issues.apache.org/jira/browse/JAMES-728}JAMES-728}}] 
+    - ClamAV and IOUtil updates to close streams/readers/writers and sockets
+   
+  * [{{{https://issues.apache.org/jira/browse/JAMES-733}JAMES-733}}]
+    - Fix javadoc 
+    
+  * [{{{https://issues.apache.org/jira/browse/JAMES-579}JAMES-579}}]
+    -  Update license headers and NOTICE to follow the latest ASF requirements
+   
