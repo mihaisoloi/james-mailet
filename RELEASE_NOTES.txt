@@ -17,3 +17,8 @@ Release Notes
    This release is not dependent on that server but can be used in any Mailet container. 
   
   
+Since James Server 2.3.1
+  * Upgrade to Apache Mailet API 2.4 and Apache Mailets Base 1.0
+  * JAMES-728 - ClamAV and IOUtil updates to close streams/readers/writers and sockets
+  * JAMES-733 - Fix javadoc 
+  * JAMES-579 -  Update license headers and NOTICE to follow the latest ASF requirements
