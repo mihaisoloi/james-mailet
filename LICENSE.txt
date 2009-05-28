@@ -180,16 +180,15 @@
 
    THIS PRODUCT ALSO INCLUDES THIRD PARTY SOFTWARE REDISTRIBUTED UNDER THE
    FOLLOWING LICENSES:
-   
-   BouncyCastle, MIT License 
-     (see stage/org.bouncycastle/jars/BouncyCastle.LICENSE)
-     http://www.bouncycastle.org/licence.html
      
    JavaBeans Activation Framework, CDDL License
      http://glassfish.dev.java.net/public/CDDLv1.0.html
      
    JavaMail, CDDL License
      http://glassfish.dev.java.net/public/CDDLv1.0.html
+     
+   JUnit, Common Public License - v 1.0
+     http://www.junit.org/
      
    Bnd, Bundle Tool, The Apache License, Version 2.0
      http://www.aqute.biz/Code/Bnd
