@@ -61,6 +61,7 @@
     <james.standardmailets.www>${james.www}/mailet/standard/</james.standardmailets.www>
     <!-- Overridding this value allows single set of loopback settings to be maintained -->
     <james.www.id>standard-mailet-website</james.www.id>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <distributionManagement>
@@ -170,7 +171,7 @@
           <optimize>true</optimize>
           <source>1.4</source>
           <target>1.4</target>
-          <encoding>UTF-8</encoding>
+          <encoding>${project.build.sourceEncoding}</encoding>
         </configuration>
       </plugin>
       <plugin>
@@ -369,7 +370,7 @@
         <artifactId>taglist-maven-plugin</artifactId>
         <version>2.3</version>
         <configuration>
-          <encoding>UTF-8</encoding>
+          <encoding>${project.build.sourceEncoding}</encoding>
         </configuration>
       </plugin>
     </plugins>
