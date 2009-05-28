@@ -26,7 +26,7 @@
     <format>zip</format>
     <format>tar.gz</format>
   </formats>
-  <includeSiteDirectory>true</includeSiteDirectory>  
+  <includeSiteDirectory>false</includeSiteDirectory>  
   <fileSets>
     <fileSet>
       <directory>target/maven-shared-archive-resources/META-INF/</directory>
