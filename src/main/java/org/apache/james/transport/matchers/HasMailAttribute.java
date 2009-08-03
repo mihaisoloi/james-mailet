@@ -22,11 +22,12 @@
 package org.apache.james.transport.matchers;
 
 
-import org.apache.mailet.base.GenericMatcher;
-import org.apache.mailet.Mail;
-import org.apache.mailet.MatcherConfig;
 import java.util.Collection;
+
 import javax.mail.MessagingException;
+
+import org.apache.mailet.Mail;
+import org.apache.mailet.base.GenericMatcher;
 
 /**
  * <P>This Matcher determines if the mail contains the attribute specified in the
@@ -53,9 +54,9 @@ public class HasMailAttribute extends GenericMatcher
         return "Has Mail Attribute Matcher";
     }
 
-    public void init (MatcherConfig conf) throws MessagingException
+    public void init () throws MessagingException
     {
-        attributeName = conf.getCondition();
+        attributeName = getCondition();
     }
 
     /**

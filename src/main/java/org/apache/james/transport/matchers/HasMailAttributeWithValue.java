@@ -25,9 +25,8 @@ import java.util.Collection;
 
 import javax.mail.MessagingException;
 
-import org.apache.mailet.base.GenericMatcher;
 import org.apache.mailet.Mail;
-import org.apache.mailet.MatcherConfig;
+import org.apache.mailet.base.GenericMatcher;
 
 /**
  * <p>This Matcher determines if the mail contains the attribute specified in
@@ -132,12 +131,11 @@ public class HasMailAttributeWithValue extends GenericMatcher
     }
 
     /**
-     * @see org.apache.mailet.Matcher#init(MatcherConfig)
+     * @see org.apache.mailet.Matcher#init()
      */
-    public void init(MatcherConfig config) throws MessagingException
+    public void init() throws MessagingException
     {
-        super.init(config);
-        String condition = config.getCondition().trim();
+        String condition = getCondition().trim();
         int commaPosition = condition.indexOf(',');
 
         if (-1 == commaPosition)
