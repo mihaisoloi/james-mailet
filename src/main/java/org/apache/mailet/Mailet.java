@@ -20,103 +20,112 @@
 
 package org.apache.mailet;
 
+import javax.mail.MessagingException;
+
 /**
- * Draft of a Mailet inteface. The <code>service</code> perform all needed work
- * on the Mail object. Whatever remains at the end of the service is considered
- * to need futher processing and will go to the next Mailet if there is one
- * configured or will go to the error processor if not.
- * Setting a Mail state (setState(String)) to Mail.GHOST or cleaning its recipient
- * list has the same meaning that s no more processing is needed.
+ * A Mailet processes mail messages.
+ * <p>
+ * The Mailet life cycle is controlled by the mailet container,
+ * which invokes the Mailet methods in the following order:
+ * <ol>
+ * <li>The mailet is constructed.
+ * <li>The {@link #init} method is invoked once to initialize the mailet.
+ * <li>The {@link #service} method is invoked to process mail messages.
+ *     This can occur an unlimited number of times, even concurrently.
+ * <li>At some point, such as when the mailet container is shut down,
+ *     the mailet is taken out of service and then destroyed by invoking
+ *     the {@link #destroy} method once.
+ * </ol>
+ * <p>
+ * In addition to the life-cycle methods, this interface provides the
+ * {@link #getMailetConfig} method, which provides the Mailet with
+ * its initialization parameters and a {@link MailetContext} through which
+ * it can interact with the mailet container, and the {@link #getMailetInfo}
+ * method, which provides basic information about the Mailet.
+ * <p>
+ * Mailets are grouped by the mailet container's configuration into processors.
+ * Each processor is comprised of an ordered sequence of Mailets, each with a
+ * corresponding {@link Matcher}. A Mail message is processed by each
+ * Matcher-Mailet pair in order: If the mail is matched by the Matcher, it is
+ * passed to the Mailet's {@code service} method for processing, and if it is
+ * not matched, the Mailet is skipped and the mail moves on to the next
+ * Matcher-Mailet pair.
+ * <p>
+ * The {@code service} method performs all needed processing on the Mail,
+ * and may modify the message content, recipients, attributes, state, etc.
+ * When the method returns, the mail is passed on to the next Matcher-Mailer
+ * pair in the processor. If there are no subsequent mailets in the processor,
+ * it is moved to the error processor.
+ * Setting the Mail {@link Mail#setState state} to {@link Mail#GHOST}, or clearing its
+ * recipient list, both mean that no further processing is needed, which will
+ * cause the Mail to be dropped without ever reaching subsequent Mailets.
+ * <p>
  * Instead of creating new messages, the mailet can put a message with new recipients
  * at the top of the mail queue, or insert them immediately after it's execution
  * through the API are provided by the MailetContext interface.
- * <p>
- * This interface defines methods to initialize a mailet, to service messages, and to
- * remove a mailet from the server. These are known as life-cycle methods and are called
- * in the following sequence:
- * <ol>
- * <li>The mailet is constructed, then initialized with the init method. </li>
- * <li>Any messages for the service method are handled.</li>
- * <li>The mailet is taken out of service, then destroyed with the destroy method,
- *      then garbage collected and finalized.</li>
- * </ol>
- * In addition to the life-cycle methods, this interface provides the getMailetConfig
- * method, which the mailet can use to get any startup information, and the
- * getMailetInfo method, which allows the mailet to return basic information about itself,
- * such as author, version, and copyright.
- *
- * @version 1.0.0, 24/04/1999
  */
 public interface Mailet {
+    
+    /**
+     * Initializes this Mailet.
+     * <p>
+     * This method is called only once, and must complete successfully
+     * before the {@link #service} method can be invoked.
+     *
+     * @param config a MailetConfig containing the mailet's configuration
+     *          and initialization parameters
+     * @throws MessagingException if an error occurs
+     */
+    void init(MailetConfig config) throws MessagingException;
 
     /**
-     * Called by the mailet container to indicate to a mailet that the
-     * mailet is being taken out of service. This method is only called once
-     * all threads within the mailet's service method have exited or after a
-     * timeout period has passed. After the mailet container calls this method,
-     * it will not call the service method again on this mailet.
+     * Services a mail message.
      * <p>
-     * This method gives the mailet an opportunity to clean up any resources that
-     * are being held (for example, memory, file handles, threads) and make sure
-     * that any persistent state is synchronized with the mailet's current state in memory.
+     * Mailets typically run inside multithreaded mailet containers that can handle
+     * multiple requests concurrently. Developers must be aware to synchronize access
+     * to any shared resources such as files and network connections, as well as the
+     * mailet's fields. More information on multithreaded programming in Java is
+     * available at <a href="http://java.sun.com/Series/Tutorial/java/threads/multithreaded.html">the
+     * Java tutorial on multi-threaded programming</a>.
+     *
+     * @param mail the Mail to process
+     * @throws MessagingException if any error occurs which prevents the Mail
+     *         processing from completing successfully
+     */
+    void service(Mail mail) throws MessagingException;
+
+    /**
+     * Destroys this Mailet.
+     * <p>
+     * This method is called only once, after all {@link #service} invocations
+     * have completed (or a timeout period has elapsed). After this method
+     * returns, this Mailet will no longer be used.
+     * <p>
+     * Implementations should use this method to release any resources that
+     * are being held (such as memory, file handles or threads) and make sure
+     * that any persistent information is properly stored.
      */
     void destroy();
 
     /**
-     * Returns information about the mailet, such as author, version, and
-     * copyright.
+     * Returns a MailetConfig object, which provides initialization parameters
+     * and a {@link MailetContext} through which it can interact with the
+     * mailet container.
      * <p>
-     * The string that this method returns should be plain text and not markup
-     * of any kind (such as HTML, XML, etc.).
+     * Implementations of this interface are responsible for storing the
+     * MailetConfig which they receive in the {@link #init} method so
+     * that this method can return it.
      *
-     * @return a String containing servlet information
+     * @return the MailetConfig that this mailet was initialized with
+     */
+    MailetConfig getMailetConfig();
+    
+    /**
+     * Returns information about the mailet, such as author, version and
+     * copyright.
+     *
+     * @return the Mailet information (as a plain text string)
      */
     String getMailetInfo();
 
-    /**
-     * Returns a MailetConfig object, which contains initialization and
-     * startup parameters for this mailet.
-     * <p>
-     * Implementations of this interface are responsible for storing the MailetConfig
-     * object so that this method can return it. The GenericMailet class, which implements
-     * this interface, already does this.
-     *
-     * @return the MailetConfig object that initializes this mailet
-     */
-    MailetConfig getMailetConfig();
-
-    /**
-     * Called by the mailet container to indicate to a mailet that the
-     * mailet is being placed into service.
-     * <p>
-     * The mailet container calls the init method exactly once after
-     * instantiating the mailet. The init method must complete successfully
-     * before the mailet can receive any requests.
-     *
-     * @param config - a MailetConfig object containing the mailet's configuration
-     *          and initialization parameters
-     * @throws javax.mail.MessagingException - if an exception has occurred that interferes with
-     *          the mailet's normal operation
-     */
-    void init(MailetConfig config) throws javax.mail.MessagingException;
-
-    /**
-     * Called by the mailet container to allow the mailet to process to
-     * a message.
-     * <p>
-     * This method is only called after the mailet's init() method has completed
-     * successfully.
-     * <p>
-     * Mailets typically run inside multithreaded mailet containers that can handle
-     * multiple requests concurrently. Developers must be aware to synchronize access
-     * to any shared resources such as files, network connections, as well as the
-     * mailet's class and instance variables. More information on multithreaded
-     * programming in Java is available in <a href="http://java.sun.com/Series/Tutorial/java/threads/multithreaded.html">the
-     * Java tutorial on multi-threaded programming</a>.
-     *
-     * @param mail - the Mail object that contains the message and routing information
-     * @throws javax.mail.MessagingException - if a message or address parsing exception occurs or
-     *      an exception that interferes with the mailet's normal operation
-     */
-    void service(Mail mail) throws javax.mail.MessagingException;
 }

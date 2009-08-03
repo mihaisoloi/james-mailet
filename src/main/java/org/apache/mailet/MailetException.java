@@ -24,8 +24,6 @@ import javax.mail.MessagingException;
 
 /**
  * Defines a general exception a mailet can throw when it encounters difficulty.
- *
- * @version 1.0.0, 24/04/1999
  */
 public class MailetException extends MessagingException {
 
@@ -44,10 +42,8 @@ public class MailetException extends MessagingException {
     }
 
     /**
-     * Constructs a new mailet exception when the mailet needs to throw
-     * an exception and include a message about the "root cause" exception
-     * that interfered with its normal operation, including a description
-     * message.
+     * Constructs a new mailet exception with the specified message
+     * and an exception which is the "root cause" of the exception.
      */
     public MailetException(String message, Exception e) {
         super(message, e);

@@ -26,7 +26,8 @@ import javax.mail.internet.InternetAddress;
 
 /**
  * A representation of an email address.
- * <p>This class encapsulates functionalities to access to different
+ * 
+ * <p>This class encapsulates functionality to access different
  * parts of an email address without dealing with its parsing.</p>
  *
  * <p>A MailAddress is an address specified in the MAIL FROM and
@@ -40,17 +41,17 @@ import javax.mail.internet.InternetAddress;
  * <p>MailAddress parses an email address as defined in RFC 821
  * (SMTP) p. 30 and 31 where addresses are defined in BNF convention.
  * As the mailet API does not support the aged "SMTP-relayed mail"
- * addressing protocol, this leaves all addresses to be a <mailbox>,
+ * addressing protocol, this leaves all addresses to be a {@code <mailbox>},
  * as per the spec. 
  *
  * <p>This class is a good way to validate email addresses as there are
  * some valid addresses which would fail with a simpler approach
- * to parsing address.  It also removes parsing burden from
+ * to parsing address. It also removes the parsing burden from
  * mailets and matchers that might not realize the flexibility of an
- * SMTP address.  For instance, "serge@home"@lokitech.com is a valid
+ * SMTP address. For instance, "serge@home"@lokitech.com is a valid
  * SMTP address (the quoted text serge@home is the local-part and
- * lokitech.com is the domain).  This means all current parsing to date
- * is incorrect as we just find the first @ and use that to separate
+ * lokitech.com is the domain). This means all current parsing to date
+ * is incorrect as we just find the first '@' and use that to separate
  * local-part from domain.</p>
  *
  * <p>This parses an address as per the BNF specification for <mailbox>
@@ -62,7 +63,9 @@ import javax.mail.internet.InternetAddress;
 public class MailAddress implements java.io.Serializable {
     /**
      *  We hardcode the serialVersionUID 
-     *  This version (2779163542539434916L) retains compatibility back to Mailet version 1.2 (James 1.2) so that MailAddress will be deserializable and mail doesn't get lost after an upgrade.
+     *  This version (2779163542539434916L) retains compatibility back to
+     *  Mailet version 1.2 (James 1.2) so that MailAddress will be
+     *  deserializable and mail doesn't get lost after an upgrade.
      */
     public static final long serialVersionUID = 2779163542539434916L;
 
@@ -75,14 +78,16 @@ public class MailAddress implements java.io.Serializable {
     private int pos = 0;
 
     /**
-     * strip source routing, according to RFC-2821 it is an allowed approach to handle mails
-     * contaning RFC-821 source-route information
+     * Strips source routing. According to RFC-2821 it is a valid approach
+     * to handle mails containing RFC-821 source-route information.
+     * 
+     * @param address the address to strip
      */
     private void stripSourceRoute(String address) {
         if (pos < address.length()) {
-            if(address.charAt(pos)=='@') { 
+            if (address.charAt(pos)=='@') { 
                 int i = address.indexOf(':');
-                if(i != -1) {
+                if (i != -1) {
                     pos = i+1;
                 }
             }
@@ -90,12 +95,10 @@ public class MailAddress implements java.io.Serializable {
     }
     
     /**
-     * <p>Construct a MailAddress parsing the provided <code>String</code> object.</p>
+     * Constructs a MailAddress by parsing the provided address.
      *
-     * <p>The <code>personal</code> variable is left empty.</p>
-     *
-     * @param   address the email address compliant to the RFC2822 3.4.1. Addr-spec specification
-     * @throws  AddressException    if the parse failed
+     * @param address the email address, compliant to the RFC2822 3.4.1. addr-spec specification
+     * @throws AddressException if the parse failed
      */
     public MailAddress(String address) throws AddressException {
         address = address.trim();
@@ -164,73 +167,77 @@ public class MailAddress implements java.io.Serializable {
     }
 
     /**
-     * Construct a MailAddress with the provided personal name and email
-     * address.
+     * Constructs a MailAddress with the provided local part and domain.
      *
-     * @param   localPart      The local-part portion is a domain dependent string.  In addresses, it is simply interpreted on the particular host as a name of a particular mailbox. per RFC2822 3.4.1. Addr-spec specification
-     * @param   domain        The domain portion identifies the point to which the mail is delivered  per RFC2822 3.4.1. Addr-spec specification
-     * @throws  AddressException    if the parse failed
+     * @param localPart the local-part portion. This is a domain dependent string.
+     *        In addresses, it is simply interpreted on the particular host as a
+     *        name of a particular mailbox. per RFC2822 3.4.1. addr-spec specification
+     * @param domain the domain portion. This identifies the point to which the mail
+     *        is delivered  per RFC2822 3.4.1. addr-spec specification
+     * @throws AddressException if the parse failed
      */
     public MailAddress(String localPart, String domain) throws AddressException {
         this(new InternetAddress(localPart+"@"+domain));
     }
 
     /**
-     * Constructs a MailAddress from a JavaMail InternetAddress, using only the
-     * email address portion, discarding the personal name. (an "addr-spec" not a "name-addr" as defined in RFC2822 3.4. Address Specification
-     * @param address 
-     * @throws AddressException 
+     * Constructs a MailAddress from an InternetAddress, using only the
+     * email address portion (an "addr-spec", not "name-addr", as
+     * defined in the RFC2822 3.4. Address Specification)
+     * 
+     * @param address the address
+     * @throws AddressException if the parse failed
      */
     public MailAddress(InternetAddress address) throws AddressException {
         this(address.getAddress());
     }
 
     /**
-     * Return the host part.
+     * Returns the host part.
      *
-     * @return  a <code>String</code> object representing the host part
-     *          of this email address. If the host is of the dotNum form
-     *          (e.g. [yyy.yyy.yyy.yyy]) then strip the braces first.
-     *  @deprecated use getDomain() - name change to align with RFC2822 3.4.1. Addr-spec specification
+     * @return the host part of this email address. If the host is of the
+     *         dotNum form (e.g. [yyy.yyy.yyy.yyy]), then strip the braces first.
+     * @deprecated use {@link #getDomain()}, whose name was changed to
+     *              align with RFC2822 3.4.1. addr-spec specification
      */
     public String getHost() {
         return getDomain();
     }
     
     /**
-     * Return the domain part per RFC2822 3.4.1. Addr-spec specification
+     * Returns the domain part per RFC2822 3.4.1. addr-spec specification.
      *
-     * @return  a <code>String</code> object representing the domain part
-     *          of this email address. If the domain is of the domain-literal form  (e.g. [yyy.yyy.yyy.yyy])  the braces will have been stripped returning the raw IP address.
+     * @return the domain part of this email address. If the domain is of
+     * the domain-literal form  (e.g. [yyy.yyy.yyy.yyy]), the braces will
+     * have been stripped returning the raw IP address.
      */
     public String getDomain() {
         if (!(domain.startsWith("[") && domain.endsWith("]"))) {
             return domain;
         } 
-            return domain.substring(1, domain.length() -1);
-        
+        return domain.substring(1, domain.length() -1);
     }
 
     /**
-     * Return the user part.
+     * Returns the user part.
      *
-     * @return  a <code>String</code> object representing the user part
-     *          of this email address.
-     * @throws  AddressException    if the parse failed
-     * @deprecated use getLocalPart() - name change to align with RFC2822 3.4.1. Addr-spec specification
+     * @return the user part of this email address
+     * @deprecated use {@link #getLocalPart()}, whose name was changed to
+     *             align with the RFC2822 3.4.1. addr-spec specification
      */
     public String getUser() {
         return getLocalPart();
     }
     
     /**
-     * Return the local-part per RFC2822 3.4.1. Addr-spec specification
+     * Returns the local-part per RFC2822 3.4.1. addr-spec specification.
      *
-     * @return  a <code>String</code> object representing the local-part
-     *          of this email address as defined by RFC2822 3.4.1. Addr-spec specification. 
-     *          The local-part portion is a domain dependent string.  In addresses, it is simply interpreted on the particular host as a name of a particular mailbox.
-     *          It is the part before the "@"
-     * @throws  AddressException    if the parse failed
+     * @return  the local-part of this email address as defined by the
+     *          RFC2822 3.4.1. addr-spec specification. 
+     *          The local-part portion is a domain dependent string.
+     *          In addresses, it is simply interpreted on the particular
+     *          host as a name of a particular mailbox
+     *          (the part before the "@" character)
      */
     public String getLocalPart() {
         return localPart;
@@ -244,10 +251,10 @@ public class MailAddress implements java.io.Serializable {
                     .append(domain);
         return addressBuffer.toString();
     }
-
     
     /**
-     * Return MailAddress as InternetAddress
+     * Returns an InternetAddress representing the same address
+     * as this MailAddress.
      * 
      * @return the address
      */
@@ -260,6 +267,16 @@ public class MailAddress implements java.io.Serializable {
         }
     }
 
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     * 
+     * Note that this implementation breaks the general contract of the
+     * <code>equals</code> method by allowing an instance to equal to a
+     * <code>String</code>. It is recommended that implementations avoid
+     * relying on this design which may be removed in a future release.
+     * 
+     * @returns true if the given object is equal to this one, false otherwise
+     */
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
@@ -274,11 +291,11 @@ public class MailAddress implements java.io.Serializable {
     }
 
     /**
-     * Return a hashCode for this object which should be identical for addresses
-     * which are equivalent.  This is implemented by obtaining the default
-     * hashcode of the String representation of the MailAddress.  Without this
-     * explicit definition, the default hashCode will create different hashcodes
-     * for separate object instances.
+     * Returns a hash code value for this object.
+     * <p>
+     * This method is implemented by returning the hash code of the canonical
+     * string representation of this address, so that all instances representing
+     * the same address will return an identical hash code.
      *
      * @return the hashcode.
      */

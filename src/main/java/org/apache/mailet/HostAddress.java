@@ -21,46 +21,32 @@
 package org.apache.mailet;
 
 /** 
- * A specialized subclass of javax.mail.URLName, which provides location
- * information for servers.
+ * A specialized subclass of javax.mail.URLName, which provides
+ * the name of a URL as well as its corresponding host name.
  * 
- * @since Mailet API v2.2.0a16-unstable
+ * @since Mailet API v2.3
  */
-public class HostAddress extends javax.mail.URLName
-{
+public class HostAddress extends javax.mail.URLName {
     private String hostname;
 
-    public HostAddress(String hostname, String url)
-    {
+    /**
+     * Constructs a new host address with the given details.
+     * 
+     * @param hostname the hostname corresponding to the url
+     * @param url the url name
+     */
+    public HostAddress(String hostname, String url) {
         super(url);
         this.hostname = hostname;
     }
 
-    public String getHostName()
-    {
+    /**
+     * Returns the host name corresponding to the url
+     * 
+     * @return the host name
+     */
+    public String getHostName() {
         return hostname;
     }
 
-/*
-    public static void main(String[] args) throws Exception
-    {
-        HostAddress url;
-        try
-        {
-            url = new HostAddress("mail.devtech.com", "smtp://" + "66.112.202.2" + ":25");
-            System.out.println("Hostname: " + url.getHostName());
-            System.out.println("The protocol is: " + url.getProtocol());
-            System.out.println("The host is: " + url.getHost());
-            System.out.println("The port is: " + url.getPort());
-            System.out.println("The user is: " + url.getUsername());
-            System.out.println("The password is: " + url.getPassword());
-            System.out.println("The file is: " + url.getFile());
-            System.out.println("The ref is: " + url.getRef());
-        }
-        catch (Exception e)
-        {
-            System.err.println(e);
-        };
-    }
-*/
 }

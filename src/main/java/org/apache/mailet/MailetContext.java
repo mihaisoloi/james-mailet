@@ -27,100 +27,50 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 /**
- * Defines a set of methods that a mailet or matcher uses to communicate
- * with its mailet container, for example, to send a new message, to
- * deliver a message locally, or write to a log file.
+ * Defines a set of methods that can be used to interact with the mailet
+ * container. For example, it can be used to send a new message, to deliver
+ * a message locally, or to write to a log file.
+ * <p>
+ * Mailets and Matchers can retrieve a MailetContext through their
+ * respective MailetConfig and MatcherConfig objects, which are provided
+ * to them by the mailet container when they are initialized.
+ * <p>
+ * <b>Mailet Context Attributes</b>
+ * <p>
+ * The Mailet Context can provide additional configuration or other
+ * information not defined in this interface to Mailets and Matchers
+ * by using attributes. See your server documentation for information
+ * on the attributes it provides.
+ * <p>
+ * Every attribute consists of a name and a value.
+ * Attribute names should follow the same convention as package names.
+ * The Mailet API specification reserves names matching
+ * <i>org.apache.james.*</i> and <i>org.apache.mailet.*</i>.
+ * Attribute values can be arbitrary objects.
+ * <p>
+ * The list of attributes which are currently associated with a mailet
+ * context can be retrieved using the {@link #getAttributeNames}
+ * method, and given its name, the value of an attribute can be
+ * retrieved using the {@link #getAttribute} method.
  *
- * The MailetContext object is contained within the MailetConfig and
- * MatcherConfig objects, which the mailet container provides to the
- * mailets and matchers when they are initialized.
- *
- * @version 1.0.0, 24/04/1999
  */
 public interface MailetContext {
-
+    
     /**
-     * Bounces the message using a standard format with the given message.
-     * The message will be sent back to the sender from the postmaster as specified for
-     * this mailet context, adding message to top of mail server queue using
-     * sendMail().
+     * Returns the major version number of the Mailet API that this mailet
+     * container supports. For example, if the mailet container supports
+     * version 1.2 of the Mailet API, this method returns 1.
      *
-     * @param mail - the message that is to be bounced and sender to whom to return the message
-     * @param message - a descriptive message as to why the message bounced
-     */
-    void bounce(Mail mail, String message) throws MessagingException;
-
-    /**
-     * Bounces the email message using the provided email address as the
-     * sender of the bounce.
-     *
-     * @param mail - the message that is to be bounced and sender to whom to return the message
-     * @param message - a descriptive message as to why the message bounced
-     * @param bouncer - the address to give as the sender of the bounced message
-     */
-    void bounce(Mail mail, String message, MailAddress bouncer) throws MessagingException;
-
-    /**
-     * Returns a Collection of Strings of hostnames or ip addresses that
-     * are specified as mail server listeners for the given hostname.
-     * This is done using MX records, and the hostnames or ip addresses
-     * are returned sorted by MX priority.
-     *
-     * <p>TODO: This needs to be made a more specific ordered subtype of Collection.</p>
-     *     
-     * @param host - the domain name for which to find mail servers
-     * @return a Collection of Strings of hostnames, sorted by priority
-     */
-    Collection getMailServers(String host);
-
-    /**
-     * Returns the postmaster's address for this mailet context.
-     *
-     * @return a MailAddress of the Postmaster's address
-     */
-    MailAddress getPostmaster();
-
-    /**
-     * Returns the mailet container attribute with the given name, or null
-     * if there is no attribute by that name.  An attribute allows a mailet container
-     * to give the mailet additional information not already provided by this interface.
-     * See your server documentation for information about its attributes. A list of
-     * supported attributes can be retrieved using getAttributeNames.
-     * <p>
-     * The attribute is returned as a java.lang.Object or some subclass. Attribute
-     * names should follow the same convention as package names. The Java Mailet API
-     * specification reserves names matching java.*, javax.*, and sun.*
-     *
-     * @param name - a String specifying the name of the attribute
-     * @return an Object containing the value of the attribute, or null if no attribute
-     *      exists matching the given name
-     */
-    Object getAttribute(String name);
-
-    /**
-     * Returns an Iterator containing the attribute names available within
-     * this mailet context.  Use the getAttribute(java.lang.String) method with an
-     * attribute name to get the value of an attribute.
-     *
-     * @return an Iterator of attribute names
-     */
-    Iterator getAttributeNames();
-
-    /**
-     * Returns the major version of the Mailet API that this mailet
-     * container supports. All implementations that comply with Version 1.2 must have
-     * this method return the integer 1.
-     *
-     * @return 1
+     * @return the major version number of the supported Mailet API
      */
     int getMajorVersion();
 
     /**
-     * Returns the minor version of the Mailet API that this mailet
-     * container supports.  All implementations that comply with Version 1.2 must have
-     * this method return the integer 2.
+     * Returns the minor version number of the Mailet API that this mailet
+     * container supports. For example, if the mailet container supports
+     * version 1.2 of the Mailet API, this method returns 2.
      *
-     * @return 2
+     * @return the minor version number of the supported Mailet API
      */
     int getMinorVersion();
 
@@ -128,123 +78,35 @@ public interface MailetContext {
      * Returns the name and version of the mailet container on which
      * the mailet is running.
      * <p>
-     * The form of the returned string is servername/versionnumber. For example,
-     * JAMES may return the string JAMES/1.2.
-     * <p>
-     * The mailet container may return other optional information after the primary
-     * string in parentheses, for example, JAMES/1.2 (JDK 1.3.0; Windows NT 4.0 x86).
+     * The returned string is of the form {@code <servername>/<versionnumber>},
+     * optionally followed by additional information in parentheses. For example,
+     * the JAMES mailet container may return the string {@code "JAMES/1.2"}
+     * or {@code "JAMES/1.2 (JDK 1.3.0; Windows NT 4.0 x86)"}.
      *
-     * @return a String containing at least the mailet container name and version number
+     * @return the server information string
      */
     String getServerInfo();
 
     /**
-     * Checks if a server is serviced by mail context
+     * Returns an Iterator over the names of all attributes which are set
+     * in this mailet context.
+     * <p>
+     * The {@link #getAttribute} method can be called to
+     * retrieve an attribute's value given its name.
      *
-     * @param serverName - name of server.
-     * @return true if server is local, i.e. serviced by this mail context
+     * @return an Iterator (of Strings) over all attribute names
      */
-    boolean isLocalServer(String serverName);
-
-    /**
-     * Checks if a user account is exists in the mail context.
-     *
-     * @param userAccount - user identifier.
-     * @return true if the account is a local account
-     * 
-     * @deprecated use isLocalEmail(MailAddress) instead
-     * 
-     * @since James 2.4.0 this method expect to receive also the domain
-     * name within the userAccount string (user\@domain).
-     * By default it will use \@localhost when no domain is passed.
-     */
-    boolean isLocalUser(String userAccount);
+    Iterator getAttributeNames();
     
     /**
-     * Checks if a user account is exists in the mail context.
+     * Returns the value of the named mailet context attribute,
+     * or null if the attribute does not exist.
      *
-     * @param mailAddress - address of the account to be checked.
-     * @return true if the account is a local account
-     * 
-     * @since James 2.4.0
+     * @param name the attribute name
+     * @return the attribute value, or null if the attribute does not exist
      */
-    boolean isLocalEmail(MailAddress mailAddress);
-
-    /**
-     * Writes the specified message to a mailet log file, usually an event
-     * log.  The name and type of the mailet log file is specific to the mailet
-     * container.
-     *
-     * @param message - a String specifying the message to be written to the log file
-     */
-    void log(String message);
-
-    /**
-     * Writes an explanatory message and a stack trace for a given Throwable
-     * exception to the mailet log file.
-     *
-     * @param message - a String that describes the error or exception
-     * @param t - the Throwable error or exception
-     */
-    void log(String message, Throwable t);
-
-    /**
-     * Removes the attribute with the given name from the mailet context.  After
-     * removal, subsequent calls to getAttribute(java.lang.String) to retrieve
-     * the attribute's value will return null.
-     *
-     * @param name - a String specifying the name of the attribute to be removed
-     */
-    void removeAttribute(String name);
-
-    /**
-     * Send an outgoing message to the top of this mailet container's root queue.
-     * This is the equivalent of opening an SMTP session to localhost.
-     * This uses sender and recipients as specified in the message itself.
-     *
-     * @param msg - the MimeMessage of the headers and body content of the outgoing message
-     * @throws MessagingException - if the message fails to parse
-     */
-    void sendMail(MimeMessage msg)
-        throws MessagingException;
-
-    /**
-     * Send an outgoing message to the top of this mailet container's root queue.
-     * This is the equivalent of opening an SMTP session to localhost.
-     *
-     * @param sender - the sender of the message
-     * @param recipients - a Collection of MailAddress objects of recipients
-     * @param msg - the MimeMessage of the headers and body content of the outgoing message
-     * @throws MessagingException - if the message fails to parse
-     */
-    void sendMail(MailAddress sender, Collection recipients, MimeMessage msg)
-        throws MessagingException;
-
-    /**
-     * Send an outgoing message to the top of this mailet container queue for the
-     * appropriate processor that is specified.
-     *
-     * @param sender - the sender of the message
-     * @param recipients - a Collection of MailAddress objects of recipients
-     * @param msg - the MimeMessage of the headers and body content of the outgoing message
-     * @param state - the state of the message, indicates which processor to use
-     * This is a String that names a processor for which the message will be queued
-     * @throws MessagingException - if the message fails to parse
-     */
-    void sendMail(MailAddress sender, Collection recipients, MimeMessage msg, String state)
-        throws MessagingException;
-
-    /**
-     * Send an outgoing message to the top of this mailet container's root queue.
-     * This is the equivalent of opening an SMTP session to localhost.
-     * The Mail object provides all envelope and content information
-     *
-     * @param mail - the message that is to sent
-     * @throws MessagingException - if the message fails to spool
-     */
-    void sendMail(Mail mail)
-            throws MessagingException;
-
+    Object getAttribute(String name);
+    
     /**
      * Binds an object to a given attribute name in this mailet context.  If the name
      * specified is already used for an attribute, this method will remove the old
@@ -256,8 +118,192 @@ public interface MailetContext {
      * @param name - a String specifying the name of the attribute
      * @param object - an Object representing the attribute to be bound
      */
-    void setAttribute(String name, Object object);
+    
+    /**
+     * Associates an attribute with the given name and value with this mailet context.
+     * <p>
+     * If an attribute with the given name already exists, it is replaced, and the
+     * previous value is returned.
+     * <p>
+     * Attribute names should follow the same convention as package names.
+     * The Mailet API specification reserves names matching
+     * <i>org.apache.james.*</i> and <i>org.apache.mailet.*</i>.
+     *
+     * @param name the attribute name
+     * @param value the attribute value
+     */
+    void setAttribute(String name, Object value);
+    
+    /**
+     * Removes the attribute with the given name from this Mail instance.
+     *
+     * @param name the name of the attribute to be removed
+     * @since Mailet API v2.1
+     */
+    void removeAttribute(String name);
 
+    /**
+     * Writes the specified message to a mailet log. The name and type of
+     * the mailet log is specific to the mailet container.
+     *
+     * @param message the message to be written to the log
+     */
+    void log(String message);
+
+    /**
+     * Writes the specified message to a mailet log, along with the stack
+     * trace of the given Throwable. The name and type of the mailet log
+     * is specific to the mailet container.
+     *
+     * @param message the message to be written to the log
+     * @param t the Throwable whose stack trace is to be written to the log
+     */
+    void log(String message, Throwable t);
+    
+    /**
+     * Returns the Postmaster address for this mailet context.
+     *
+     * @return the Postmaster address
+     */
+    MailAddress getPostmaster();
+    
+    /**
+     * Checks if a host name is local, i.e. this server is the
+     * final delivery destination for messages sent to this host.
+     *
+     * @param hostname the host name to check
+     * @return true if server is local, false otherwise
+     */
+    boolean isLocalServer(String hostname);
+
+    /**
+     * Checks if a user account is local, i.e. the account exists locally
+     * and this server is the final delivery destination for messages
+     * sent to this address.
+     * <p>
+     * This given user account string should contain the full
+     * user address, i.e. user@domain. If the domain part is
+     * missing, "localhost" will be used as the domain name.
+     *
+     * @param userAccount the full address of the account to be checked
+     * @return true if the account is a local account, false otherwise
+     * @deprecated use {@link #isLocalEmail(MailAddress)} instead 
+     */
+    boolean isLocalUser(String userAccount);
+    
+    /**
+     * Checks if an address is local, i.e. its account exists locally
+     * and this server is the final delivery destination for messages
+     * sent to this address.
+     *
+     * @param mailAddress the full address of the account to be checked
+     * @return true if the account is a local account, false otherwise
+     * @since Mailet API 2.4
+     */
+    boolean isLocalEmail(MailAddress mailAddress);
+    
+    /**
+     * Returns the hostnames that are specified as mail handlers for
+     * the given domain name. The host names are determined using DNS
+     * lookup of MX records and are returned sorted by priority
+     * (as detailed in the SMTP RFC).
+     *     
+     * @param domain the domain name whose mail handling hosts are requested
+     * @return the sorted mail-handling hostnames for the domain
+     */
+    Collection getMailServers(String domain);
+    
+    /**
+     * Returns the SMTP host addresses specified as mail handlers for
+     * the given domain name. This is equivalent to calling the
+     * {@link #getMailServers} method and then performing address
+     * resolution lookups on all returned host names in order.
+     * The results are returned as instances of {@link HostAddress}
+     * containing the host and address information.
+     *
+     * @since Mailet API v2.3
+     * @param domain the domain whose mail handling SMTP host addresses are requested
+     * @return an Iterator over HostAddress, in proper order of priority, or
+     *         an empty iterator if no hosts are found
+     */
+    Iterator getSMTPHostAddresses(String domain);
+
+    /**
+     * Sends an outgoing message to the top of this mailet container's root queue.
+     * This is functionally equivalent to having opened an SMTP session to the local
+     * host and delivering the message using the sender and recipients from within
+     * the message itself.
+     *
+     * @param message the message to send
+     * @throws MessagingException if an error occurs accessing or sending the message
+     */
+    void sendMail(MimeMessage message)
+        throws MessagingException;
+
+    /**
+     * Sends an outgoing message to the top of this mailet container's root queue.
+     * This is functionally equivalent to having opened an SMTP session to the local
+     * host and delivering the message using the given sender and recipients.
+     *
+     * @param sender the message sender
+     * @param recipients the message recipients as a Collection of MailAddress objects
+     * @param message the message to send
+     * @throws MessagingException if an error occurs accessing or sending the message
+     */
+    void sendMail(MailAddress sender, Collection recipients, MimeMessage message)
+        throws MessagingException;
+
+    /**
+     * Sends an outgoing message to the top of this mailet container's queue for the
+     * specified processor.
+     *
+     * @param sender the message sender
+     * @param recipients the message recipients as a Collection of MailAddress objects
+     * @param message the message to send
+     * @param state the state of the message, indicating the name of the processor for
+     *        which the message will be queued
+     * @throws MessagingException if an error occurs accessing or sending the message
+     */
+    void sendMail(MailAddress sender, Collection recipients, MimeMessage message, String state)
+        throws MessagingException;
+
+    /**
+     * Sends an outgoing message to the top of this mailet container's root queue.
+     * This is the equivalent of opening an SMTP session to localhost.
+     * The Mail object provides all envelope and content information
+     *
+     * @param mail - the message that is to sent
+     * @throws MessagingException if an error occurs accessing or sending the message
+     */
+    void sendMail(Mail mail)
+            throws MessagingException;
+    
+    /**
+     * Bounces the message using a standard format with the given message.
+     * <p>
+     * The message will be sent to the original sender from the postmaster address 
+     * as configured in this mailet context, adding the message to top of mail
+     * server queue using {@code sendMail}.
+     *
+     * @param mail the message to bounce, with the original sender
+     * @param message a descriptive message explaining why the message bounced
+     * @throws MessagingException if an error occurs accessing or sending the message
+     */
+    void bounce(Mail mail, String message) throws MessagingException;
+
+    /**
+     * Bounces the message using a standard format with the given message.
+     * <p>
+     * The message will be sent to the original sender from the given address,
+     * adding the message to top of mail server queue using {@code sendMail}.
+     *
+     * @param mail the message to bounce, with the original sender
+     * @param message a descriptive message explaining why the message bounced
+     * @param bouncer the address used as the sender of the bounce message
+     * @throws MessagingException if an error occurs accessing or sending the message
+     */
+    void bounce(Mail mail, String message, MailAddress bouncer) throws MessagingException;
+    
     /**
      * Stores the message is in the local repository associated with
      * recipient for later retrieval, e.g., by a POP3 or IMAP service.
@@ -266,24 +312,10 @@ public interface MailetContext {
      * resource acquired via JNDI.
      * @param sender - the sender of the incoming message
      * @param recipient - the user who is receiving this message (as a complete email address)
-     * @param msg - the MimeMessage to store in a local mailbox
+     * @param message - the MimeMessage to store in a local mailbox
      * @throws MessagingException - if the message fails to parse
      */
-    void storeMail(MailAddress sender, MailAddress recipient, MimeMessage msg)
+    void storeMail(MailAddress sender, MailAddress recipient, MimeMessage message)
         throws MessagingException;
 
-    /**
-     * Returns an Iterator over HostAddress, a specialized subclass of
-     * javax.mail.URLName, which provides location information for
-     * servers that are specified as mail handlers for the given
-     * hostname.  This is done using MX records, and the HostAddress
-     * instances are returned sorted by MX priority.  If no host is
-     * found for domainName, the Iterator returned will be empty and the
-     * first call to hasNext() will return false.
-     *
-     * @since Mailet API v2.2.0a16-unstable
-     * @param domainName - the domain for which to find mail servers
-     * @return an Iterator over HostAddress instances, sorted by priority
-     */
-    Iterator getSMTPHostAddresses(String domainName);
 }

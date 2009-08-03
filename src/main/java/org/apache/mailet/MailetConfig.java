@@ -23,23 +23,22 @@ package org.apache.mailet;
 import java.util.Iterator;
 
 /**
- * A mailet configuration object used by a mailet container to pass information
- * to a mailet during initialization.
+ * A mailet configuration object used by the mailet container to pass
+ * information to a mailet during initialization.
  * <p>
- * The configuration information contains initialization parameters, which are a set
- * of name/value pairs, and a MailetContext object, which gives the mailet information
- * about the server.
+ * The configuration information consists of mailet-specific initialization
+ * parameters in a set of name/value pairs, and a MailetContext object
+ * which allows the mailet to interact with the mailet container.
  *
- * @version 1.0.0, 24/04/1999
  */
 public interface MailetConfig {
 
     /**
-     * Returns a String containing the value of the named initialization
-     * parameter, or null if the parameter does not exist.
+     * Returns the value of the named initialization parameter,
+     * or null if the parameter does not exist.
      *
-     * @param name - a String specifying the name of the initialization parameter
-     * @return a String containing the value of the initialization parameter
+     * @param name the name of the initialization parameter
+     * @return the value of the initialization parameter, or null
      */
     String getInitParameter(String name);
 
@@ -48,8 +47,8 @@ public interface MailetConfig {
      * Iterator of String objects, or an empty Iterator if the mailet has
      * no initialization parameters.
      *
-     * @return an Iterator of String objects containing the names of the mailet's
-     *      initialization parameters
+     * @return an Iterator of String objects containing the names of the
+     *      mailet's initialization parameters
      */
     Iterator getInitParameterNames();
 
@@ -57,16 +56,16 @@ public interface MailetConfig {
      * Returns a reference to the MailetContext in which the mailet is
      * executing.
      *
-     * @return a MailetContext object, used by the mailet to interact with its
-     *      mailet container
+     * @return a MailetContext object which can be used by the mailet
+     *      to interact with the mailet container
      */
     MailetContext getMailetContext();
 
     /**
      * Returns the name of this mailet instance. The name may be provided via
      * server administration, assigned in the application deployment descriptor,
-     * or for an unregistered (and thus unnamed) mailet instance it will be the
-     * mailet's class name.
+     * or, for an unregistered (and thus unnamed) mailet instance, it will be
+     * the mailet's class name.
      *
      * @return the name of the mailet instance
      */

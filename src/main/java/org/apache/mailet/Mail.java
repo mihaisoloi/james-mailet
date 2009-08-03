@@ -27,13 +27,43 @@ import java.util.Date;
 import java.util.Iterator;
 
 /**
- * Wrap a MimeMessage with routing information (from SMTP) such
- * as SMTP specified recipients, sender, and ip address and hostname
- * of sending server.  It also contains its state which represents
- * which processor in the mailet container it is currently running.
- * Special processor names are "root" and "error".
- *
- * @version CVS $Revision$ $Date$
+ * <p>Wraps a MimeMessage with additional routing and processing information.
+ * <p>This includes
+ * <ul>
+ * <li>a unique name</li>
+ * <li>envelope properties such the SMTP-specified sender ("MAIL FROM") and recipients ("RCPT TO")</li>
+ * <li>the IP address and hostname of the sending server</li>
+ * <li>the processing state, which also represents the processor in
+ *     the mailet container which is currently processing the message</li>
+ * <li>the time at which the Mail was last updated</li>
+ * <li>additional processing attributes (see below)</li>
+ * </ul>
+ * <p>
+ * The Mail interface also defines constants for special processor names,
+ * such as "root" and "error".
+ * <p>
+ * <b>Mail Attributes</b>
+ * <p>
+ * While processing a Mail instance, a Mailet can associate additional
+ * information with it by using mail attributes. These attributes can
+ * then be queried by the same mailet or other mailets later on.
+ * <p>
+ * Some containers may also use attributes to provide envelope information.
+ * <p>
+ * Every attribute consists of a name and a value.
+ * Attribute names should follow the same convention as package names.
+ * The Mailet API specification reserves names matching
+ * <i>org.apache.james.*</i> and <i>org.apache.mailet.*</i>.
+ * <p>
+ * Attribute values can be arbitrary objects, but since Mail is
+ * Serializable, the attribute value must be Serializable as well.
+ * <p>
+ * The list of attributes which are currently associated with a Mail
+ * instance can be retrieved using the {@link #getAttributeNames}
+ * method, and given its name, the value of an attribute can be
+ * retrieved using the {@link #getAttribute} method. It is also
+ * possible to remove {@link #removeAttribute one} attribute or
+ * {@link #removeAllAttributes() all} attributes of a Mail instance.
  */
 public interface Mail extends Serializable, Cloneable {
     String GHOST = "ghost";
@@ -41,165 +71,194 @@ public interface Mail extends Serializable, Cloneable {
     String ERROR = "error";
     String TRANSPORT = "transport";
     /**
-     * Returns the message name of this message
+     * Returns the name of this message.
      * 
      * @return the message name
      * @since Mailet API v2.3
      */
     String getName();
+    
     /**
-     * Set the message name of this message
+     * Set the name of this message.
      * 
-     * @param newName new name
+     * @param newName the new message name
      * @since Mailet API v2.3
      */
     void setName(String newName);
+    
     /**
-     * Returns the MimeMessage stored in this message
+     * Returns the MimeMessage stored in this message.
      *
      * @return the MimeMessage that this Mail object wraps
-     * @throws MessagingException - an error occured while loading this object
+     * @throws MessagingException when an error occurs while retrieving the message
      */
     MimeMessage getMessage() throws MessagingException;
+    
     /**
-     * Returns a Collection of MailAddress objects that are recipients of this message
+     * Returns the message recipients as a Collection of MailAddress objects,
+     * as specified by the SMTP "RCPT TO" command, or internally defined.
      *
      * @return a Collection of MailAddress objects that are recipients of this message
      */
     Collection getRecipients();
+
     /**
-     * Method setRecipients.
-     * @param recipients a Collection of MailAddress Objects representing the recipients of this message
-     * @since Mailet API v3.0-unstable
+     * Sets the message recipients as a Collection of MailAddress objects.
+     * 
+     * @param recipients the message recipients as a Collection of MailAddress Objects
+     * @since Mailet API v2.4
      */
     void setRecipients(Collection recipients);
+    
     /**
-     * The sender of the message, as specified by the MAIL FROM header, or internally defined
+     * Returns the sender of the message, as specified by the SMTP "MAIL FROM" command,
+     * or internally defined.
      *
-     * @return a MailAddress of the sender of this message
+     * @return the sender of this message
      */
     MailAddress getSender();
+    
     /**
-     * The current state of the message, such as GHOST, ERROR, or DEFAULT
+     * Returns the current state of the message, such as GHOST, ERROR or DEFAULT.
      *
      * @return the state of this message
      */
     String getState();
+    
     /**
-     * The remote hostname of the server that connected to send this message
+     * Returns the host name of the remote server that sent this message.
      *
-     * @return a String of the hostname of the server that connected to send this message
+     * @return the host name of the remote server that sent this message
      */
     String getRemoteHost();
+    
     /**
-     * The remote ip address of the server that connected to send this message
+     * Returns the IP address of the remote server that sent this message.
      *
-     * @return a String of the ip address of the server that connected to send this message
+     * @return the IP address of the remote server that sent this message
      */
     String getRemoteAddr();
+    
     /**
-     * The error message, if any, associated with this message.  Not sure why this is needed.
+     * The error message, if any, associated with this message.
      *
-     * @return a String of a descriptive error message
+     * @return the error message associated with this message, or null
      */
     String getErrorMessage();
+    
     /**
-     * Sets the error message associated with this message.  Not sure why this is needed.
+     * Sets the error message associated with this message.
      *
-     * @param msg - a descriptive error message
+     * @param msg the error message
      */
     void setErrorMessage(String msg);
+    
     /**
-     * Sets the MimeMessage associated with this message via the object.
+     * Sets the MimeMessage wrapped by this Mail instance.
      *
-     * @param message - the new MimeMessage that this Mail object will wrap
+     * @param message the new message that this Mail instance will wrap
      */
     void setMessage(MimeMessage message);
+    
     /**
      * Sets the state of this message.
      *
-     * @param state - the new state of this message
+     * @param state the new state of this message
      */
     void setState(String state);
+    
     /**
-     * Returns the Mail session attribute with the given name, or null
-     * if there is no attribute by that name.
-     * An attribute allows a mailet to give this Mail instance additional information
-     * not already provided by this interface.<p>
-     * A list of currently set attributes can be retrieved using getAttributeNames.
-     * <p>
-     * The attribute is returned as a java.lang.Object or some subclass. Attribute
-     * names should follow the same convention as package names. The Mailet API
-     * specification reserves names matching <I>org.apache.james.*</I>
-     * and <I>org.apache.mailet.*</I>.
+     * Returns the value of the named Mail instance attribute,
+     * or null if the attribute does not exist.
      *
-     * @param name - a String specifying the name of the attribute
-     * @return an Object containing the value of the attribute, or null if no attribute
-     *      exists matching the given name
+     * @param name the attribute name
+     * @return the attribute value, or null if the attribute does not exist
      * @since Mailet API v2.1
      */
     Serializable getAttribute(String name);
+    
     /**
-     * Returns an Iterator containing the attribute names currently available within
-     * this Mail instance.  Use the getAttribute(java.lang.String) method with an
-     * attribute name to get the value of an attribute.
+     * Returns an Iterator over the names of all attributes which are set
+     * in this Mail instance.
+     * <p>
+     * The {@link #getAttribute} method can be called to
+     * retrieve an attribute's value given its name.
      *
-     * @return an Iterator of attribute names
+     * @return an Iterator (of Strings) over all attribute names
      * @since Mailet API v2.1
      */
     Iterator getAttributeNames();
+
     /**
-     * @return true if this Mail instance has any attributes set.
+     * Returns whether this Mail instance has any attributes set.
+     * 
+     * @return true if this Mail instance has any attributes set, false if not
      * @since Mailet API v2.1
-     **/
+     */
     boolean hasAttributes();
+    
     /**
-     * Removes the attribute with the given name from this Mail instance. After
-     * removal, subsequent calls to getAttribute(java.lang.String) to retrieve
-     * the attribute's value will return null.
-     *
-     * @param name - a String specifying the name of the attribute to be removed
-     * @return previous attribute value associated with specified name, or null
-     * if there was no mapping for name (null can also mean that null
-     * was bound to the name)
+     * Removes the attribute with the given name from this Mail instance.
+     * 
+     * @param name the name of the attribute to be removed
+     * @return the value of the removed attribute, or null
+     *      if there was no such attribute (or if the attribute existed
+     *      and its value was null)
      * @since Mailet API v2.1
      */
     Serializable removeAttribute(String name);
+    
     /**
-     * Removes all the attributes associated with this Mail instance.  
+     * Removes all attributes associated with this Mail instance. 
      * @since Mailet API v2.1
      **/
     void removeAllAttributes();
+    
     /**
-     * Binds an object to a given attribute name in this Mail instance. If the name
-     * specified is already used for an attribute, this method will remove the old
-     * attribute and bind the name to the new attribute.
-     * As instances of Mail is Serializable, it is necessary that the attributes being
-     * Serializable as well
+     * Associates an attribute with the given name and value with this Mail instance.
+     * If an attribute with the given name already exists, it is replaced, and the
+     * previous value is returned.
      * <p>
-     * Attribute names should follow the same convention as package names.
-     * The Mailet API specification reserves names matching <I>org.apache.james.*</I>
-     * and <I>org.apache.mailet.*</I>.
+     * Conventionally, attribute names should follow the namespacing guidelines
+     * for Java packages.
+     * The Mailet API specification reserves names matching
+     * <i>org.apache.james.*</i> and <i>org.apache.mailet.*</i>.
      *
-     * @param name - a String specifying the name of the attribute
-     * @param object - a Serializable Object representing the attribute to be bound
-     * @return the object previously bound to the name, null if the name was
-     * not bound (null can also mean that null was bound to the name)
+     * @param name the attribute name
+     * @param object the attribute value
+     * @return the value of the previously existing attribute with the same name,
+     *      or null if there was no such attribute (or if the attribute existed
+     *      and its value was null)
      * @since Mailet API v2.1
      */
     Serializable setAttribute(String name, Serializable object);
+
     /**
-     * @return message size
+     * Returns the message size (including headers).
+     * <p>
+     * This is intended as a guide suitable for processing heuristics, and not
+     * a precise indication of the number of outgoing bytes that would be produced
+     * were the email to be encoded for transport.
+     * In cases where an exact value is not readily available or is difficult to
+     * determine (for example, when the fully transfer encoded message is not available)
+     * a suitable estimate may be returned.
+     * 
+     * @return the message size
+     * @throws MessagingException when the size cannot be retrieved
      * @since Mailet API v2.3
      */
     long getMessageSize() throws MessagingException;
+
     /**
-     * @return the last update date
+     * Returns the time at which this Mail was last updated.
+     * @return the time at which this Mail was last updated
      * @since Mailet API v2.3
      */
     Date getLastUpdated();
+    
     /**
-     * @param lastUpdated the new last updated date
+     * Sets the time at which this Mail was last updated.
+     * @param lastUpdated the time at which this Mail was last modified
      * @since Mailet API v2.3
      */
     void setLastUpdated(Date lastUpdated);
