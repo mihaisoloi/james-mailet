@@ -152,7 +152,7 @@
       <!-- Add NOTICE and LICENSE to generated JAR -->
       <plugin>
         <artifactId>maven-remote-resources-plugin</artifactId>
-        <version>1.0-alpha-5</version>
+        <version>1.0</version>
         <executions>
           <execution>
             <goals>
