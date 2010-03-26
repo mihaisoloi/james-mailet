@@ -304,18 +304,5 @@ public interface MailetContext {
      */
     void bounce(Mail mail, String message, MailAddress bouncer) throws MessagingException;
     
-    /**
-     * Stores the message is in the local repository associated with
-     * recipient for later retrieval, e.g., by a POP3 or IMAP service.
-     *
-     * @deprecated - use sparingly.  Service will be replaced with
-     * resource acquired via JNDI.
-     * @param sender - the sender of the incoming message
-     * @param recipient - the user who is receiving this message (as a complete email address)
-     * @param message - the MimeMessage to store in a local mailbox
-     * @throws MessagingException - if the message fails to parse
-     */
-    void storeMail(MailAddress sender, MailAddress recipient, MimeMessage message)
-        throws MessagingException;
 
 }
