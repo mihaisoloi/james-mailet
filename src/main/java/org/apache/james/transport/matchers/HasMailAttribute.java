@@ -54,6 +54,10 @@ public class HasMailAttribute extends GenericMatcher
         return "Has Mail Attribute Matcher";
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.mailet.base.GenericMatcher#init()
+     */
     public void init () throws MessagingException
     {
         attributeName = getCondition();

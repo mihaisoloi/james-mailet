@@ -27,7 +27,7 @@ import org.apache.mailet.MailAddress;
 import javax.mail.MessagingException;
 
 /**
- * CommandListservMatcher is the matcher that pairs with the {@link org.apache.james.transport.mailets.CommandListservManager}
+ * CommandListservMatcher is the matcher that pairs with the CommandListservManager
  * It checks to see if the request is intended for the ListservManager, but doesn't guarantee that it is a valid command.
  * <br />
  * To configure, insert this into the config.xml inside of the root processor block.
@@ -39,18 +39,21 @@ import javax.mail.MessagingException;
  *
  * @version CVS $Revision$ $Date$
  * @since 2.2.0
- * @see org.apache.james.transport.mailets.CommandListservManager
  */
 public class CommandListservMatcher extends GenericRecipientMatcher {
 
     private MailAddress listservAddress;
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.mailet.base.GenericMatcher#init()
+     */
     public void init() throws MessagingException {
         listservAddress = new MailAddress(getCondition());
     }
 
     /**
-     * This doesn't perform an exact match, but checks to see if the request is at lesast
+     * This doesn't perform an exact match, but checks to see if the request is at least
      * intended to go to the list serv manager.
      * @param recipient
      * @return true if matches, false otherwise

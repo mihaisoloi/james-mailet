@@ -82,7 +82,7 @@ public class HasMailAttributeWithValue extends GenericMatcher
      * <p>Answers the recipients of the mail if the attribute is present,
      * and has a toString() value equal to the configured value.</p>
      * 
-     * @see org.apache.mailet.Matcher#match(Mail)
+     * @param mail
      */
     public Collection match(Mail mail) throws MessagingException
     {
@@ -130,8 +130,9 @@ public class HasMailAttributeWithValue extends GenericMatcher
         fieldAttributeValue = attributeValue;
     }
 
-    /**
-     * @see org.apache.mailet.Matcher#init()
+    /*
+     * (non-Javadoc)
+     * @see org.apache.mailet.base.GenericMatcher#init()
      */
     public void init() throws MessagingException
     {

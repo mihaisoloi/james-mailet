@@ -90,8 +90,9 @@ public class RemoveMimeHeader extends GenericMailet {
         }
     }
     
-    /**
-     * @see org.apache.mailet.GenericMailet#getMailetInfo()
+    /*
+     * (non-Javadoc)
+     * @see org.apache.mailet.base.GenericMailet#getMailetInfo()
      */
     public String getMailetInfo() {
         return "RemoveMimeHeader Mailet";

@@ -36,15 +36,19 @@ public class CommandForListserv extends GenericRecipientMatcher {
 
     private MailAddress listservAddress;
 
-    /**
-     * @see org.apache.mailet.GenericRecipientMatcher#init()
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.mailet.base.GenericMatcher#init()
      */
     public void init() throws MessagingException {
         listservAddress = new MailAddress(getCondition());
     }
 
-    /**
-     * @see org.apache.mailet.GenericRecipientMatcher#matchRecipient(MailAddress)
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.mailet.base.GenericRecipientMatcher#matchRecipient(org.apache.mailet.MailAddress)
      */
     public boolean matchRecipient(MailAddress recipient) {
         if (recipient.getDomain().equals(listservAddress.getDomain())) {

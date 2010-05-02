@@ -85,8 +85,10 @@ public class AttachmentFileNameIs extends GenericMatcher {
     /** True if unzip is requested. */
     protected boolean unzipIsRequested;
     
-    /**
-     * @see org.apache.mailet.GenericMatcher#init()
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.mailet.base.GenericMatcher#init()
      */
     public void init() throws MessagingException {
         /* sets up fileNameMasks variable by parsing the condition */
@@ -123,6 +125,7 @@ public class AttachmentFileNameIs extends GenericMatcher {
 
     /** 
      * Either every recipient is matching or neither of them.
+     * @param mail
      * @throws MessagingException if no matching attachment is found and at least one exception was thrown
      */
     public Collection match(Mail mail) throws MessagingException {
@@ -146,6 +149,8 @@ public class AttachmentFileNameIs extends GenericMatcher {
     
     /**
      * Checks if <I>part</I> matches with at least one of the <CODE>masks</CODE>.
+     * 
+     * @param part
      */
     protected boolean matchFound(Part part) throws Exception {
         
@@ -209,6 +214,8 @@ public class AttachmentFileNameIs extends GenericMatcher {
 
     /**
      * Checks if <I>fileName</I> matches with at least one of the <CODE>masks</CODE>.
+     * 
+     * @param fileName
      */
     protected boolean matchFound(String fileName) {
         for (int j = 0; j < masks.length; j++) {
@@ -230,6 +237,8 @@ public class AttachmentFileNameIs extends GenericMatcher {
     
     /**
      * Checks if <I>part</I> is a zip containing a file that matches with at least one of the <CODE>masks</CODE>.
+     *
+     *@param part
      */
     protected boolean matchFoundInZip(Part part) throws MessagingException, IOException {
         ZipInputStream zis = new ZipInputStream(part.getInputStream());
@@ -256,6 +265,8 @@ public class AttachmentFileNameIs extends GenericMatcher {
 
     /**
      * Transforms <I>fileName<I> in a trimmed lowercase string usable for matching agains the masks.
+     *
+     * @param fileName
      */
     protected String cleanFileName(String fileName) {
         return fileName.toLowerCase(Locale.US).trim();

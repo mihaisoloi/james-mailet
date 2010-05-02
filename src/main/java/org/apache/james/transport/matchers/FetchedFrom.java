@@ -38,8 +38,10 @@ import java.util.Collection;
 
 public class FetchedFrom extends GenericMatcher {
     
-    /**
-     * @see org.apache.mailet.GenericMatcher#match(Mail)
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.mailet.base.GenericMatcher#match(org.apache.mailet.Mail)
      */
     public Collection match(Mail mail) throws javax.mail.MessagingException {
         MimeMessage message = mail.getMessage();
