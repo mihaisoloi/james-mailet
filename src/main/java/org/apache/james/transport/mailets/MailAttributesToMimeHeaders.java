@@ -50,8 +50,9 @@ public class MailAttributesToMimeHeaders extends GenericMailet {
      */
     private HashMap map = new HashMap();
 
-    /**
-     * @see org.apache.mailet.GenericMailet#init()
+    /*
+     * (non-Javadoc)
+     * @see org.apache.mailet.base.GenericMailet#init()
      */
     public void init() throws MessagingException {
         String simplemappings = getInitParameter("simplemapping");
@@ -77,8 +78,9 @@ public class MailAttributesToMimeHeaders extends GenericMailet {
         }
     }
 
-    /**
-     * @see org.apache.mailet.GenericMailet#service(Mail)
+    /*
+     * (non-Javadoc)
+     * @see org.apache.mailet.base.GenericMailet#service(org.apache.mailet.Mail)
      */
     public void service(Mail mail) {
         MimeMessage message;

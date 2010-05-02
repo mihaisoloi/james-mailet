@@ -30,13 +30,16 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 
 /**
- * Matches mail from given hosts.
- * @version 1.0.0, 24/04/1999
+ * Matches mail to given hosts.
  */
 public class HostIs extends GenericRecipientMatcher {
 
     private Collection hosts;
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.mailet.base.GenericMatcher#init()
+     */
     public void init() {
         StringTokenizer st = new StringTokenizer(getCondition(), ", ", false);
         hosts = new Vector();
@@ -45,7 +48,11 @@ public class HostIs extends GenericRecipientMatcher {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.mailet.base.GenericRecipientMatcher#matchRecipient(org.apache.mailet.MailAddress)
+     */
     public boolean matchRecipient(MailAddress recipient) {
-        return hosts.contains(recipient.getHost().toLowerCase(Locale.US));
+        return hosts.contains(recipient.getDomain().toLowerCase(Locale.US));
     }
 }

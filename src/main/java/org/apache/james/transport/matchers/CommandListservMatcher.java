@@ -56,8 +56,8 @@ public class CommandListservMatcher extends GenericRecipientMatcher {
      * @return true if matches, false otherwise
      */
     public boolean matchRecipient(MailAddress recipient) {
-        if (recipient.getHost().equals(listservAddress.getHost())) {
-            if (recipient.getUser().startsWith(listservAddress.getUser() + "-")) {
+        if (recipient.getDomain().equals(listservAddress.getDomain())) {
+            if (recipient.getLocalPart().startsWith(listservAddress.getLocalPart() + "-")) {
                 return true;
             }
         }

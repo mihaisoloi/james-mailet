@@ -51,8 +51,9 @@ public class RemoveMimeHeader extends GenericMailet {
      */
     ArrayList headers = new ArrayList();
 
-    /**
-     * @see org.apache.mailet.GenericMailet#init()
+    /*
+     * (non-Javadoc)
+     * @see org.apache.mailet.base.GenericMailet#init()
      */
     public void init() throws MailetException {
         String header = getInitParameter("name");
@@ -67,8 +68,10 @@ public class RemoveMimeHeader extends GenericMailet {
         }
     }
     
-    /**
-     * @see org.apache.mailet.GenericMailet#service(Mail)
+
+    /*
+     * (non-Javadoc)
+     * @see org.apache.mailet.base.GenericMailet#service(org.apache.mailet.Mail)
      */
     public void service(Mail mail) {
         try {

@@ -47,9 +47,9 @@ public class CommandForListserv extends GenericRecipientMatcher {
      * @see org.apache.mailet.GenericRecipientMatcher#matchRecipient(MailAddress)
      */
     public boolean matchRecipient(MailAddress recipient) {
-        if (recipient.getHost().equals(listservAddress.getHost())) {
-            if (recipient.getUser().equals(listservAddress.getUser() + "-on")
-                || recipient.getUser().equals(listservAddress.getUser() + "-off")) {
+        if (recipient.getDomain().equals(listservAddress.getDomain())) {
+            if (recipient.getLocalPart().equals(listservAddress.getLocalPart() + "-on")
+                || recipient.getLocalPart().equals(listservAddress.getLocalPart() + "-off")) {
                 return true;
             }
         }

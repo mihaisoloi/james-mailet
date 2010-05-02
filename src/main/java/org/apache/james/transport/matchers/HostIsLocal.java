@@ -25,12 +25,16 @@ import org.apache.mailet.base.GenericRecipientMatcher;
 import org.apache.mailet.MailAddress;
 
 /**
- * Matches mail from localhost.
- * @version 1.0.0, 24/04/1999
+ * Matches mail to Domains which are local
+ * .
  */
 public class HostIsLocal extends GenericRecipientMatcher {
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.mailet.base.GenericRecipientMatcher#matchRecipient(org.apache.mailet.MailAddress)
+     */
     public boolean matchRecipient(MailAddress recipient) {
-        return getMailetContext().isLocalServer(recipient.getHost());
+        return getMailetContext().isLocalServer(recipient.getDomain());
     }
 }

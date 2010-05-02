@@ -39,7 +39,7 @@ public class SenderHostIsLocal extends GenericMatcher {
     public Collection match(Mail mail) {
         if (mail.getSender() != null
                 && this.getMailetContext().isLocalServer(
-                        mail.getSender().getHost().toLowerCase())) {
+                        mail.getSender().getDomain().toLowerCase())) {
             return mail.getRecipients();
         }
         return null;

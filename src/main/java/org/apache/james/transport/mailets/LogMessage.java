@@ -68,7 +68,7 @@ public class LogMessage extends GenericMailet {
     /**
      * Log a particular message
      *
-     * @param genericmail the mail to process
+     * @param mail the mail to process
      */
     public void service(Mail mail) {
         log(new StringBuffer(160).append("Logging mail ").append(mail.getName()).toString());
@@ -101,6 +101,8 @@ public class LogMessage extends GenericMailet {
     /**
      * Utility method for obtaining a string representation of a
      * Message's headers
+     * 
+     * @param message
      */
     private String getMessageHeaders(MimeMessage message) throws MessagingException {
         Enumeration heads = message.getAllHeaderLines();

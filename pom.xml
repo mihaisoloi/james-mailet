@@ -270,9 +270,9 @@
       </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.2-beta-2</version>
         <configuration>
           <descriptorSourceDirectory>${basedir}/src/assemble/</descriptorSourceDirectory>
+          <tarLongFileMode>gnu</tarLongFileMode> 
         </configuration>
         <executions>
           <execution>

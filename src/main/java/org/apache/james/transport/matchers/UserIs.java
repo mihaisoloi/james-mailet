@@ -34,6 +34,10 @@ import java.util.Vector;
 public class UserIs extends GenericRecipientMatcher {
     Vector users = null;
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.mailet.base.GenericMatcher#init()
+     */
     public void init() {
         StringTokenizer st = new StringTokenizer(getCondition(), ", ", false);
         users = new Vector();
@@ -42,8 +46,12 @@ public class UserIs extends GenericRecipientMatcher {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * @see org.apache.mailet.base.GenericRecipientMatcher#matchRecipient(org.apache.mailet.MailAddress)
+     */
     public boolean matchRecipient(MailAddress recipient) {
-        return users.contains(recipient.getUser());
+        return users.contains(recipient.getLocalPart());
     }
 }
 
