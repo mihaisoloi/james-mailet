@@ -11,11 +11,6 @@
    This product also includes software developed by :
      - Sun Microsystems (http://java.sun.com/)
      
-     
-   This product may include software developed at
-   aQute / Peter Kriens (http://www.aqute.biz/)
-   Package bnd-0.0.249.jar
-   License bnd-0.0.249.LICENSE
 
-   Please read the LICENSE.txt and README.txt files in the root directory of 
+   Please read the LICENSE.txt and NOTICE.txt files in the root directory of 
    this distribution.

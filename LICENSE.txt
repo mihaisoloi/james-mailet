@@ -189,7 +189,4 @@
      
    JUnit, Common Public License - v 1.0
      http://www.junit.org/
-     
-   Bnd, Bundle Tool, The Apache License, Version 2.0
-     http://www.aqute.biz/Code/Bnd
       
