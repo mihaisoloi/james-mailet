@@ -317,29 +317,4 @@
       
     </plugins>
   </reporting>
-  <profiles>
-    <profile>
-      <id>apache-release</id>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <configuration>
-              <descriptorSourceDirectory>${basedir}/src/assemble/</descriptorSourceDirectory>
-              <tarLongFileMode>gnu</tarLongFileMode> 
-            </configuration>
-            <executions>
-              <execution>
-                <id>make-assembly</id>
-                <phase>package</phase> <!-- append to the packaging phase. -->
-                <goals>
-                  <goal>attached</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>  
-        </plugins>    
-      </build>
-    </profile>
-  </profiles>
 </project>
