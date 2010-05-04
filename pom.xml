@@ -37,6 +37,7 @@
   <inceptionYear>2008</inceptionYear>
 
   <properties>
+    <!-- Override the source descriptor -->
     <sourceReleaseAssemblyDescriptor>src</sourceReleaseAssemblyDescriptor>
     
     <!--
