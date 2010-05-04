@@ -22,7 +22,7 @@
   <groupId>org.apache.james</groupId>
   <artifactId>apache-standard-mailets</artifactId>
   <name>Apache JAMES Standard Mailets</name>
-  <version>1.0</version>
+  <version>1.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <description>
     Apache JAMES Standard Mailets is a rich collection of general purpose mailets
@@ -81,13 +81,13 @@
 
   <scm>
     <connection>
-      scm:svn:http://svn.apache.org/repos/asf/james/mailet/standard/tags/apache-standard-mailets-1.0
+      scm:svn:http://svn.apache.org/repos/asf/james/mailet/standard/trunk
     </connection>
     <developerConnection>
-      scm:svn:https://svn.apache.org/repos/asf/james/mailet/standard/tags/apache-standard-mailets-1.0
+      scm:svn:https://svn.apache.org/repos/asf/james/mailet/standard/trunk
     </developerConnection>
     <url>
-      http://svn.apache.org/viewcvs.cgi/james/mailet/standard/tags/apache-standard-mailets-1.0?root=Apache-SVN
+      http://svn.apache.org/viewcvs.cgi/james/mailet/standard/trunk/?root=Apache-SVN
     </url>
   </scm>
 
