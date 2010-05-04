@@ -68,6 +68,16 @@
       <outputDirectory>lib</outputDirectory>
       <destName>apache-mailet-base.LICENSE</destName>
     </file>
+    <file>
+      <source>LICENSE.mail</source>
+      <outputDirectory>lib</outputDirectory>
+      <destName>mail.LICENSE</destName>
+    </file>
+    <file>
+      <source>LICENSE.activation</source>
+      <outputDirectory>lib</outputDirectory>
+      <destName>activation.LICENSE</destName>
+    </file>
   </files>
   <dependencySets>
     <dependencySet>
