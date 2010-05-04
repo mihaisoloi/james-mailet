@@ -37,6 +37,8 @@
   <inceptionYear>2008</inceptionYear>
 
   <properties>
+    <sourceReleaseAssemblyDescriptor>src</sourceReleaseAssemblyDescriptor>
+    
     <!--
     The website is committed to subversion. This property can be overriden
     to upload the site to a local staging location.
