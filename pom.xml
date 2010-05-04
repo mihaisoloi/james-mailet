@@ -314,6 +314,7 @@
           <encoding>${project.build.sourceEncoding}</encoding>
         </configuration>
       </plugin>
+      
     </plugins>
   </reporting>
   <profiles>
@@ -321,44 +322,23 @@
       <id>apache-release</id>
       <build>
         <plugins>
-     
-          <!-- We want to sign the artifact, the POM, and all attached artifacts -->
           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
+            <artifactId>maven-assembly-plugin</artifactId>
             <configuration>
-              <passphrase>${gpg.passphrase}</passphrase>
+              <descriptorSourceDirectory>${basedir}/src/assemble/</descriptorSourceDirectory>
+              <tarLongFileMode>gnu</tarLongFileMode> 
             </configuration>
             <executions>
               <execution>
+                <id>make-assembly</id>
+                <phase>package</phase> <!-- append to the packaging phase. -->
                 <goals>
-                  <goal>sign</goal>
+                  <goal>attached</goal>
                 </goals>
               </execution>
             </executions>
-          </plugin>
-          <!-- We want to deploy the artifact to a staging location for perusal -->
-          <plugin>
-            <inherited>true</inherited>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-deploy-plugin</artifactId>
-            <configuration>
-              <updateReleaseInfo>true</updateReleaseInfo>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>attach-sources</id>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
+          </plugin>  
+        </plugins>    
       </build>
     </profile>
   </profiles>
