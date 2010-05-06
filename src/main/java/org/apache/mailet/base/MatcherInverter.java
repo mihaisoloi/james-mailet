@@ -77,8 +77,16 @@ public class MatcherInverter implements Matcher {
         // Create a new recipient Collection cause mail.getRecipients() give a reference to the internal 
         // list of recipients. If we make changes there the original collection whould be corrupted
         Collection recipients = new ArrayList(mail.getRecipients());
+        Collection matchedRcpts = wrappedMatcher.match(mail);
+        
+        // check if a only a part of the recipients matched
+        if (matchedRcpts != null) {
+            recipients.removeAll(matchedRcpts);
+            if (recipients.isEmpty()) {
+                return null;
+            }
+        }
        
-        recipients.removeAll(wrappedMatcher.match(mail));
         return recipients;
     }
 
