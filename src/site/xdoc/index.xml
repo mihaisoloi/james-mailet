@@ -31,6 +31,19 @@
         <a href='http://james.apache.org/mailet/'>Mailet API</a>
         and so are independent of the server.
         </p>
+        <subsection name='Releases'>
+          <p>
+            <strong>Apache Mailet Standard 1.0</strong>
+            is the current release and can be downloaded
+            <a href='http://james.apache.org/download.cgi'>here</a>.
+          </p>
+        <p>
+          <strong>1.0</strong>
+          is the first independent release of the API.
+          Earlier versions were released as part of the
+          <a href='http://james.apache.org/server/index.html' rel='tag'>Apache James Server</a> and are versioned accordingly.
+        </p>
+      </subsection> 
     <subsection name='Catalog'>
         <p>A full category is available <a href='mailet-report.html'>here</a>.</p>
     </subsection>
