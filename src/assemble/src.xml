@@ -37,6 +37,7 @@
         <exclude>**.bak</exclude>
         <exclude>*.jar</exclude>
         <exclude>*.log</exclude>
+        <exclude>**/bin/**</exclude>
       </excludes>
       <useDefaultExcludes>true</useDefaultExcludes>
     </fileSet>

@@ -37,6 +37,9 @@
   <inceptionYear>2008</inceptionYear>
 
   <properties>
+    <!-- Override the source descriptor -->
+    <sourceReleaseAssemblyDescriptor>src</sourceReleaseAssemblyDescriptor>
+    
     <!--
     The website is committed to subversion. This property can be overriden
     to upload the site to a local staging location.
@@ -253,9 +256,9 @@
       </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.2-beta-2</version>
         <configuration>
           <descriptorSourceDirectory>${basedir}/src/assemble/</descriptorSourceDirectory>
+          <tarLongFileMode>gnu</tarLongFileMode>       
         </configuration>
         <executions>
           <execution>
