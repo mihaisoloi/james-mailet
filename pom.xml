@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-15"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <!--
+<!--
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -17,60 +16,38 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.    
-  -->
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.apache.james</groupId>
+    <artifactId>james-project</artifactId>
+    <version>1.6</version>
+  </parent>
   <groupId>org.apache.james</groupId>
   <artifactId>apache-standard-mailets</artifactId>
   <name>Apache JAMES Standard Mailets</name>
+  <url>http://james.apache.org/mailet/standard/</url>
+  <inceptionYear>2008</inceptionYear>
   <version>1.1-SNAPSHOT</version>
   <packaging>jar</packaging>
+
   <description>
     Apache JAMES Standard Mailets is a rich collection of general purpose mailets
     with limited dependencies. These mailets can be used in any mailet container.
   </description>
-  <parent>
-    <groupId>org.apache.james</groupId>
-    <artifactId>james-project</artifactId>
-    <version>1.5</version>
-  </parent>
-  <url>http://james.apache.org/mailet/standard/</url>
-  <inceptionYear>2008</inceptionYear>
 
   <properties>
     <!-- Override the source descriptor -->
     <sourceReleaseAssemblyDescriptor>src</sourceReleaseAssemblyDescriptor>
-    
-    <!--
-    The website is committed to subversion. This property can be overriden
-    to upload the site to a local staging location.
-    For example, adding the following to ~/.m2/settings.xml will upload
-    to localhost:
-    
-      <profiles>
-        <profile>
-           <id>main</id>
-           <activation>
-              <activeByDefault>true</activeByDefault>
-           </activation>
-           <properties>
-              <james.www>scp://localhost/www</james.www>
-              <james.www.id>localhost</james.www.id>
-      ...
-    -->
-    <!-- General location for site stage -->
-    <james.www>scp://people.apache.org/www/james.apache.org/</james.www>
-    <!-- Project specific location, allowing specific override -->
-    <james.standardmailets.www>${james.www}/mailet/standard/</james.standardmailets.www>
-    <!-- Overridding this value allows single set of loopback settings to be maintained -->
-    <james.www.id>standard-mailet-website</james.www.id>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <target.jdk>1.5</target.jdk>
   </properties>
 
   <distributionManagement>
     <site>
-      <id>${james.www.id}</id>
-      <url>${james.standardmailets.www}</url>
+      <id>standard-mailet-website</id>
+      <url>scp://people.apache.org/www/james.apache.org/mailet/standard/</url>
     </site>
   </distributionManagement>
 
@@ -133,8 +110,83 @@
   </mailingLists>
 
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>2.3.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>2.3.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.felix</groupId>
+          <artifactId>maven-bundle-plugin</artifactId>
+          <version>2.2.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-doap-plugin</artifactId>
+          <version>1.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>2.2.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jxr-plugin</artifactId>
+          <version>2.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>2.7</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-report-plugin</artifactId>
+          <version>2.8</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-changes-plugin</artifactId>
+          <version>2.4</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-pmd-plugin</artifactId>
+          <version>2.5</version>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>findbugs-maven-plugin</artifactId>
+          <version>2.3.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>taglist-maven-plugin</artifactId>
+          <version>2.4</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.rat</groupId>
+          <artifactId>apache-rat-plugin</artifactId>
+          <version>0.7</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.james</groupId>
+          <artifactId>maven-mailetdocs-plugin</artifactId>
+          <version>0.1</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <optimize>true</optimize>
@@ -151,23 +203,29 @@
           <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
             <manifestEntries>
               <Specification-Title>Apache James Standard Mailets</Specification-Title>
-              <Specification-Version>${pom.version}</Specification-Version>
+              <Specification-Version>${project.version}</Specification-Version>
               <Specification-Vendor>The Apache Software Foundation</Specification-Vendor>
               <Implementation-Title>Apache James Standard Mailets</Implementation-Title>
-              <Implementation-Version>${pom.version}</Implementation-Version>
+              <Implementation-Version>${project.version}</Implementation-Version>
               <Implementation-Vendor>The Apache Software Foundation</Implementation-Vendor>
               <Implementation-Vendor-Id>org.apache</Implementation-Vendor-Id>
               <X-Compile-Source-JDK>${target.jdk}</X-Compile-Source-JDK>
               <X-Compile-Target-JDK>${target.jdk}</X-Compile-Target-JDK>
-              <url>${pom.url}</url>
+              <url>${project.url}</url>
             </manifestEntries>
           </archive>
         </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>test-jar</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.felix</groupId>
         <artifactId>maven-bundle-plugin</artifactId>
-        <version>2.0.0</version>
         <executions>
           <execution>
             <id>bundle-manifest</id>
@@ -192,16 +250,7 @@
         <version>1.0-SNAPSHOT</version>
       </plugin>
       -->
-      <plugin>
-        <artifactId>maven-jar-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>test-jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+      <!--
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-doap-plugin</artifactId>
@@ -229,7 +278,9 @@
 
         </configuration>
       </plugin>
+      -->
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
           <descriptorSourceDirectory>${basedir}/src/assemble/</descriptorSourceDirectory>
@@ -248,7 +299,6 @@
       <plugin>
         <groupId>org.apache.rat</groupId>
         <artifactId>apache-rat-plugin</artifactId>
-        <version>0.6</version>
         <executions>
           <execution>
             <phase>verify</phase>
@@ -272,67 +322,167 @@
           </excludes>
         </configuration>
       </plugin>
-    </plugins>
-  </build>
-  
-   <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.james</groupId>
-        <artifactId>maven-mailetdocs-plugin</artifactId>
-        <version>0.1</version>
-      </plugin>
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.4.3</version>
-      </plugin>
-      <plugin>
-        <artifactId>maven-surefire-report-plugin</artifactId>
-        <version>2.4.3</version>
-      </plugin> 
-      <plugin>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.5</version>
-        <configuration>
-          <encoding>UTF-8</encoding>
-        </configuration>
-      </plugin>
+
+      <!-- Site generation -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jxr-plugin</artifactId>
-        <version>2.1</version>
-      </plugin>
-      <plugin>
         <artifactId>maven-site-plugin</artifactId>
-        <version>2.0-beta-6</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.rat</groupId>
-        <artifactId>apache-rat-plugin</artifactId>
-        <version>0.6</version>
+        <executions>
+          <!-- Attach non-reporting site-descriptor when installing -->
+          <execution>
+            <id>attach-descriptor</id>
+            <goals>
+              <goal>attach-descriptor</goal>
+            </goals>
+            <configuration>
+              <siteDirectory>${basedir}/src/site</siteDirectory>
+              <generateReports>false</generateReports>
+            </configuration>
+          </execution>
+        </executions>
         <configuration>
-          <excludes>
-            <exclude>NOTICE.txt</exclude>
-            <exclude>LICENSE.txt</exclude>
-            <exclude>LICENSE.apache</exclude>
-            <!-- Generated by Maven -->
-            <exclude>release.properties</exclude>
-            <exclude>dist/**/*</exclude>
-            <exclude>target/**/*</exclude>
-            <exclude>bind/**/*</exclude>
-            
-          </excludes>
+          <siteDirectory>${maven-site-plugin.siteDirectory}</siteDirectory>
+          <generateReports>${maven-site-plugin.generateReports}</generateReports>
+          <reportPlugins>
+            <!-- Order matters. First project-info-reports, second jxr. -->
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-project-info-reports-plugin</artifactId>
+              <reports>
+                    <report>index</report>
+                    <report>project-team</report>
+                    <report>mailing-list</report>
+                    <report>cim</report>
+                    <report>issue-tracking</report>
+                    <report>license</report>
+                    <report>scm</report>
+                    <report>dependencies</report>
+              </reports>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-jxr-plugin</artifactId>
+              <configuration>
+                <aggregate>true</aggregate>
+              </configuration>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.james</groupId>
+              <artifactId>maven-mailetdocs-plugin</artifactId>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-javadoc-plugin</artifactId>
+              <configuration>
+                <minmemory>256m</minmemory>
+                <maxmemory>1g</maxmemory>
+                <linksource>true</linksource>
+                <tags>
+                  <tag>
+                    <name>note</name>
+                    <placement>a</placement>
+                    <head>NOTE</head>
+                  </tag>
+                  <tag>
+                    <name>todo</name>
+                    <placement>a</placement>
+                    <head>TODO</head>
+                  </tag>
+                  <tag>
+                    <name>warning</name>
+                    <placement>a</placement>
+                    <head>WARNING</head>
+                  </tag>
+                </tags>
+                <source>${target.jdk}</source>
+              </configuration>
+              <reportSets>
+                <reportSet>
+                  <reports>
+                    <report>aggregate</report>
+                    <report>test-aggregate</report>
+                  </reports>
+                </reportSet>
+              </reportSets>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-pmd-plugin</artifactId>
+              <configuration>
+                <linkXref>true</linkXref>
+                <aggregate>true</aggregate>
+                <targetJdk>${target.jdk}</targetJdk>
+                <rulesets>
+                  <ruleset>/rulesets/basic.xml</ruleset>
+                  <ruleset>/rulesets/controversial.xml</ruleset>
+                </rulesets>
+                <format>xml</format>
+                <xrefLocation>${project.reporting.outputDirectory}/xref</xrefLocation>
+                <xrefTestLocation>${project.reporting.outputDirectory}/xref-test</xrefTestLocation>
+                <sourceEncoding>utf-8</sourceEncoding>
+                <minimumTokens>100</minimumTokens>
+              </configuration>
+            </plugin>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>findbugs-maven-plugin</artifactId>
+              <configuration>
+                <!-- required by dashboard plugin and hudson -->
+                <xmlOutput>true</xmlOutput>
+                <effort>Max</effort>
+                <findbugsXmlOutput>true</findbugsXmlOutput>
+                <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
+              </configuration>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-changes-plugin</artifactId>
+              <configuration>
+                  <onlyCurrentVersion>true</onlyCurrentVersion>
+                  <resolutionIds>Closed</resolutionIds>
+                  <maxEntries>1000</maxEntries>
+              </configuration>
+              <reportSets>
+                <reportSet>
+                  <reports>
+                    <report>jira-report</report>
+                  </reports>
+                </reportSet>
+              </reportSets>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-surefire-report-plugin</artifactId>
+              <configuration>
+                <argLine>-Xmx1024m -XX:MaxPermSize=512m</argLine>
+                <aggregate>true</aggregate>
+                <linkXref>true</linkXref>
+                <xrefLocation>${project.reporting.outputDirectory}</xrefLocation>
+              </configuration>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.rat</groupId>
+              <artifactId>apache-rat-plugin</artifactId>
+              <configuration>
+                <excludes>
+                  <exclude>NOTICE.txt</exclude>
+                  <exclude>LICENSE.txt</exclude>
+                  <exclude>LICENSE.apache</exclude>
+                  <!-- Generated by Maven -->
+                  <exclude>release.properties</exclude>
+                  <exclude>dist/**/*</exclude>
+                  <exclude>target/**/*</exclude>
+                  <exclude>bind/**/*</exclude>
+                </excludes>
+              </configuration>
+            </plugin>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>taglist-maven-plugin</artifactId>
+            </plugin>
+          </reportPlugins>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>taglist-maven-plugin</artifactId>
-        <version>2.3</version>
-        <configuration>
-          <encoding>${project.build.sourceEncoding}</encoding>
-        </configuration>
-      </plugin>
-      
     </plugins>
-  </reporting>
+  </build>
 </project>
