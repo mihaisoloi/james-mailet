@@ -76,8 +76,8 @@ public abstract class AbstractSenderIsTest extends TestCase {
                         "Unimplemented mock service");
             }
 
-            public Collection getRecipients() {
-                ArrayList r = new ArrayList();
+            public Collection<MailAddress> getRecipients() {
+                ArrayList<MailAddress> r = new ArrayList<MailAddress>();
                 try {
                     r.add(new MailAddress("test@localhost"));
                 } catch (ParseException e) {
@@ -85,7 +85,7 @@ public abstract class AbstractSenderIsTest extends TestCase {
                 return r;
             }
 
-            public void setRecipients(Collection recipients) {
+            public void setRecipients(Collection<MailAddress> recipients) {
                 throw new UnsupportedOperationException(
                         "Unimplemented mock service");
             }
@@ -134,7 +134,7 @@ public abstract class AbstractSenderIsTest extends TestCase {
                         "Unimplemented mock service");
             }
 
-            public Iterator getAttributeNames() {
+            public Iterator<String> getAttributeNames() {
                 throw new UnsupportedOperationException(
                         "Unimplemented mock service");
             }

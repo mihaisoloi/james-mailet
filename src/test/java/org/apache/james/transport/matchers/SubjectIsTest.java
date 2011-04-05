@@ -25,6 +25,7 @@ import java.util.Collection;
 
 import javax.mail.MessagingException;
 
+import org.apache.mailet.MailAddress;
 import org.apache.mailet.Matcher;
 
 public class SubjectIsTest extends AbstractSubjectIsTest {
@@ -41,7 +42,7 @@ public class SubjectIsTest extends AbstractSubjectIsTest {
 
         setupAll();
 
-        Collection matchedRecipients = matcher.match(mockedMail);
+        Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
         assertNotNull(matchedRecipients);
         assertEquals(matchedRecipients.size(), mockedMail.getRecipients()
@@ -54,7 +55,7 @@ public class SubjectIsTest extends AbstractSubjectIsTest {
 
         setupAll();
 
-        Collection matchedRecipients = matcher.match(mockedMail);
+        Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
         assertNull(matchedRecipients);
     }

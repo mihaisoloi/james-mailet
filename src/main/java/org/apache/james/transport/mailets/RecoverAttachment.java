@@ -88,7 +88,8 @@ public class RecoverAttachment extends GenericMailet {
      *             Thrown when an error situation is encountered.
      */
     public void service(Mail mail) throws MailetException {
-        Map attachments = (Map) mail.getAttribute(attributeName);
+        @SuppressWarnings("unchecked")
+        Map<String, byte[]> attachments = (Map<String, byte[]>) mail.getAttribute(attributeName);
         if (attachments != null) {
 
             MimeMessage message = null;
@@ -99,10 +100,10 @@ public class RecoverAttachment extends GenericMailet {
                         "Could not retrieve message from Mail object", e);
             }
 
-            Iterator i = attachments.values().iterator();
+            Iterator<byte[]> i = attachments.values().iterator();
             try {
                 while (i.hasNext()) {
-                    byte[] bytes = (byte[]) i.next();
+                    byte[] bytes = i.next();
                     InputStream is = new BufferedInputStream(
                             new ByteArrayInputStream(bytes));
                     MimeBodyPart p = new MimeBodyPart(is);

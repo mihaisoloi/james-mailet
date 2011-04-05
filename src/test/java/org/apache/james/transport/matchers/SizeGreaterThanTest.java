@@ -65,7 +65,7 @@ public class SizeGreaterThanTest extends TestCase {
     setupMockedMail(2000000);
         setupMatcher("1m");
 
-        Collection matchedRecipients = matcher.match(mockedMail);
+        Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
         assertNotNull(matchedRecipients);
         assertEquals(matchedRecipients.size(), mockedMail.getRecipients().size());
@@ -75,7 +75,7 @@ public class SizeGreaterThanTest extends TestCase {
         setupMockedMail(200000);
         setupMatcher("1m");
 
-        Collection matchedRecipients = matcher.match(mockedMail);
+        Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
         assertNull(matchedRecipients);
     }

@@ -20,6 +20,7 @@ package org.apache.james.transport.matchers;
 
 import org.apache.mailet.base.GenericMatcher;
 import org.apache.mailet.Mail;
+import org.apache.mailet.MailAddress;
 
 import java.util.Collection;
 
@@ -34,7 +35,7 @@ public class All extends GenericMatcher {
      * (non-Javadoc)
      * @see org.apache.mailet.base.GenericMatcher#match(org.apache.mailet.Mail)
      */
-    public Collection match(Mail mail) {
+    public Collection<MailAddress> match(Mail mail) {
         return mail.getRecipients();
     }
 }

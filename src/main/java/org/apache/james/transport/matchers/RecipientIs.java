@@ -33,11 +33,11 @@ import java.util.StringTokenizer;
  */
 public class RecipientIs extends GenericRecipientMatcher {
 
-    private Collection recipients;
+    private Collection<MailAddress> recipients;
 
     public void init() throws javax.mail.MessagingException {
         StringTokenizer st = new StringTokenizer(getCondition(), ", \t", false);
-        recipients = new java.util.HashSet();
+        recipients = new java.util.HashSet<MailAddress>();
         while (st.hasMoreTokens()) {
             recipients.add(new MailAddress(st.nextToken()));
         }

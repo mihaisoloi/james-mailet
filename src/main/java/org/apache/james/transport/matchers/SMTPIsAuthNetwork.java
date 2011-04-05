@@ -23,6 +23,7 @@ package org.apache.james.transport.matchers;
 
 import org.apache.mailet.base.GenericMatcher;
 import org.apache.mailet.Mail;
+import org.apache.mailet.MailAddress;
 
 import java.util.Collection;
 
@@ -42,7 +43,7 @@ public class SMTPIsAuthNetwork extends GenericMatcher {
      */
     private final static String SMTP_AUTH_NETWORK_NAME = "org.apache.james.SMTPIsAuthNetwork";
 
-    public Collection match(Mail mail) {
+    public Collection<MailAddress> match(Mail mail) {
         String relayingAllowed = (String) mail
                 .getAttribute(SMTP_AUTH_NETWORK_NAME);
         if (relayingAllowed != null && relayingAllowed.equals("true")) {

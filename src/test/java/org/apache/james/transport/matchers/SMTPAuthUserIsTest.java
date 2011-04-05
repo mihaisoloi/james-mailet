@@ -24,6 +24,7 @@ import java.util.Collection;
 
 import javax.mail.MessagingException;
 
+import org.apache.mailet.MailAddress;
 import org.apache.mailet.base.GenericMatcher;
 
 public class SMTPAuthUserIsTest extends AbstractHasMailAttributeTest {
@@ -54,7 +55,7 @@ public class SMTPAuthUserIsTest extends AbstractHasMailAttributeTest {
         setupAll();
         setMailAttributeValue("notmatched@james.apache.org");
 
-        Collection matchedRecipients = matcher.match(mockedMail);
+        Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
         assertNull(matchedRecipients);
     }

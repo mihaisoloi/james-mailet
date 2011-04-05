@@ -23,6 +23,7 @@ package org.apache.james.transport.matchers;
 
 import org.apache.mailet.base.GenericMatcher;
 import org.apache.mailet.Mail;
+import org.apache.mailet.MailAddress;
 
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
@@ -94,7 +95,7 @@ public class AttachmentFileNameIs extends GenericMatcher {
         /* sets up fileNameMasks variable by parsing the condition */
         
         StringTokenizer st = new StringTokenizer(getCondition(), ", ", false);
-        ArrayList theMasks = new ArrayList(20);
+        ArrayList<Mask> theMasks = new ArrayList<Mask>(20);
         while (st.hasMoreTokens()) {
             String fileName = st.nextToken();
             
@@ -128,7 +129,7 @@ public class AttachmentFileNameIs extends GenericMatcher {
      * @param mail
      * @throws MessagingException if no matching attachment is found and at least one exception was thrown
      */
-    public Collection match(Mail mail) throws MessagingException {
+    public Collection<MailAddress> match(Mail mail) throws MessagingException {
         
         try {
             MimeMessage message = mail.getMessage();

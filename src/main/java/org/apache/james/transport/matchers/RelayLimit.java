@@ -24,6 +24,7 @@ package org.apache.james.transport.matchers;
 import org.apache.mailet.base.RFC2822Headers;
 import org.apache.mailet.base.GenericMatcher;
 import org.apache.mailet.Mail;
+import org.apache.mailet.MailAddress;
 
 import javax.mail.Header;
 import javax.mail.MessagingException;
@@ -47,11 +48,11 @@ public class RelayLimit extends GenericMatcher {
         }
     }
 
-    public Collection match(Mail mail) throws javax.mail.MessagingException {
+    public Collection<MailAddress> match(Mail mail) throws javax.mail.MessagingException {
         MimeMessage mm = mail.getMessage();
         int count = 0;
-        for (Enumeration e = mm.getAllHeaders(); e.hasMoreElements();) {
-            Header hdr = (Header)e.nextElement();
+        for (Enumeration<Header> e = mm.getAllHeaders(); e.hasMoreElements();) {
+            Header hdr = e.nextElement();
             if (hdr.getName().equals(RFC2822Headers.RECEIVED)) {
                 count++;
             }

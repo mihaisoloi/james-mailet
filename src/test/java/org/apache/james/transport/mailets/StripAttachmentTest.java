@@ -83,13 +83,14 @@ public class StripAttachmentTest extends TestCase {
         mail.getMessage().writeTo(rawMessage,
                 new String[] { "Bcc", "Content-Length", "Message-ID" });
 
-        Collection c = (Collection) mail
+        @SuppressWarnings("unchecked")
+        Collection<String> c = (Collection<String>) mail
                 .getAttribute(StripAttachment.SAVED_ATTACHMENTS_ATTRIBUTE_KEY);
         assertNotNull(c);
 
         assertEquals(1, c.size());
 
-        String name = (String) c.iterator().next();
+        String name = c.iterator().next();
 
         File f = new File("./"+name);
         InputStream is = new FileInputStream(f);
@@ -155,13 +156,14 @@ public class StripAttachmentTest extends TestCase {
                 new String[] { "Bcc", "Content-Length", "Message-ID" });
         // String res = rawMessage.toString();
 
-        Collection c = (Collection) mail
+        @SuppressWarnings("unchecked")
+        Collection<String> c = (Collection<String>) mail
                 .getAttribute(StripAttachment.SAVED_ATTACHMENTS_ATTRIBUTE_KEY);
         assertNotNull(c);
 
         assertEquals(1, c.size());
 
-        String name = (String) c.iterator().next();
+        String name = c.iterator().next();
 
         File f = new File("./"+name);
         InputStream is = new FileInputStream(f);
@@ -215,13 +217,14 @@ public class StripAttachmentTest extends TestCase {
                 new String[] { "Bcc", "Content-Length", "Message-ID" });
         // String res = rawMessage.toString();
 
-        Collection c = (Collection) mail
+        @SuppressWarnings("unchecked")
+        Collection<String> c = (Collection<String>) mail
                 .getAttribute(StripAttachment.SAVED_ATTACHMENTS_ATTRIBUTE_KEY);
         assertNotNull(c);
 
         assertEquals(1, c.size());
 
-        String name = (String) c.iterator().next();
+        String name = c.iterator().next();
         // System.out.println("--------------------------\n\n\n");
         // System.out.println(name);
 

@@ -32,6 +32,7 @@ import org.apache.mailet.base.test.MailUtil;
 import org.apache.mailet.base.test.FakeMail;
 import org.apache.mailet.base.test.FakeMailContext;
 import org.apache.mailet.base.test.FakeMatcherConfig;
+import org.apache.mailet.MailAddress;
 import org.apache.mailet.Matcher;
 
 public class SMTPIsAuthNetworkTest extends TestCase {
@@ -72,7 +73,7 @@ public class SMTPIsAuthNetworkTest extends TestCase {
         setupMockedMail();
         setupMatcher();
 
-        Collection matchedRecipients = matcher.match(mockedMail);
+        Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
         assertNotNull(matchedRecipients);
         assertEquals(matchedRecipients.size(), mockedMail.getRecipients()
@@ -84,7 +85,7 @@ public class SMTPIsAuthNetworkTest extends TestCase {
         setupMockedMail();
         setupMatcher();
 
-        Collection matchedRecipients = matcher.match(mockedMail);
+        Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
         assertNull(matchedRecipients);
     }

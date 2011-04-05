@@ -74,7 +74,7 @@ public class IsSingleRecipientTest extends TestCase {
         setupMockedMail();
         setupMatcher();
 
-        Collection matchedRecipients = matcher.match(mockedMail);
+        Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
         assertNotNull(matchedRecipients);
     }
@@ -88,7 +88,7 @@ public class IsSingleRecipientTest extends TestCase {
         setupMockedMail();
         setupMatcher();
 
-        Collection matchedRecipients = matcher.match(mockedMail);
+        Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
         assertNull(matchedRecipients);
     }

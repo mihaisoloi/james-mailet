@@ -25,6 +25,7 @@ import org.apache.mailet.base.test.FakeMailContext;
 import org.apache.mailet.base.test.FakeMatcherConfig;
 import org.apache.mailet.base.test.MailUtil;
 
+import org.apache.mailet.MailAddress;
 import org.apache.mailet.Matcher;
 
 import javax.mail.MessagingException;
@@ -56,7 +57,7 @@ public class AllTest extends TestCase {
         mockedMail = MailUtil.createMockMail2Recipients(null);
         setupMatcher();
 
-        Collection matchedRecipients = matcher.match(mockedMail);
+        Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
         assertNotNull(matchedRecipients);
         assertEquals(matchedRecipients.size(), mockedMail.getRecipients()

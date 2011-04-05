@@ -21,15 +21,16 @@
 
 package org.apache.james.transport.mailets;
 
-import org.apache.mailet.base.GenericMailet;
-import org.apache.mailet.Mail;
-import org.apache.mailet.MailetException;
-import java.io.Serializable;
-import java.util.Iterator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+
 import javax.mail.MessagingException;
+
+import org.apache.mailet.Mail;
+import org.apache.mailet.MailetException;
+import org.apache.mailet.base.GenericMailet;
 
 /**
  * <p>This mailet sets attributes on the Mail.</p>
@@ -47,9 +48,9 @@ import javax.mail.MessagingException;
  */
 public class SetMailAttribute extends GenericMailet {
 
-    private HashMap attributesToSet = new HashMap(2);
+    private HashMap<String, String> attributesToSet = new HashMap<String, String>(2);
     
-    private Set entries;
+    private Set<Map.Entry<String, String>> entries;
     
     /**
      * Return a string describing this mailet.
@@ -67,7 +68,7 @@ public class SetMailAttribute extends GenericMailet {
      */
     public void init() throws MailetException
     {
-        Iterator iter = getInitParameterNames();
+        Iterator<String> iter = getInitParameterNames();
         while (iter.hasNext()) {
             String name = iter.next().toString();
             String value = getInitParameter (name);
@@ -85,10 +86,10 @@ public class SetMailAttribute extends GenericMailet {
      */
     public void service(Mail mail) throws MessagingException {
         if (entries != null) {
-            Iterator iter = entries.iterator();
+            Iterator<Map.Entry<String, String>> iter = entries.iterator();
             while (iter.hasNext()) {
-                Map.Entry entry = (Map.Entry)iter.next();
-                mail.setAttribute ((String)entry.getKey(),(Serializable)entry.getValue());
+                Map.Entry<String, String> entry = iter.next();
+                mail.setAttribute (entry.getKey(), entry.getValue());
             }
         }
     }

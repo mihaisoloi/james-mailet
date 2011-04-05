@@ -20,6 +20,7 @@
 
 package org.apache.james.transport.matchers;
 
+import org.apache.mailet.MailAddress;
 import org.apache.mailet.base.GenericMatcher;
 
 import javax.mail.MessagingException;
@@ -45,7 +46,7 @@ public class HasMailAttributeWithValueTest extends AbstractHasMailAttributeTest 
         setupMockedMail(mockedMimeMessage);
         setupMatcher();
 
-        Collection matchedRecipients = matcher.match(mockedMail);
+        Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
         assertNull(matchedRecipients);
     }

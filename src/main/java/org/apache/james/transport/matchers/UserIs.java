@@ -32,7 +32,7 @@ import java.util.Vector;
  * @version 1.0.0, 24/04/1999
  */
 public class UserIs extends GenericRecipientMatcher {
-    Vector users = null;
+    Vector<String> users = null;
 
     /*
      * (non-Javadoc)
@@ -40,7 +40,7 @@ public class UserIs extends GenericRecipientMatcher {
      */
     public void init() {
         StringTokenizer st = new StringTokenizer(getCondition(), ", ", false);
-        users = new Vector();
+        users = new Vector<String>();
         while (st.hasMoreTokens()) {
             users.add(st.nextToken());
         }

@@ -20,24 +20,27 @@
 
 package org.apache.james.transport.matchers;
 
-import org.apache.mailet.base.test.FakeMail;
-import org.apache.mailet.base.test.FakeMatcherConfig;
-
-import org.apache.mailet.Mail;
-import org.apache.mailet.MailAddress;
-import org.apache.mailet.MailetContext;
-import org.apache.mailet.Matcher;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
 import junit.framework.TestCase;
+
+import org.apache.mailet.HostAddress;
+import org.apache.mailet.LookupException;
+import org.apache.mailet.Mail;
+import org.apache.mailet.MailAddress;
+import org.apache.mailet.MailetContext;
+import org.apache.mailet.Matcher;
+import org.apache.mailet.TemporaryLookupException;
+import org.apache.mailet.base.test.FakeMail;
+import org.apache.mailet.base.test.FakeMatcherConfig;
 
 public class HostIsLocalTest extends TestCase {
 
@@ -67,7 +70,7 @@ public class HostIsLocalTest extends TestCase {
 
         MailetContext FakeMailContext = new MailetContext() {
 
-            Collection localServer = new ArrayList(Arrays.asList(LOCALSERVER));
+            Collection<String> localServer = new ArrayList<String>(Arrays.asList(LOCALSERVER));
 
             public void bounce(Mail mail, String message)
                     throws MessagingException {
@@ -83,7 +86,7 @@ public class HostIsLocalTest extends TestCase {
 
             }
 
-            public Collection getMailServers(String host) {
+            public Collection<String> getMailServers(String host) {
                 throw new UnsupportedOperationException(
                         "Unimplemented mock service");
             }
@@ -98,7 +101,7 @@ public class HostIsLocalTest extends TestCase {
                         "Unimplemented mock service");
             }
 
-            public Iterator getAttributeNames() {
+            public Iterator<String> getAttributeNames() {
                 throw new UnsupportedOperationException(
                         "Unimplemented mock service");
             }
@@ -152,13 +155,13 @@ public class HostIsLocalTest extends TestCase {
                         "Unimplemented mock service");
             }
 
-            public void sendMail(MailAddress sender, Collection recipients,
+            public void sendMail(MailAddress sender, Collection<MailAddress> recipients,
                     MimeMessage msg) throws MessagingException {
                 throw new UnsupportedOperationException(
                         "Unimplemented mock service");
             }
 
-            public void sendMail(MailAddress sender, Collection recipients,
+            public void sendMail(MailAddress sender, Collection<MailAddress> recipients,
                     MimeMessage msg, String state) throws MessagingException {
                 throw new UnsupportedOperationException(
                         "Unimplemented mock service");
@@ -174,15 +177,24 @@ public class HostIsLocalTest extends TestCase {
                         "Unimplemented mock service");
             }
 
-            public void storeMail(MailAddress sender, MailAddress recipient,
-                    MimeMessage msg) throws MessagingException {
+            public Iterator<HostAddress> getSMTPHostAddresses(String domainName) {
                 throw new UnsupportedOperationException(
                         "Unimplemented mock service");
             }
 
-            public Iterator getSMTPHostAddresses(String domainName) {
-                throw new UnsupportedOperationException(
-                        "Unimplemented mock service");
+            public List<String> dnsLookup(String arg0, RecordType arg1) throws TemporaryLookupException, LookupException {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            public void log(LogLevel arg0, String arg1) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            public void log(LogLevel arg0, String arg1, Throwable arg2) {
+                // TODO Auto-generated method stub
+                
             }
 
         };
@@ -202,7 +214,7 @@ public class HostIsLocalTest extends TestCase {
         setupMockedMail();
         setupMatcher();
 
-        Collection matchedRecipients = matcher.match(mockedMail);
+        Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
         assertNotNull(matchedRecipients);
         assertEquals(matchedRecipients.size(), mockedMail.getRecipients()
@@ -218,7 +230,7 @@ public class HostIsLocalTest extends TestCase {
         setupMockedMail();
         setupMatcher();
 
-        Collection matchedRecipients = matcher.match(mockedMail);
+        Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
         assertNotNull(matchedRecipients);
         assertEquals(matchedRecipients.size(), 1);
@@ -233,7 +245,7 @@ public class HostIsLocalTest extends TestCase {
         setupMockedMail();
         setupMatcher();
 
-        Collection matchedRecipients = matcher.match(mockedMail);
+        Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
         assertEquals(matchedRecipients.size(), 0);
     }

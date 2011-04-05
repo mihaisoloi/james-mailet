@@ -23,6 +23,7 @@ package org.apache.james.transport.matchers;
 
 import org.apache.mailet.base.GenericMatcher;
 import org.apache.mailet.Mail;
+import org.apache.mailet.MailAddress;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -34,7 +35,7 @@ import java.util.Collection;
  */
 public class SubjectStartsWith extends GenericMatcher {
 
-    public Collection match(Mail mail) throws MessagingException {
+    public Collection<MailAddress> match(Mail mail) throws MessagingException {
         MimeMessage mm = mail.getMessage();
         String subject = mm.getSubject();
         if (subject != null && subject.startsWith(getCondition())) {

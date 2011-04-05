@@ -75,7 +75,7 @@ public class HostIsTest extends TestCase {
         setupMockedMail();
         setupMatcher();
 
-        Collection matchedRecipients = matcher.match(mockedMail);
+        Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
         assertNotNull(matchedRecipients);
         assertEquals(matchedRecipients.size(), mockedMail.getRecipients()
@@ -91,7 +91,7 @@ public class HostIsTest extends TestCase {
         setupMockedMail();
         setupMatcher();
 
-        Collection matchedRecipients = matcher.match(mockedMail);
+        Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
         assertNotNull(matchedRecipients);
         assertEquals(matchedRecipients.size(), 1);
@@ -106,7 +106,7 @@ public class HostIsTest extends TestCase {
         setupMockedMail();
         setupMatcher();
 
-        Collection matchedRecipients = matcher.match(mockedMail);
+        Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
         assertEquals(matchedRecipients.size(), 0);
     }

@@ -34,17 +34,17 @@ import java.util.StringTokenizer;
  */
 public class SenderIs extends GenericMatcher {
 
-    private Collection senders;
+    private Collection<MailAddress> senders;
 
     public void init() throws javax.mail.MessagingException {
         StringTokenizer st = new StringTokenizer(getCondition(), ", \t", false);
-        senders = new java.util.HashSet();
+        senders = new java.util.HashSet<MailAddress>();
         while (st.hasMoreTokens()) {
             senders.add(new MailAddress(st.nextToken()));
         }
     }
 
-    public Collection match(Mail mail) {
+    public Collection<MailAddress> match(Mail mail) {
         if (senders.contains(mail.getSender())) {
             return mail.getRecipients();
         } else {

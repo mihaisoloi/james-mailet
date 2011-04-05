@@ -48,7 +48,7 @@ public class MailAttributesToMimeHeaders extends GenericMailet {
     /**
      * HashMap which holds the attributeName and headerName
      */
-    private HashMap map = new HashMap();
+    private HashMap<String, String> map = new HashMap<String, String>();
 
     /*
      * (non-Javadoc)
@@ -87,12 +87,12 @@ public class MailAttributesToMimeHeaders extends GenericMailet {
         try {
             message = mail.getMessage();
 
-            Iterator keys = map.keySet().iterator();
+            Iterator<String> keys = map.keySet().iterator();
 
             while (keys.hasNext()) {
-                String key = keys.next().toString();
+                String key = keys.next();
                 String value = (String) mail.getAttribute(key);
-                String headerName = map.get(key).toString();
+                String headerName = map.get(key);
 
                 // Check if we have all needed values
                 if (headerName != null && value != null) {

@@ -23,6 +23,7 @@ package org.apache.james.transport.matchers;
 
 import org.apache.mailet.base.GenericMatcher;
 import org.apache.mailet.Mail;
+import org.apache.mailet.MailAddress;
 
 import javax.mail.internet.MimeMessage;
 import java.util.Collection;
@@ -43,7 +44,7 @@ public class FetchedFrom extends GenericMatcher {
      * (non-Javadoc)
      * @see org.apache.mailet.base.GenericMatcher#match(org.apache.mailet.Mail)
      */
-    public Collection match(Mail mail) throws javax.mail.MessagingException {
+    public Collection<MailAddress> match(Mail mail) throws javax.mail.MessagingException {
         MimeMessage message = mail.getMessage();
         String fetch = message.getHeader("X-fetched-from", null);
         if (fetch != null && fetch.equals(getCondition())) {

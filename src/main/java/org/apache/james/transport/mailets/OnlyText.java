@@ -44,7 +44,7 @@ public class OnlyText extends GenericMailet {
     private static final String PARAMETER_NAME_NOTEXT_PROCESSOR = "NoTextProcessor";
     
     private String optionsNotextProcessor = null;
-    private final HashMap charMap = new HashMap();
+    private final HashMap<String, String> charMap = new HashMap<String, String>();
     
     /**
      * returns a String describing this mailet.

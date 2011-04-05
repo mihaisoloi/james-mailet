@@ -19,17 +19,6 @@
 
 package org.apache.james.transport.mailets;
 
-import org.apache.mailet.base.GenericMailet;
-import org.apache.mailet.Mail;
-import org.apache.mailet.MailetException;
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.Part;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeUtility;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -40,9 +29,19 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Part;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeUtility;
+
+import org.apache.mailet.Mail;
+import org.apache.mailet.MailetException;
+import org.apache.mailet.base.GenericMailet;
 
 /**
  * <p>
@@ -311,21 +310,23 @@ public class StripAttachment extends GenericMailet {
                 if (directoryName != null) {
                     String filename = saveAttachmentToFile(part, fileName);
                     if (filename != null) {
-                        Collection c = (Collection) mail
+                        @SuppressWarnings("unchecked")
+                        Collection<String> c = (Collection<String>) mail
                                 .getAttribute(SAVED_ATTACHMENTS_ATTRIBUTE_KEY);
                         if (c == null) {
-                            c = new ArrayList();
+                            c = new ArrayList<String>();
                             mail.setAttribute(SAVED_ATTACHMENTS_ATTRIBUTE_KEY,
-                                    (ArrayList) c);
+                                    (ArrayList<String>) c);
                         }
                         c.add(filename);
                     }
                 }
                 if (attributeName != null) {
-                    Map m = (Map) mail.getAttribute(attributeName);
+                    @SuppressWarnings("unchecked")
+                    Map<String, byte[]> m = (Map<String, byte[]>) mail.getAttribute(attributeName);
                     if (m == null) {
-                        m = new LinkedHashMap();
-                        mail.setAttribute(attributeName, (LinkedHashMap) m);
+                        m = new LinkedHashMap<String, byte[]>();
+                        mail.setAttribute(attributeName, (LinkedHashMap<String, byte[]>) m);
                     }
                     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                     OutputStream os = new BufferedOutputStream(
@@ -341,12 +342,13 @@ public class StripAttachment extends GenericMailet {
                 ret = removeAttachments.equals(REMOVE_ALL);
             }
             if (ret) {
-                Collection c = (Collection) mail
+                @SuppressWarnings("unchecked")
+                Collection<String> c = (Collection<String>) mail
                         .getAttribute(REMOVED_ATTACHMENTS_ATTRIBUTE_KEY);
                 if (c == null) {
-                    c = new ArrayList();
+                    c = new ArrayList<String>();
                     mail.setAttribute(REMOVED_ATTACHMENTS_ATTRIBUTE_KEY,
-                            (ArrayList) c);
+                            (ArrayList<String>) c);
                 }
                 c.add(fileName);
             }

@@ -48,7 +48,7 @@ public class UserIsTest extends AbstractRecipientIsTest {
         setupMockedMail();
         setupMatcher();
 
-        Collection matchedRecipients = matcher.match(mockedMail);
+        Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
         assertNotNull(matchedRecipients);
         assertEquals(matchedRecipients.size(), mockedMail.getRecipients()
@@ -63,7 +63,7 @@ public class UserIsTest extends AbstractRecipientIsTest {
 
         setupAll();
 
-        Collection matchedRecipients = matcher.match(mockedMail);
+        Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
         assertNotNull(matchedRecipients);
         assertEquals(matchedRecipients.size(), 1);
@@ -78,7 +78,7 @@ public class UserIsTest extends AbstractRecipientIsTest {
         setupMockedMail();
         setupMatcher();
 
-        Collection matchedRecipients = matcher.match(mockedMail);
+        Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
         assertEquals(matchedRecipients.size(), 0);
     }

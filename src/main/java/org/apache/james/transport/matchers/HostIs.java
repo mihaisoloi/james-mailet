@@ -34,7 +34,7 @@ import java.util.Vector;
  */
 public class HostIs extends GenericRecipientMatcher {
 
-    private Collection hosts;
+    private Collection<String> hosts;
 
     /*
      * (non-Javadoc)
@@ -42,7 +42,7 @@ public class HostIs extends GenericRecipientMatcher {
      */
     public void init() {
         StringTokenizer st = new StringTokenizer(getCondition(), ", ", false);
-        hosts = new Vector();
+        hosts = new Vector<String>();
         while (st.hasMoreTokens()) {
             hosts.add(st.nextToken().toLowerCase(Locale.US));
         }

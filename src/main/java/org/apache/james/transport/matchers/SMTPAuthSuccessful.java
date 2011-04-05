@@ -23,6 +23,7 @@ package org.apache.james.transport.matchers;
 
 import org.apache.mailet.base.GenericMatcher;
 import org.apache.mailet.Mail;
+import org.apache.mailet.MailAddress;
 
 import java.util.Collection;
 
@@ -43,7 +44,7 @@ public class SMTPAuthSuccessful extends GenericMatcher {
      */
     private final static String SMTP_AUTH_USER_ATTRIBUTE_NAME = "org.apache.james.SMTPAuthUser";
     
-    public Collection match(Mail mail) {
+    public Collection<MailAddress> match(Mail mail) {
         String authUser = (String) mail.getAttribute(SMTP_AUTH_USER_ATTRIBUTE_NAME);
         if (authUser != null) {
             return mail.getRecipients();

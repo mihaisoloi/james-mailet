@@ -23,6 +23,7 @@ package org.apache.james.transport.matchers;
 
 import org.apache.mailet.base.GenericMatcher;
 import org.apache.mailet.Mail;
+import org.apache.mailet.MailAddress;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -127,7 +128,7 @@ public class CompareNumericHeaderValue extends GenericMatcher {
      * (non-Javadoc)
      * @see org.apache.mailet.base.GenericMatcher#match(org.apache.mailet.Mail)
      */
-    public Collection match(Mail mail) throws MessagingException {
+    public Collection<MailAddress> match(Mail mail) throws MessagingException {
         if (headerName == null) {
             // should never get here
             throw new IllegalStateException("Null headerName");

@@ -23,6 +23,7 @@ package org.apache.james.transport.matchers;
 
 import org.apache.mailet.base.GenericMatcher;
 import org.apache.mailet.Mail;
+import org.apache.mailet.MailAddress;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -40,12 +41,12 @@ import javax.mail.internet.MimeMessage;
  */
 public class HasHeader extends GenericMatcher {
 
-    private LinkedList conditionline_ = new LinkedList();
+    private LinkedList<String> conditionline_ = new LinkedList<String>();
 
     // set headernames and values
     public void init() throws MessagingException {
         StringTokenizer st = new StringTokenizer(getCondition(), "+");
-        conditionline_ = new LinkedList();
+        conditionline_ = new LinkedList<String>();
 
         // separates the headernames from the matchline
         while (st.hasMoreTokens()) {
@@ -54,15 +55,15 @@ public class HasHeader extends GenericMatcher {
         }
     }
 
-    public Collection match(Mail mail) throws javax.mail.MessagingException {
+    public Collection<MailAddress> match(Mail mail) throws javax.mail.MessagingException {
         boolean match = false;
         MimeMessage message = mail.getMessage();
 
 
         header:
             // goes through the headernames one by one
-            for (Iterator it=conditionline_.iterator(); it.hasNext(); ) {
-                String element = (String)it.next();
+            for (Iterator<String> it=conditionline_.iterator(); it.hasNext(); ) {
+                String element = it.next();
                 StringTokenizer st = new StringTokenizer(element, "=", false);
                 String header = new String();
 

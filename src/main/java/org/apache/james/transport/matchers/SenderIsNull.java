@@ -23,6 +23,7 @@ package org.apache.james.transport.matchers;
 
 import org.apache.mailet.base.GenericMatcher;
 import org.apache.mailet.Mail;
+import org.apache.mailet.MailAddress;
 
 import java.util.Collection;
 
@@ -37,7 +38,7 @@ import java.util.Collection;
  */
 public class SenderIsNull extends GenericMatcher {
 
-    public Collection match(Mail mail) {
+    public Collection<MailAddress> match(Mail mail) {
         if (mail.getSender() == null) {
             return mail.getRecipients();
         } else {

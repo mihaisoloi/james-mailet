@@ -23,6 +23,7 @@ package org.apache.james.transport.matchers;
 
 import org.apache.mailet.base.GenericMatcher;
 import org.apache.mailet.Mail;
+import org.apache.mailet.MailAddress;
 
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
@@ -41,7 +42,7 @@ public class HasAttachment extends GenericMatcher {
      * Either every recipient is matching or neither of them.
      * @throws MessagingException if no attachment is found and at least one exception was thrown
      */
-    public Collection match(Mail mail) throws MessagingException {
+    public Collection<MailAddress> match(Mail mail) throws MessagingException {
         
         Exception anException = null;
         

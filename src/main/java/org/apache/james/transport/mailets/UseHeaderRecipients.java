@@ -84,7 +84,7 @@ public class UseHeaderRecipients extends GenericMailet {
         // ensure that no two entries are equal using the equality method
         // of the element objects.  MailAddress objects test equality based
         // on equivalent but not necessarily visually identical addresses.
-        Collection recipients = mail.getRecipients();
+        Collection<MailAddress> recipients = mail.getRecipients();
         // Wipe all the exist recipients
         recipients.clear();
         recipients.addAll(getHeaderMailAddresses(message, "Mail-For"));
@@ -120,7 +120,7 @@ public class UseHeaderRecipients extends GenericMailet {
      * @param name the header name as a String
      * @return the collection of MailAddress objects.
      */
-    private Collection getHeaderMailAddresses(MimeMessage message, String name) throws MessagingException {
+    private Collection<MailAddress> getHeaderMailAddresses(MimeMessage message, String name) throws MessagingException {
 
         if (isDebug) {
             StringBuffer logBuffer =
@@ -130,7 +130,7 @@ public class UseHeaderRecipients extends GenericMailet {
                         .append(" headers");
             log(logBuffer.toString());
         }
-        Collection addresses = new Vector();
+        Collection<MailAddress> addresses = new Vector<MailAddress>();
         String[] headers = message.getHeader(name);
         String addressString;
         InternetAddress iAddress;

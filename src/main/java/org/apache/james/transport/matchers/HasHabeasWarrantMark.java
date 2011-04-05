@@ -23,6 +23,7 @@ package org.apache.james.transport.matchers;
 
 import org.apache.mailet.base.GenericMatcher;
 import org.apache.mailet.Mail;
+import org.apache.mailet.MailAddress;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -81,7 +82,7 @@ public class HasHabeasWarrantMark extends GenericMatcher
         { "X-Habeas-SWE-9", "mark in spam to <http://www.habeas.com/report/>." }, 
     };
 
-    public Collection match(Mail mail) throws MessagingException
+    public Collection<MailAddress> match(Mail mail) throws MessagingException
     {
         MimeMessage message = mail.getMessage();
 

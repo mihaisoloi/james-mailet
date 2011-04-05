@@ -26,6 +26,7 @@ import java.util.StringTokenizer;
 
 import org.apache.mailet.base.GenericMatcher;
 import org.apache.mailet.Mail;
+import org.apache.mailet.MailAddress;
 
 /**
  * <P>Matches mails that are sent by an SMTP authenticated user present in a supplied list.</P>
@@ -45,17 +46,17 @@ public class SMTPAuthUserIs extends GenericMatcher {
      */
     private final static String SMTP_AUTH_USER_ATTRIBUTE_NAME = "org.apache.james.SMTPAuthUser";
     
-    private Collection users;
+    private Collection<String> users;
 
     public void init() throws javax.mail.MessagingException {
         StringTokenizer st = new StringTokenizer(getCondition(), ", \t", false);
-        users = new java.util.HashSet();
+        users = new java.util.HashSet<String>();
         while (st.hasMoreTokens()) {
             users.add(st.nextToken());
         }
     }
 
-    public Collection match(Mail mail) {
+    public Collection<MailAddress> match(Mail mail) {
         String authUser = (String) mail.getAttribute(SMTP_AUTH_USER_ATTRIBUTE_NAME);
         if (authUser != null && users.contains(authUser)) {
             return mail.getRecipients();

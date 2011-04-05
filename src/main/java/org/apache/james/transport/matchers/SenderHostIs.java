@@ -23,6 +23,7 @@ package org.apache.james.transport.matchers;
 
 import org.apache.mailet.base.GenericMatcher;
 import org.apache.mailet.Mail;
+import org.apache.mailet.MailAddress;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -45,7 +46,7 @@ public class SenderHostIs extends GenericMatcher {
     /**
      * The collection of host names to match against.
      */
-    private Collection senderHosts;
+    private Collection<String> senderHosts;
 
     /**
      * Initialize the mailet.
@@ -55,7 +56,7 @@ public class SenderHostIs extends GenericMatcher {
         StringTokenizer st = new StringTokenizer(getCondition(), ", ", false);
 
         //..into a vector of domain names.
-        senderHosts = new java.util.HashSet();
+        senderHosts = new java.util.HashSet<String>();
         while (st.hasMoreTokens()) {
             senderHosts.add(st.nextToken().toLowerCase(Locale.US));
         }
@@ -70,7 +71,7 @@ public class SenderHostIs extends GenericMatcher {
      *
      * @param mail the mail being processed
      */
-    public Collection match(Mail mail) {
+    public Collection<MailAddress> match(Mail mail) {
         try {
             if (mail.getSender() != null && senderHosts.contains(mail.getSender().getDomain().toLowerCase(Locale.US))) {
                 return mail.getRecipients();

@@ -24,6 +24,7 @@ package org.apache.james.transport.mailets;
 import org.apache.mailet.base.RFC2822Headers;
 import org.apache.mailet.base.GenericMailet;
 import org.apache.mailet.Mail;
+import org.apache.mailet.MailAddress;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -507,7 +508,7 @@ public class ClamAVScan extends GenericMailet {
         
         InetAddress address = null;
         
-        Set usedAddresses = new HashSet(getAddressesCount());
+        Set<InetAddress> usedAddresses = new HashSet<InetAddress>(getAddressesCount());
         for (;;) {
             // this do-while loop is needed because other threads could in the meantime
             // calling getNextAddress(), and because of that the current thread may skip
@@ -900,7 +901,7 @@ public class ClamAVScan extends GenericMailet {
         
         out.print("Mail details:");
         out.print(" MAIL FROM: " + mail.getSender());
-        Iterator rcptTo = mail.getRecipients().iterator();
+        Iterator<MailAddress> rcptTo = mail.getRecipients().iterator();
         out.print(", RCPT TO: " + rcptTo.next());
         while (rcptTo.hasNext()) {
             out.print(", " + rcptTo.next());

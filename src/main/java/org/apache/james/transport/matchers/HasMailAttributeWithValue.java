@@ -26,6 +26,7 @@ import java.util.Collection;
 import javax.mail.MessagingException;
 
 import org.apache.mailet.Mail;
+import org.apache.mailet.MailAddress;
 import org.apache.mailet.base.GenericMatcher;
 
 /**
@@ -84,7 +85,7 @@ public class HasMailAttributeWithValue extends GenericMatcher
      * 
      * @param mail
      */
-    public Collection match(Mail mail) throws MessagingException
+    public Collection<MailAddress> match(Mail mail) throws MessagingException
     {
         Object attributeValue = mail.getAttribute(getAttributeName());
 

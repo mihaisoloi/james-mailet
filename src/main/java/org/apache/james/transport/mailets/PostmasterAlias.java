@@ -49,19 +49,19 @@ public class PostmasterAlias extends GenericMailet {
      * @throws MessagingException if an error is encountered while modifying the message
      */
     public void service(Mail mail) throws MessagingException {
-        Collection recipients = mail.getRecipients();
-        Collection recipientsToRemove = null;
+        Collection<MailAddress> recipients = mail.getRecipients();
+        Collection<MailAddress> recipientsToRemove = null;
         MailetContext mailetContext = getMailetContext();
         boolean postmasterAddressed = false;
 
-        for (Iterator i = recipients.iterator(); i.hasNext(); ) {
+        for (Iterator<MailAddress> i = recipients.iterator(); i.hasNext(); ) {
             MailAddress addr = (MailAddress)i.next();
             if (addr.getLocalPart().equalsIgnoreCase("postmaster") &&
                 mailetContext.isLocalServer(addr.getDomain())) {
                 //Should remove this address... we want to replace it with
                 //  the server's postmaster address
                 if (recipientsToRemove == null) {
-                    recipientsToRemove = new Vector();
+                    recipientsToRemove = new Vector<MailAddress>();
                 }
                 recipientsToRemove.add(addr);
                 //Flag this as having found the postmaster

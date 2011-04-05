@@ -48,12 +48,12 @@ abstract public class AbstractQuotaMatcher extends GenericMatcher {
      *
      * @throws MessagingException if either <CODE>isSenderChecked</CODE> or isRecipientChecked throw an exception
      */    
-    public final Collection match(Mail mail) throws MessagingException {
-        Collection matching = null;
+    public final Collection<MailAddress> match(Mail mail) throws MessagingException {
+        Collection<MailAddress> matching = null;
         if (isSenderChecked(mail.getSender())) {
-            matching = new ArrayList();
-            for (Iterator i = mail.getRecipients().iterator(); i.hasNext(); ) {
-                MailAddress recipient = (MailAddress) i.next();
+            matching = new ArrayList<MailAddress>();
+            for (Iterator<MailAddress> i = mail.getRecipients().iterator(); i.hasNext(); ) {
+                MailAddress recipient = i.next();
                 if (isRecipientChecked(recipient) && isOverQuota(recipient, mail)) {
                     matching.add(recipient);
                 }

@@ -34,6 +34,7 @@ import org.apache.mailet.base.test.FakeMailContext;
 import org.apache.mailet.base.test.FakeMatcherConfig;
 import org.apache.mailet.base.test.MailUtil;
 import org.apache.mailet.base.GenericMatcher;
+import org.apache.mailet.MailAddress;
 import org.apache.mailet.Matcher;
 
 public abstract class AbstractHasMailAttributeTest extends TestCase {
@@ -82,7 +83,7 @@ public abstract class AbstractHasMailAttributeTest extends TestCase {
 
         setupAll();
 
-        Collection matchedRecipients = matcher.match(mockedMail);
+        Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
         assertNotNull(matchedRecipients);
         assertEquals(matchedRecipients.size(), mockedMail.getRecipients()
@@ -103,7 +104,7 @@ public abstract class AbstractHasMailAttributeTest extends TestCase {
     public void testAttributeIsNotMatched() throws MessagingException {
         setupAll();
 
-        Collection matchedRecipients = matcher.match(mockedMail);
+        Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
         assertNull(matchedRecipients);
     }

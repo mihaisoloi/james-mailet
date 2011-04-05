@@ -49,7 +49,7 @@ public class RemoveMimeHeader extends GenericMailet {
     /**
      * Arraylist which holds the headers which should be removed
      */
-    ArrayList headers = new ArrayList();
+    ArrayList<String> headers = new ArrayList<String>();
 
     /*
      * (non-Javadoc)
