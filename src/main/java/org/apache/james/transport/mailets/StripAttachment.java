@@ -182,12 +182,11 @@ public class StripAttachment extends GenericMailet {
                 getInitParameter(DECODE_FILENAME_PARAMETER_NAME),
                 decodeFilename);
         if (getInitParameter(REPLACE_FILENAME_PATTERN_PARAMETER_NAME) != null) {
-            List[] pl = ReplaceContent
+            PatternList pl = ReplaceContent
                     .getPatternsFromString(getInitParameter(REPLACE_FILENAME_PATTERN_PARAMETER_NAME));
-            replaceFilenamePatterns = (Pattern[]) pl[0].toArray(new Pattern[0]);
-            replaceFilenameSubstitutions = (String[]) pl[1]
-                    .toArray(new String[0]);
-            replaceFilenameFlags = (Integer[]) pl[2].toArray(new Integer[0]);
+            replaceFilenamePatterns = pl.getPatterns().toArray(new Pattern[0]);
+            replaceFilenameSubstitutions = pl.getSubstitutions().toArray(new String[0]);
+            replaceFilenameFlags = pl.getFlags().toArray(new Integer[0]);
         }
 
         String toLog = "StripAttachment is initialised with regex pattern ["

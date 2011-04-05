@@ -121,7 +121,7 @@ public class ReplaceContent extends GenericMailet {
      * @return an array containing Pattern and Substitution of the input stream
      * @throws MailetException 
      */
-    protected static Object[] getPattern(String line) throws MailetException {
+    protected static PatternBean getPattern(String line) throws MailetException {
         String[] pieces = StringUtils.split(line, "/");
         if (pieces.length < 3) throw new MailetException("Invalid expression: " + line);
         int options = 0;
@@ -136,33 +136,29 @@ public class ReplaceContent extends GenericMailet {
         if (pieces[1].indexOf("\\r") >= 0) pieces[1] = pieces[1].replaceAll("\\\\r", "\r");
         if (pieces[1].indexOf("\\n") >= 0) pieces[1] = pieces[1].replaceAll("\\\\n", "\n");
         if (pieces[1].indexOf("\\t") >= 0) pieces[1] = pieces[1].replaceAll("\\\\t", "\t");
-        
-        return new Object[] {Pattern.compile(pieces[0], options), pieces[1] , new Integer(flags)};
+
+        return new PatternBean (Pattern.compile(pieces[0], options), pieces[1] , new Integer(flags));
     }
     
-    protected static List[] getPatternsFromString(String pattern) throws MailetException {
+    protected static PatternList getPatternsFromString(String pattern) throws MailetException {
         pattern = pattern.trim();
         if (pattern.length() < 2 && !pattern.startsWith("/") && !pattern.endsWith("/")) throw new MailetException("Invalid parameter value: " + PARAMETER_NAME_SUBJECT_PATTERN);
         pattern = pattern.substring(1, pattern.length() - 1);
         String[] patternArray = StringUtils.split(pattern, "/,/");
         
-        List patterns = new ArrayList();
-        List substitutions = new ArrayList();
-        List flags = new ArrayList();
+        PatternList patternList= new PatternList();
         for (int i = 0; i < patternArray.length; i++) {
-            Object[] o = getPattern(patternArray[i]);
-            patterns.add(o[0]);
-            substitutions.add(o[1]);
-            flags.add(o[2]);
+            PatternBean o = getPattern(patternArray[i]);
+            patternList.getPatterns().add(o.getPatterns());
+            patternList.getSubstitutions().add(o.getSubstitutions());
+            patternList.getFlags().add(o.getFlag());
         }
         
-        return new List[] {patterns, substitutions, flags};
+        return patternList;
     }
 
-    protected static List[] getPatternsFromStream(InputStream stream, String charset) throws MailetException, IOException {
-        List patterns = new ArrayList();
-        List substitutions = new ArrayList();
-        List flags = new ArrayList();
+    protected static PatternList getPatternsFromStream(InputStream stream, String charset) throws MailetException, IOException {
+        PatternList patternList= new PatternList();
         BufferedReader reader = new BufferedReader(charset != null ? new InputStreamReader(stream, charset) : new InputStreamReader(stream));
         //BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("q:\\correzioniout"), "utf-8"));
         
@@ -171,23 +167,21 @@ public class ReplaceContent extends GenericMailet {
             line = line.trim();
             if (line.length() > 0 && !line.startsWith("#")) {
                 if (line.length() < 2 && !line.startsWith("/") && !line.endsWith("/")) throw new MailetException("Invalid expression: " + line);
-                Object[] o = getPattern(line.substring(1, line.length() - 1));
-                patterns.add(o[0]);
-                substitutions.add(o[1]);
-                flags.add(o[2]);
+                PatternBean o = getPattern(line.substring(1, line.length() - 1));
+                patternList.getPatterns().add(o.getPatterns());
+                patternList.getSubstitutions().add(o.getSubstitutions());
+                patternList.getFlags().add(o.getFlag());
             }
         }
         reader.close();
-        return new List[] {patterns, substitutions, flags};
+        return patternList;
     }
     
     /**
      * @param filepar File path list (or resources if the path starts with #) comma separated
      */
-    private List[] getPatternsFromFileList(String filepar) throws MailetException, IOException {
-        List patterns = new ArrayList();
-        List substitutions = new ArrayList();
-        List flags = new ArrayList();
+    private PatternList getPatternsFromFileList(String filepar) throws MailetException, IOException {
+        PatternList patternList= new PatternList();
         String[] files = filepar.split(",");
         for (int i = 0; i < files.length; i++) {
             files[i] = files[i].trim();
@@ -205,14 +199,14 @@ public class ReplaceContent extends GenericMailet {
                 if (f.isFile()) is = new FileInputStream(f);
             }
             if (is != null) {
-                List[] o = getPatternsFromStream(is, charset);
-                patterns.addAll(o[0]);
-                substitutions.addAll(o[1]);
-                flags.addAll(o[2]);
+                PatternList o = getPatternsFromStream(is, charset);
+                patternList.getPatterns().addAll(o.getPatterns());
+                patternList.getSubstitutions().addAll(o.getSubstitutions());
+                patternList.getFlags().addAll(o.getFlags());
                 is.close();
             }
         }
-        return new List[] {patterns, substitutions, flags};
+        return patternList;
     }
     
     protected static String applyPatterns(Pattern[] patterns, String[] substitutions, Integer[] pflags, String text, int debug, GenericMailet logOwner) {
@@ -241,43 +235,43 @@ public class ReplaceContent extends GenericMailet {
     
     private ReplaceConfig initPatterns() throws MailetException {
         try {
-            List bodyPatternsList = new ArrayList();
-            List bodySubstitutionsList = new ArrayList();
-            List bodyFlagsList = new ArrayList();
-            List subjectPatternsList = new ArrayList();
-            List subjectSubstitutionsList = new ArrayList();
-            List subjectFlagsList = new ArrayList();
+            List<Pattern> bodyPatternsList = new ArrayList<Pattern>();
+            List<String> bodySubstitutionsList = new ArrayList<String>();
+            List<Integer> bodyFlagsList = new ArrayList<Integer>();
+            List<Pattern> subjectPatternsList = new ArrayList<Pattern>();
+            List<String> subjectSubstitutionsList = new ArrayList<String>();
+            List<Integer> subjectFlagsList = new ArrayList<Integer>();
 
             String pattern = getInitParameter(PARAMETER_NAME_SUBJECT_PATTERN);
             if (pattern != null) {
-                List[] o = getPatternsFromString(pattern);
-                subjectPatternsList.addAll(o[0]);
-                subjectSubstitutionsList.addAll(o[1]);
-                subjectFlagsList.addAll(o[2]);
+                PatternList o = getPatternsFromString(pattern);
+                subjectPatternsList.addAll(o.getPatterns());
+                subjectSubstitutionsList.addAll(o.getSubstitutions());
+                subjectFlagsList.addAll(o.getFlags());
             }
             
             pattern = getInitParameter(PARAMETER_NAME_BODY_PATTERN);
             if (pattern != null) {
-                List[] o = getPatternsFromString(pattern);
-                bodyPatternsList.addAll(o[0]);
-                bodySubstitutionsList.addAll(o[1]);
-                bodyFlagsList.addAll(o[2]);
+                PatternList o = getPatternsFromString(pattern);
+                bodyPatternsList.addAll(o.getPatterns());
+                bodySubstitutionsList.addAll(o.getSubstitutions());
+                bodyFlagsList.addAll(o.getFlags());
             }
             
             String filepar = getInitParameter(PARAMETER_NAME_SUBJECT_PATTERNFILE);
             if (filepar != null) {
-                List[] o = getPatternsFromFileList(filepar);
-                subjectPatternsList.addAll(o[0]);
-                subjectSubstitutionsList.addAll(o[1]);
-                subjectFlagsList.addAll(o[2]);
+                PatternList o = getPatternsFromFileList(filepar);
+                subjectPatternsList.addAll(o.getPatterns());
+                subjectSubstitutionsList.addAll(o.getSubstitutions());
+                subjectFlagsList.addAll(o.getFlags());
             }
         
             filepar = getInitParameter(PARAMETER_NAME_BODY_PATTERNFILE);
             if (filepar != null) {
-                List[] o = getPatternsFromFileList(filepar);
-                bodyPatternsList.addAll(o[0]);
-                bodySubstitutionsList.addAll(o[1]);
-                bodyFlagsList.addAll(o[2]);
+                PatternList o = getPatternsFromFileList(filepar);
+                bodyPatternsList.addAll(o.getPatterns());
+                bodySubstitutionsList.addAll(o.getSubstitutions());
+                bodyFlagsList.addAll(o.getFlags());
             }
             
             ReplaceConfig rConfig = new ReplaceConfig();
