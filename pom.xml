@@ -75,6 +75,11 @@
       <version>1.4.3</version>
     </dependency>
     <dependency>
+      <groupId>commons-httpclient</groupId>
+      <artifactId>commons-httpclient</artifactId>
+      <version>3.0.1</version>
+    </dependency>
+    <dependency>
       <groupId>org.apache.james</groupId>
       <artifactId>apache-mailet-base</artifactId>
       <version>1.2-SNAPSHOT</version>
