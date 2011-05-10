@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -33,12 +32,10 @@ import javax.mail.internet.MimeMessage;
 import junit.framework.TestCase;
 
 import org.apache.mailet.HostAddress;
-import org.apache.mailet.LookupException;
 import org.apache.mailet.Mail;
 import org.apache.mailet.MailAddress;
 import org.apache.mailet.MailetContext;
 import org.apache.mailet.Matcher;
-import org.apache.mailet.TemporaryLookupException;
 import org.apache.mailet.base.test.FakeMail;
 import org.apache.mailet.base.test.FakeMatcherConfig;
 
@@ -155,13 +152,13 @@ public class HostIsLocalTest extends TestCase {
                         "Unimplemented mock service");
             }
 
-            public void sendMail(MailAddress sender, Collection<MailAddress> recipients,
+            public void sendMail(MailAddress sender, Collection recipients,
                     MimeMessage msg) throws MessagingException {
                 throw new UnsupportedOperationException(
                         "Unimplemented mock service");
             }
 
-            public void sendMail(MailAddress sender, Collection<MailAddress> recipients,
+            public void sendMail(MailAddress sender, Collection recipients,
                     MimeMessage msg, String state) throws MessagingException {
                 throw new UnsupportedOperationException(
                         "Unimplemented mock service");
@@ -182,20 +179,12 @@ public class HostIsLocalTest extends TestCase {
                         "Unimplemented mock service");
             }
 
-            public List<String> dnsLookup(String arg0, RecordType arg1) throws TemporaryLookupException, LookupException {
-                // TODO Auto-generated method stub
-                return null;
-            }
+			public void storeMail(MailAddress arg0, MailAddress arg1,
+					MimeMessage arg2) throws MessagingException {
+				// TODO Auto-generated method stub
+				
+			}
 
-            public void log(LogLevel arg0, String arg1) {
-                // TODO Auto-generated method stub
-                
-            }
-
-            public void log(LogLevel arg0, String arg1, Throwable arg2) {
-                // TODO Auto-generated method stub
-                
-            }
 
         };
 
