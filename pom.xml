@@ -29,7 +29,7 @@
   <name>Apache JAMES Standard Mailets</name>
   <url>http://james.apache.org/mailet/standard/</url>
   <inceptionYear>2008</inceptionYear>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1</version>
   <packaging>jar</packaging>
 
   <description>
@@ -58,13 +58,13 @@
 
   <scm>
     <connection>
-      scm:svn:http://svn.apache.org/repos/asf/james/mailet/standard/trunk
+      scm:svn:http://svn.apache.org/repos/asf/james/mailet/standard/tags/apache-standard-mailets-1.1
     </connection>
     <developerConnection>
-      scm:svn:https://svn.apache.org/repos/asf/james/mailet/standard/trunk
+      scm:svn:https://svn.apache.org/repos/asf/james/mailet/standard/tags/apache-standard-mailets-1.1
     </developerConnection>
     <url>
-      http://svn.apache.org/viewcvs.cgi/james/mailet/standard/trunk/?root=Apache-SVN
+      http://svn.apache.org/viewcvs.cgi/james/mailet/standard/tags/apache-standard-mailets-1.1?root=Apache-SVN
     </url>
   </scm>
 
