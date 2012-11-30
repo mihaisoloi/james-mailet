@@ -1,9 +1,0 @@
-   =========================================================================
-   ==      NOTICE file for use with the Apache License, Version 2.0,      ==
-   =========================================================================
-
-   Apache James Mailet API 
-   Copyright 2007 The Apache Software Foundation
-
-   Please read the LICENSE.txt and README.txt files in the root directory of 
-   this distribution.
