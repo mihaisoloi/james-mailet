@@ -38,6 +38,7 @@
     <inceptionYear>2008</inceptionYear>
 
     <modules>
+        <module>project</module>
         <module>api</module>
         <module>base</module>
         <module>maven-mailetdocs-plugin</module>
