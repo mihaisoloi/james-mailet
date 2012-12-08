@@ -24,15 +24,16 @@
 
     <parent>
         <groupId>org.apache.james</groupId>
-        <artifactId>james-project</artifactId>
-        <version>1.8</version>
+        <artifactId>apache-mailets</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../parent</relativePath>
     </parent>
 
-    <artifactId>apache-standard-mailets</artifactId>
-    <version>1.2-SNAPSHOT</version>
+    <artifactId>apache-mailets-standard</artifactId>
+    <version>1.2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Apache JAMES Standard Mailets</name>
+    <name>Apache James :: Standard Mailets</name>
     <description>
         Apache JAMES Standard Mailets is a rich collection of general purpose mailets
         with limited dependencies. These mailets can be used in any mailet container.

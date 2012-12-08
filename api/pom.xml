@@ -24,15 +24,16 @@
 
     <parent>
         <groupId>org.apache.james</groupId>
-        <artifactId>james-project</artifactId>
-        <version>1.8</version>
+        <artifactId>apache-mailets</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../parent</relativePath>
     </parent>
 
-    <artifactId>apache-mailet</artifactId>
-    <version>2.5-SNAPSHOT</version>
+    <artifactId>apache-mailets-api</artifactId>
+    <version>2.5.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Apache Mailet API</name>
+    <name>Apache James :: Mailet API</name>
     <description>The Apache Mailet API is a flexible specification for mail processing agents.</description>
     <url>http://james.apache.org/mailet/api/</url>
     <inceptionYear>2007</inceptionYear>

@@ -24,15 +24,16 @@
 
     <parent>
         <groupId>org.apache.james</groupId>
-        <artifactId>james-project</artifactId>
-        <version>1.8</version>
+        <artifactId>apache-mailets</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../parent</relativePath>
     </parent>
 
-    <artifactId>apache-mailet-base</artifactId>
-    <version>1.2-SNAPSHOT</version>
+    <artifactId>apache-mailets-base</artifactId>
+    <version>1.2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Apache JAMES Basic Mailet Toolkit</name>
+    <name>Apache James :: Basic Mailet Toolkit</name>
     <description>
         Apache JAMES Basic Mailet Toolkit is a collection of utilities and lightweight framework
         aimed at developers and testers of mailets. This toolkit is extensively used elsewhere in

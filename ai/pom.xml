@@ -23,17 +23,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>mailet-project</artifactId>
         <groupId>org.apache.james</groupId>
-        <version>1-SNAPSHOT</version>
-        <relativePath>../project/pom.xml</relativePath>
+        <artifactId>apache-mailets</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../parent</relativePath>
     </parent>
 
-    <artifactId>apache-james-ai-project</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <artifactId>apache-mailets-ai</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Apache James AI Mailets Project</name>
+    <name>Apache James :: AI Mailets</name>
     <description>Collects mail processors making use of artificial intelligence (AI) methods.</description>
     <url>http://james.apache.org/mailet/ai</url>
     <inceptionYear>2011</inceptionYear>

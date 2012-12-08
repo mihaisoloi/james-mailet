@@ -24,15 +24,16 @@
 
     <parent>
         <groupId>org.apache.james</groupId>
-        <artifactId>james-project</artifactId>
-        <version>1.8</version>
+        <artifactId>apache-mailets</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../parent</relativePath>
     </parent>
 
-    <artifactId>apache-crypto-mailets</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <artifactId>apache-mailets-crypto</artifactId>
+    <version>1.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Apache JAMES Crypto Mailets</name>
+    <name>Apache James :: Crypto Mailets</name>
     <description>
         Apache JAMES Cryptographic Mailets is a collection of mailets which use cryptography.
         This includes matching signatures, decrypting, encrypting and signing.
