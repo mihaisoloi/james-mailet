@@ -31,7 +31,7 @@
 
     <artifactId>apache-mailets-base</artifactId>
     <version>1.2.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>bundle</packaging>
 
     <name>Apache James :: Basic Mailet Toolkit</name>
     <description>
@@ -42,43 +42,22 @@
     <url>http://james.apache.org/mailet/base/</url>
     <inceptionYear>2008</inceptionYear>
 
-    <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/james/mailet/base/trunk</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/james/mailet/base/trunk</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/james/mailet/base/trunk/?root=Apache-SVN</url>
-    </scm>
-    <issueManagement>
-        <system>JIRA</system>
-        <url>http://issues.apache.org/jira/browse/MAILETBASE</url>
-    </issueManagement>
-
-    <distributionManagement>
-        <site>
-            <id>mailet-base-website</id>
-            <url>scpexe://people.apache.org/www/james.apache.org/mailet/base/</url>
-        </site>
-    </distributionManagement>
-
     <dependencies>
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
-            <version>1.4.4</version>
         </dependency>
         <dependency>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
-            <version>1.1.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.james</groupId>
-            <artifactId>apache-mailet</artifactId>
-            <version>2.5-SNAPSHOT</version>
+            <artifactId>apache-mailets-api</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.9</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -86,50 +65,18 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
-                        <manifestEntries>
-                            <Specification-Title>Apache James Mailets Base</Specification-Title>
-                            <Specification-Version>${project.version}</Specification-Version>
-                            <Specification-Vendor>The Apache Software Foundation</Specification-Vendor>
-                            <Implementation-Title>Apache James Mailets Base</Implementation-Title>
-                            <Implementation-Version>${project.version}</Implementation-Version>
-                            <Implementation-Vendor>The Apache Software Foundation</Implementation-Vendor>
-                            <Implementation-Vendor-Id>org.apache</Implementation-Vendor-Id>
-                            <url>${project.url}</url>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>test-jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>bundle-manifest</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>manifest</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
                         <Export-Package>org.apache.mailet.base.*</Export-Package>
-                        <Embed-Dependency>*;scope=runtime</Embed-Dependency>
                     </instructions>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.james</groupId>
+                <artifactId>maven-mailetdocs-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

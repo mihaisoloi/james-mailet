@@ -31,7 +31,7 @@
 
     <artifactId>apache-mailets-standard</artifactId>
     <version>1.2.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>bundle</packaging>
 
     <name>Apache James :: Standard Mailets</name>
     <description>
@@ -41,121 +41,35 @@
     <url>http://james.apache.org/mailet/standard/</url>
     <inceptionYear>2008</inceptionYear>
 
-    <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/james/mailet/standard/trunk</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/james/mailet/standard/trunk</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/james/mailet/standard/trunk/?root=Apache-SVN</url>
-    </scm>
-    <issueManagement>
-        <system>JIRA</system>
-        <url>http://issues.apache.org/jira/browse/MAILETSTANDARD</url>
-    </issueManagement>
-
-    <distributionManagement>
-        <site>
-            <id>standard-mailet-website</id>
-            <url>scpexe://people.apache.org/www/james.apache.org/mailet/standard/</url>
-        </site>
-    </distributionManagement>
-
-    <properties>
-        <!-- Override the source descriptor -->
-        <sourceReleaseAssemblyDescriptor>src</sourceReleaseAssemblyDescriptor>
-        <target.jdk>1.6</target.jdk>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
-            <version>1.4.4</version>
         </dependency>
         <dependency>
             <groupId>commons-httpclient</groupId>
             <artifactId>commons-httpclient</artifactId>
-            <version>3.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.james</groupId>
-            <artifactId>apache-mailet-base</artifactId>
-            <version>1.2-SNAPSHOT</version>
+            <artifactId>apache-mailets-base</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.james</groupId>
-            <artifactId>apache-mailet-base</artifactId>
+            <artifactId>apache-mailets-base</artifactId>
             <type>test-jar</type>
             <scope>test</scope>
-            <version>1.2-SNAPSHOT</version>
+            <version>${apache-mailets-base.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.10</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.james</groupId>
-                    <artifactId>maven-mailetdocs-plugin</artifactId>
-                    <version>0.2-SNAPSHOT</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
-                        <manifestEntries>
-                            <Specification-Title>Apache James Standard Mailets</Specification-Title>
-                            <Specification-Version>${project.version}</Specification-Version>
-                            <Specification-Vendor>The Apache Software Foundation</Specification-Vendor>
-                            <Implementation-Title>Apache James Standard Mailets</Implementation-Title>
-                            <Implementation-Version>${project.version}</Implementation-Version>
-                            <Implementation-Vendor>The Apache Software Foundation</Implementation-Vendor>
-                            <Implementation-Vendor-Id>org.apache</Implementation-Vendor-Id>
-                            <X-Compile-Source-JDK>${target.jdk}</X-Compile-Source-JDK>
-                            <X-Compile-Target-JDK>${target.jdk}</X-Compile-Target-JDK>
-                            <url>${project.url}</url>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>test-jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>bundle-manifest</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>manifest</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <extensions>true</extensions>
-                <configuration>
-                    <instructions>
-                        <Export-Package>
-                            org.apache.james.mailet.standard.*;org.apache.james.transport.mailets;org.apache.james.transport.matchers
-                        </Export-Package>
-                        <Embed-Dependency>*;scope=runtime</Embed-Dependency>
-                    </instructions>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.james</groupId>
                 <artifactId>maven-mailetdocs-plugin</artifactId>
@@ -163,45 +77,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptorSourceDirectory>${basedir}/src/assemble/</descriptorSourceDirectory>
-                    <tarLongFileMode>gnu</tarLongFileMode>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <!-- append to the packaging phase. -->
-                        <goals>
-                            <goal>attached</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.rat</groupId>
-                <artifactId>apache-rat-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <excludes>
-                        <exclude>NOTICE.txt</exclude>
-                        <exclude>LICENSE.activation</exclude>
-                        <exclude>LICENSE.mail</exclude>
-                        <exclude>LICENSE.apache</exclude>
-                        <!-- Generated by Maven -->
-                        <exclude>release.properties</exclude>
-                        <exclude>dist/**/*</exclude>
-                        <exclude>target/**/*</exclude>
-                        <exclude>bin/**/*</exclude>
-                    </excludes>
-                </configuration>
             </plugin>
         </plugins>
     </build>

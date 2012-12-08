@@ -30,28 +30,103 @@
     <name>Apache James :: Mailets Parent</name>
     <description>Parent pom for mailets projects.</description>
 
-    <issueManagement>
-        <url>http://issues.apache.org/jira/browse/MAILET</url>
-    </issueManagement>
-
     <properties>
-        <target.jdk>1.5</target.jdk>
-        <plugin.mailetdoc.version>0.1</plugin.mailetdoc.version>
-        <issue.project.name>MAILET</issue.project.name>
+        <target.jdk>1.6</target.jdk>
+        <!-- Override the source descriptor -->
+        <sourceReleaseAssemblyDescriptor>src</sourceReleaseAssemblyDescriptor>
+        <plugin.mailetdocs.version>0.1</plugin.mailetdocs.version>
+        <apache-mailets-api.version>2.5.0-SNAPSHOT</apache-mailets-api.version>
+        <apache-mailets-base.version>1.2.0-SNAPSHOT</apache-mailets-base.version>
+        <apache-mailets-ai-classic.version>0.0.1-SNAPSHOT</apache-mailets-ai-classic.version>
+        <javax.version>1.4.4</javax.version>
+        <junit.version>4.10</junit.version>
+        <activation.version>1.1.1</activation.version>
+        <bcmail-jdk16.version>1.46</bcmail-jdk16.version>
+        <commons-collections.version>3.2.1</commons-collections.version>
+        <commons-httpclient.version>3.1</commons-httpclient.version>
+        <!-- maven-mailetdocs-plugin artifacts -->
+        <maven-artifact.version>3.0-alpha-1</maven-artifact.version>
+        <maven-plugin-api.version>3.0.4</maven-plugin-api.version>
+        <maven-reporting-impl.version>2.2</maven-reporting-impl.version>
+        <maven-reporting-api.version>3.0</maven-reporting-api.version>
+        <qdox.version>1.12</qdox.version>
     </properties>
 
-    <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/james/mailet/current</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/james/mailet/current</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/james/mailet/current/?root=Apache-SVN</url>
-    </scm>
-
-    <distributionManagement>
-        <site>
-            <id>mailet-umbrella-website</id>
-            <url>scpexe://people.apache.org/www/james.apache.org/mailet/</url>
-        </site>
-    </distributionManagement>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.james</groupId>
+                <artifactId>apache-mailets-api</artifactId>
+                <version>${apache-mailets-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.james</groupId>
+                <artifactId>apache-mailets-base</artifactId>
+                <version>${apache-mailets-base.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.james</groupId>
+                <artifactId>apache-mailets-ai-classic</artifactId>
+                <version>${apache-mailets-ai-classic.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.mail</groupId>
+                <artifactId>mail</artifactId>
+                <version>${javax.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.activation</groupId>
+                <artifactId>activation</artifactId>
+                <version>${activation.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcmail-jdk16</artifactId>
+                <version>${bcmail-jdk16.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven.artifact</groupId>
+                <artifactId>maven-artifact</artifactId>
+                <version>${maven-artifact.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-plugin-api</artifactId>
+                <version>${maven-plugin-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven.reporting</groupId>
+                <artifactId>maven-reporting-impl</artifactId>
+                <version>${maven-reporting-impl.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven.reporting</groupId>
+                <artifactId>maven-reporting-api</artifactId>
+                <version>${maven-reporting-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>${commons-collections.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-httpclient</groupId>
+                <artifactId>commons-httpclient</artifactId>
+                <version>${commons-httpclient.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.thoughtworks.qdox</groupId>
+                <artifactId>qdox</artifactId>
+                <version>${qdox.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <scope>test</scope>
+                <version>${junit.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <pluginManagement>
@@ -59,11 +134,34 @@
                 <plugin>
                     <groupId>org.apache.james</groupId>
                     <artifactId>maven-mailetdocs-plugin</artifactId>
-                    <version>${plugin.mailetdoc.version}</version>
+                    <version>${plugin.mailetdocs.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <configuration>
+                        <descriptorSourceDirectory>${project.basedir}/src/assemble/</descriptorSourceDirectory>
+                        <tarLongFileMode>gnu</tarLongFileMode>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>make-assembly</id>
+                            <phase>package</phase>
+                            <!-- append to the packaging phase. -->
+                            <goals>
+                                <goal>attached</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.rat</groupId>
                 <artifactId>apache-rat-plugin</artifactId>
@@ -85,6 +183,8 @@
                                 <exclude>**/.*</exclude>
                                 <exclude>.*/**/*</exclude>
                                 <exclude>**/LICENSE*</exclude>
+                                <exclude>**/target/**</exclude>
+                                <exclude>**/*.iml</exclude>
                             </excludes>
                         </configuration>
                     </execution>
@@ -115,46 +215,29 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>bundle-manifest</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>manifest</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <extensions>true</extensions>
-                <configuration>
-                    <instructions>
-                        <Export-Package>org.apache.james.*</Export-Package>
-                        <Embed-Dependency>*;scope=runtime</Embed-Dependency>
-                    </instructions>
-                </configuration>
-            </plugin>
-
+            <!-- Add NOTICE and LICENSE to generated JAR -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <!--<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>-->
-                        <manifestEntries>
-                            <Specification-Title>${project.name}</Specification-Title>
-                            <Specification-Version>${project.version}</Specification-Version>
-                            <Specification-Vendor>The Apache Software Foundation</Specification-Vendor>
-                            <Implementation-Title>${project.name}</Implementation-Title>
-                            <Implementation-Version>${project.version}</Implementation-Version>
-                            <Implementation-Vendor>The Apache Software Foundation</Implementation-Vendor>
-                            <Implementation-Vendor-Id>org.apache</Implementation-Vendor-Id>
-                            <url>${project.url}</url>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
+                <artifactId>maven-remote-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <resourceBundles>
+                                <resourceBundle>org.apache:apache-jar-resource-bundle:1.4</resourceBundle>
+                            </resourceBundles>
+                            <properties>
+                                <!-- <preProjectText>PRE PROCESS TEXT</preProjectText> -->
+                                <postProjectText>This file is automatically generated by dependencies declared in
+                                    pom.xml
+                                </postProjectText>
+                                <addLicense>true</addLicense>
+                            </properties>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -170,4 +253,32 @@
             </plugin>
         </plugins>
     </build>
+
+    <mailingLists>
+        <mailingList>
+            <name>Apache Mailet API List</name>
+            <subscribe>mailet-api-subscribe@james.apache.org</subscribe>
+            <unsubscribe>mailet-api-unsubscribe@james.apache.org</unsubscribe>
+            <post>mailet-api-@james.apache.org</post>
+            <archive>http://mail-archives.apache.org/mod_mbox/james-mailet-api/</archive>
+        </mailingList>
+    </mailingLists>
+
+    <issueManagement>
+        <url>http://issues.apache.org/jira/browse/MAILET</url>
+    </issueManagement>
+
+    <scm>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/james/mailet/trunk</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/james/mailet/trunk</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/james/mailet/trunk/?root=Apache-SVN</url>
+    </scm>
+
+    <distributionManagement>
+        <site>
+            <id>mailet-umbrella-website</id>
+            <url>scpexe://people.apache.org/www/james.apache.org/mailet/</url>
+        </site>
+    </distributionManagement>
+
 </project>

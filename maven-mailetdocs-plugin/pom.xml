@@ -41,59 +41,34 @@
     <url>http://james.apache.org/mailet/maven-mailetdocs-plugin/</url>
     <inceptionYear>2008</inceptionYear>
 
-    <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/james/mailet/maven-mailetdocs-plugin/trunk</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/james/mailet/maven-mailetdocs-plugin/trunk
-        </developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/james/mailet/maven-mailetdocs-plugin/trunk/?root=Apache-SVN</url>
-    </scm>
-    <issueManagement>
-        <system>JIRA</system>
-        <url>http://issues.apache.org/jira/browse/MAILETDOCS</url>
-    </issueManagement>
-
-    <distributionManagement>
-        <site>
-            <id>mailetdocs-website</id>
-            <url>scpexe://people.apache.org/www/james.apache.org/mailet/maven-mailetdocs-plugin/</url>
-        </site>
-    </distributionManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.maven.artifact</groupId>
             <artifactId>maven-artifact</artifactId>
-            <version>3.0-alpha-1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-plugin-api</artifactId>
-            <version>3.0.3</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.reporting</groupId>
             <artifactId>maven-reporting-impl</artifactId>
-            <version>2.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.reporting</groupId>
             <artifactId>maven-reporting-api</artifactId>
-            <version>3.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.james</groupId>
-            <artifactId>apache-mailet</artifactId>
-            <version>2.5-SNAPSHOT</version>
+            <artifactId>apache-mailets-api</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
-            <version>3.2.1</version>
         </dependency>
         <dependency>
             <groupId>com.thoughtworks.qdox</groupId>
             <artifactId>qdox</artifactId>
-            <version>1.12</version>
         </dependency>
     </dependencies>
 
@@ -110,46 +85,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <!-- Add NOTICE and LICENSE to generated JAR -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-remote-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>process</goal>
-                        </goals>
-                        <configuration>
-                            <resourceBundles>
-                                <resourceBundle>
-                                    org.apache:apache-jar-resource-bundle:1.4
-                                </resourceBundle>
-                            </resourceBundles>
-                            <properties>
-                                <addLicense>true</addLicense>
-                            </properties>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <Specification-Title>Apache MailetDocs Plugin</Specification-Title>
-                            <Specification-Version>${project.version}</Specification-Version>
-                            <Specification-Vendor>The Apache Software Foundation</Specification-Vendor>
-                            <Implementation-Title>Apache MailetDocs Plugin</Implementation-Title>
-                            <Implementation-Version>${project.version}</Implementation-Version>
-                            <Implementation-Vendor>The Apache Software Foundation</Implementation-Vendor>
-                            <Implementation-Vendor-Id>org.apache</Implementation-Vendor-Id>
-                            <url>${project.url}</url>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
             </plugin>
         </plugins>
     </build>
