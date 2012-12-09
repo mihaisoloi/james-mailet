@@ -24,7 +24,7 @@
 
     <parent>
         <groupId>org.apache.james</groupId>
-        <artifactId>apache-mailets</artifactId>
+        <artifactId>apache-mailet</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../parent</relativePath>
     </parent>
@@ -60,7 +60,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.james</groupId>
-            <artifactId>apache-mailets-api</artifactId>
+            <artifactId>apache-mailet-api</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>

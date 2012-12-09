@@ -23,7 +23,7 @@
     </parent>
 
     <groupId>org.apache.james</groupId>
-    <artifactId>apache-mailets</artifactId>
+    <artifactId>apache-mailet</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -35,9 +35,9 @@
         <!-- Override the source descriptor -->
         <sourceReleaseAssemblyDescriptor>src</sourceReleaseAssemblyDescriptor>
         <plugin.mailetdocs.version>0.1</plugin.mailetdocs.version>
-        <apache-mailets-api.version>2.5.0-SNAPSHOT</apache-mailets-api.version>
-        <apache-mailets-base.version>1.2.0-SNAPSHOT</apache-mailets-base.version>
-        <apache-mailets-ai-classic.version>0.0.1-SNAPSHOT</apache-mailets-ai-classic.version>
+        <apache-mailet-api.version>2.5.0-SNAPSHOT</apache-mailet-api.version>
+        <apache-mailet-base.version>1.2.0-SNAPSHOT</apache-mailet-base.version>
+        <apache-mailet-ai-classic.version>0.0.1-SNAPSHOT</apache-mailet-ai-classic.version>
         <javax.version>1.4.4</javax.version>
         <junit.version>4.10</junit.version>
         <activation.version>1.1.1</activation.version>
@@ -56,18 +56,18 @@
         <dependencies>
             <dependency>
                 <groupId>org.apache.james</groupId>
-                <artifactId>apache-mailets-api</artifactId>
-                <version>${apache-mailets-api.version}</version>
+                <artifactId>apache-mailet-api</artifactId>
+                <version>${apache-mailet-api.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.james</groupId>
-                <artifactId>apache-mailets-base</artifactId>
-                <version>${apache-mailets-base.version}</version>
+                <artifactId>apache-mailet-base</artifactId>
+                <version>${apache-mailet-base.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.james</groupId>
-                <artifactId>apache-mailets-ai-classic</artifactId>
-                <version>${apache-mailets-ai-classic.version}</version>
+                <artifactId>apache-mailet-ai-classic</artifactId>
+                <version>${apache-mailet-ai-classic.version}</version>
             </dependency>
             <dependency>
                 <groupId>javax.mail</groupId>

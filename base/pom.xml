@@ -24,12 +24,12 @@
 
     <parent>
         <groupId>org.apache.james</groupId>
-        <artifactId>apache-mailets</artifactId>
+        <artifactId>apache-mailet</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../parent</relativePath>
     </parent>
 
-    <artifactId>apache-mailets-base</artifactId>
+    <artifactId>apache-mailet-base</artifactId>
     <version>1.2.0-SNAPSHOT</version>
     <packaging>bundle</packaging>
 
@@ -53,7 +53,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.james</groupId>
-            <artifactId>apache-mailets-api</artifactId>
+            <artifactId>apache-mailet-api</artifactId>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -77,6 +77,17 @@
             <plugin>
                 <groupId>org.apache.james</groupId>
                 <artifactId>maven-mailetdocs-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

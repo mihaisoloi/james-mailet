@@ -25,12 +25,12 @@
 
     <parent>
         <groupId>org.apache.james</groupId>
-        <artifactId>apache-mailets-ai</artifactId>
+        <artifactId>apache-mailet-ai</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>apache-mailets-ai-classic</artifactId>
+    <artifactId>apache-mailet-ai-classic</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
 
@@ -40,11 +40,11 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.james</groupId>
-            <artifactId>apache-mailets-api</artifactId>
+            <artifactId>apache-mailet-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.james</groupId>
-            <artifactId>apache-mailets-base</artifactId>
+            <artifactId>apache-mailet-base</artifactId>
         </dependency>
         <dependency>
             <groupId>javax.mail</groupId>
