@@ -35,7 +35,7 @@
 
     <name>Apache James :: Crypto Mailets</name>
     <description>
-        Apache JAMES Cryptographic Mailets is a collection of mailets which use cryptography.
+        Apache James Cryptographic Mailets is a collection of mailets which use cryptography.
         This includes matching signatures, decrypting, encrypting and signing.
     </description>
     <url>http://james.apache.org/mailet/crypto/</url>

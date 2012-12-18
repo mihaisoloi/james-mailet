@@ -35,9 +35,9 @@
 
     <name>Apache James :: Basic Mailet Toolkit</name>
     <description>
-        Apache JAMES Basic Mailet Toolkit is a collection of utilities and lightweight framework
+        Apache James Basic Mailet Toolkit is a collection of utilities and lightweight framework
         aimed at developers and testers of mailets. This toolkit is extensively used elsewhere in
-        JAMES.
+        James.
     </description>
     <url>http://james.apache.org/mailet/base/</url>
     <inceptionYear>2008</inceptionYear>

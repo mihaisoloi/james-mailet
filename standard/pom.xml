@@ -35,7 +35,7 @@
 
     <name>Apache James :: Standard Mailets</name>
     <description>
-        Apache JAMES Standard Mailets is a rich collection of general purpose mailets
+        Apache James Standard Mailets is a rich collection of general purpose mailets
         with limited dependencies. These mailets can be used in any mailet container.
     </description>
     <url>http://james.apache.org/mailet/standard/</url>
