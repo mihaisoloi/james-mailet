@@ -42,7 +42,7 @@
         <module>parent</module>
         <module>api</module>
         <module>base</module>
-        <module>maven-mailetdocs-plugin</module>
+        <module>mailetdocs-maven-plugin</module>
         <module>crypto</module>
         <module>standard</module>
         <module>ai</module>
