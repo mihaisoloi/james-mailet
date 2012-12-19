@@ -44,9 +44,8 @@ public class MailUtil {
         FakeMail mockedMail = new FakeMail();
         mockedMail.setName(newId());
         mockedMail.setMessage(m);
-        mockedMail.setRecipients(Arrays.asList(new MailAddress[] {
-                new MailAddress("test@james.apache.org"),
-                new MailAddress("test2@james.apache.org") }));
+        mockedMail.setRecipients(Arrays.asList(new MailAddress("test@james.apache.org"),
+                new MailAddress("test2@james.apache.org")));
         return mockedMail;
     }
 

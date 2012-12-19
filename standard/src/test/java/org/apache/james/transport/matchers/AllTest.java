@@ -20,24 +20,19 @@
 
 package org.apache.james.transport.matchers;
 
+import junit.framework.TestCase;
+import org.apache.mailet.MailAddress;
+import org.apache.mailet.Matcher;
 import org.apache.mailet.base.test.FakeMail;
 import org.apache.mailet.base.test.FakeMailContext;
 import org.apache.mailet.base.test.FakeMatcherConfig;
 import org.apache.mailet.base.test.MailUtil;
 
-import org.apache.mailet.MailAddress;
-import org.apache.mailet.Matcher;
-
 import javax.mail.MessagingException;
-
 import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 
-import junit.framework.TestCase;
-
 public class AllTest extends TestCase {
-
-    private FakeMail mockedMail;
 
     private Matcher matcher;
 
@@ -54,7 +49,7 @@ public class AllTest extends TestCase {
 
     // test if all recipients was returned
     public void testAllRecipientsReturned() throws MessagingException {
-        mockedMail = MailUtil.createMockMail2Recipients(null);
+        FakeMail mockedMail = MailUtil.createMockMail2Recipients(null);
         setupMatcher();
 
         Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);

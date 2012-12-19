@@ -132,7 +132,6 @@ public class BayesianAnalysis extends GenericMailet implements Log {
     private JDBCBayesianAnalyzer analyzer = new JDBCBayesianAnalyzer(this);
 
     DataSource datasource;
-    private String repositoryPath;
 
     private static final String MAIL_ATTRIBUTE_NAME = "org.apache.james.spam.probability";
     private static final String HEADER_NAME = "X-MessageIsSpamProbability";
@@ -218,7 +217,7 @@ public class BayesianAnalysis extends GenericMailet implements Log {
      *             if a problem arises
      */
     public void init() throws MessagingException {
-        repositoryPath = getInitParameter("repositoryPath");
+        String repositoryPath = getInitParameter("repositoryPath");
 
         if (repositoryPath == null) {
             throw new MessagingException("repositoryPath is null");

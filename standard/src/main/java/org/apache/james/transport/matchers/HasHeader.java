@@ -95,7 +95,7 @@ public class HasHeader extends GenericMatcher {
                         // headername and value found but the value does not match the condition
                         match = false;
                         // if one condition fails the matcher returns false
-                        break header;
+                        break;
                     }
                 } else {
                     // just the headername is specified
@@ -105,7 +105,7 @@ public class HasHeader extends GenericMatcher {
                 // no headername is found
                 match = false;
                 // if one condition fails the matcher returns false
-                break header;
+                break;
             }
         }
 

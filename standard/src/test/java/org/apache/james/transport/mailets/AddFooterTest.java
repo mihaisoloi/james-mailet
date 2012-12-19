@@ -304,8 +304,7 @@ public class AddFooterTest extends TestCase {
         mail.getMessage().writeTo(
                 rawMessage,
                 new String[] { "Bcc", "Content-Length", "Message-ID" });
-        String res = rawMessage.toString();
-        return res;
+        return rawMessage.toString();
     }
 
 }

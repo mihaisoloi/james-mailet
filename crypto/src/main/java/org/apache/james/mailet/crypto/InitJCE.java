@@ -40,7 +40,6 @@ import javax.activation.MailcapCommandMap;
  * 
  */
 public class InitJCE {
-    private static String bouncyCastleProviderClassName = "org.bouncycastle.jce.provider.BouncyCastleProvider";
     private static boolean initialized = false;
 
     /**
@@ -52,6 +51,7 @@ public class InitJCE {
      */        
     public static void init() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         if (!initialized) {
+            String bouncyCastleProviderClassName = "org.bouncycastle.jce.provider.BouncyCastleProvider";
             Security.addProvider((Provider)Class.forName(bouncyCastleProviderClassName).newInstance());
             
             MailcapCommandMap mailcap = (MailcapCommandMap) CommandMap.getDefaultCommandMap();
@@ -65,6 +65,7 @@ public class InitJCE {
             CommandMap.setDefaultCommandMap(mailcap);
             
             initialized = true;
-        } else return;
+        } else {
+        }
     }
 }

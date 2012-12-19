@@ -46,12 +46,8 @@ public class ServerTime extends GenericMailet {
     public void service(Mail mail) throws javax.mail.MessagingException {
         MimeMessage response = (MimeMessage)mail.getMessage().reply(false);
         response.setSubject("The time is now...");
-        StringBuilder textBuffer =
-            new StringBuilder(128)
-                    .append("This mail server thinks it's ")
-                    .append((new java.util.Date()).toString())
-                    .append(".");
-        response.setText(textBuffer.toString());
+        String textBuffer = "This mail server thinks it's " + (new java.util.Date()).toString() + ".";
+        response.setText(textBuffer);
 
         // Someone manually checking the server time by hand may send
         // an formatted message, lacking From and To headers.  If the

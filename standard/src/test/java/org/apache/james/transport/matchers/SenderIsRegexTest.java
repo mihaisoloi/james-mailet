@@ -30,8 +30,6 @@ import org.apache.mailet.Matcher;
 
 public class SenderIsRegexTest extends AbstractSenderIsTest {
 
-    private final String SENDER_NAME = "test@james.apache.org";
-
     private String regex = ".*";
 
     public SenderIsRegexTest(String arg0) throws UnsupportedEncodingException {
@@ -45,6 +43,7 @@ public class SenderIsRegexTest extends AbstractSenderIsTest {
     // test if matched
     public void testSenderIsRegexMatchedAllRecipients()
             throws MessagingException {
+        String SENDER_NAME = "test@james.apache.org";
         setSender(new MailAddress(SENDER_NAME));
         setRegex(".*@.*");
         setupMockedMail();

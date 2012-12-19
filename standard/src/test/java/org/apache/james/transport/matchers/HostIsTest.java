@@ -41,8 +41,6 @@ public class HostIsTest extends TestCase {
 
     private Matcher matcher;
 
-    private final String HOST_NAME = "james.apache.org";
-
     private MailAddress[] recipients;
 
     public HostIsTest(String arg0) throws UnsupportedEncodingException {
@@ -61,6 +59,7 @@ public class HostIsTest extends TestCase {
 
     private void setupMatcher() throws MessagingException {
         matcher = new HostIs();
+        String HOST_NAME = "james.apache.org";
         FakeMatcherConfig mci = new FakeMatcherConfig("HostIs=" + HOST_NAME,
                 new FakeMailContext());
         matcher.init(mci);

@@ -42,8 +42,6 @@ public class NullTest extends TestCase {
 
     private Mailet mailet;
 
-    private final String PROCESSOR = "ghost";
-
     public NullTest(String arg0) throws UnsupportedEncodingException {
         super(arg0);
     }
@@ -67,6 +65,7 @@ public class NullTest extends TestCase {
 
         mailet.service(mockedMail);
 
+        String PROCESSOR = "ghost";
         assertEquals(PROCESSOR, mockedMail.getState());
     }
 

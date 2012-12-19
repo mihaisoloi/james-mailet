@@ -28,8 +28,6 @@ import org.apache.mailet.MailAddress;
 import org.apache.mailet.base.GenericMatcher;
 
 public class SMTPAuthUserIsTest extends AbstractHasMailAttributeTest {
-    
-    private final String SMTP_AUTH_USER_ATTRIBUTE_NAME = "org.apache.james.SMTPAuthUser";
 
     protected String getHasMailAttribute() {
         return "test@james.apache.org";
@@ -45,6 +43,7 @@ public class SMTPAuthUserIsTest extends AbstractHasMailAttributeTest {
     
     protected void init() {
         super.init();
+        String SMTP_AUTH_USER_ATTRIBUTE_NAME = "org.apache.james.SMTPAuthUser";
         setMailAttributeName(SMTP_AUTH_USER_ATTRIBUTE_NAME);
         setMailAttributeValue("test@james.apache.org");
     }

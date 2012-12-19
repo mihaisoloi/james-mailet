@@ -97,7 +97,7 @@ public class FakeMimeMessage extends MimeMessage {
             String recipient = (String) aRecipientsList;
             recipientAddresses.add(new InternetAddress(recipient));
         }
-        return recipientAddresses.toArray(new Address[]{});
+        return recipientAddresses.toArray(new Address[recipientAddresses.size()]);
     }
 
     private List<Serializable> getRecipientsList(Message.RecipientType recipientType) {

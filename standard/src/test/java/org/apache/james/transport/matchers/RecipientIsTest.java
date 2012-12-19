@@ -30,13 +30,12 @@ import org.apache.mailet.Matcher;
 
 public class RecipientIsTest extends AbstractRecipientIsTest {
 
-    private final String RECIPIENT_NAME = "test@james.apache.org";
-
     public RecipientIsTest(String arg0) throws UnsupportedEncodingException {
         super(arg0);
     }
 
     protected String getRecipientName() {
+        String RECIPIENT_NAME = "test@james.apache.org";
         return RECIPIENT_NAME;
     }
 

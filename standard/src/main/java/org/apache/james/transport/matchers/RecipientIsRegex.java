@@ -64,10 +64,6 @@ public class RecipientIsRegex extends GenericRecipientMatcher {
 
     public boolean matchRecipient(MailAddress recipient) {
         String myRecipient = recipient.toString();
-        if (pattern.matcher(myRecipient).matches()){
-            return true;
-        } else {
-            return false;
-        }
+        return pattern.matcher(myRecipient).matches();
     }
 }

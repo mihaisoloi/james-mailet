@@ -27,7 +27,6 @@ import java.io.Reader;
  */
 public abstract class Tokenizer {
 
-    private String token;
     private String header = "";
    
     /**
@@ -37,6 +36,7 @@ public abstract class Tokenizer {
      */
     protected void doTokenize(Reader stream) throws IOException {
 
+        String token;
         while ((token = nextToken(stream)) != null) {
             boolean endingLine = false;
             if (token.length() > 0 && token.charAt(token.length() - 1) == '\n') {

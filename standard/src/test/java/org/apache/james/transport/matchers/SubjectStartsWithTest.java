@@ -30,8 +30,6 @@ import org.apache.mailet.Matcher;
 
 public class SubjectStartsWithTest extends AbstractSubjectIsTest {
 
-    private final String SUBJECT_NAME = "testSubject";
-
     public SubjectStartsWithTest(String arg0)
             throws UnsupportedEncodingException {
         super(arg0);
@@ -39,6 +37,7 @@ public class SubjectStartsWithTest extends AbstractSubjectIsTest {
 
     // test if the recipients get returned as matched
     public void testHostIsMatchedAllRecipients() throws MessagingException {
+        String SUBJECT_NAME = "testSubject";
         setSubject(SUBJECT_NAME);
 
         setupAll();

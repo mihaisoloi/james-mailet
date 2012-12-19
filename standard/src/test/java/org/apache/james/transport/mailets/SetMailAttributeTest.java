@@ -32,8 +32,6 @@ import java.io.UnsupportedEncodingException;
 
 public class SetMailAttributeTest extends TestCase {
 
-    private Mail mockedMail;
-
     private Mailet mailet;
 
     private final String ATTRIBUTE_NAME1 = "org.apache.james.junit1";
@@ -57,7 +55,7 @@ public class SetMailAttributeTest extends TestCase {
 
     // test if the Header was add
     public void testMailAttributeAdded() throws MessagingException {
-        mockedMail = MailUtil.createMockMail2Recipients(null);
+        Mail mockedMail = MailUtil.createMockMail2Recipients(null);
         setupMailet();
 
         assertNull(mockedMail.getAttribute(ATTRIBUTE_NAME1));

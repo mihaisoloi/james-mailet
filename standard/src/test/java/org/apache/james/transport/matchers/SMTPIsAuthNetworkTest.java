@@ -43,8 +43,6 @@ public class SMTPIsAuthNetworkTest extends TestCase {
 
     private boolean isAuthorized = false;
 
-    private final String MAIL_ATTRIBUTE_NAME = "org.apache.james.SMTPIsAuthNetwork";
-
     public SMTPIsAuthNetworkTest(String arg0)
             throws UnsupportedEncodingException {
         super(arg0);
@@ -57,6 +55,7 @@ public class SMTPIsAuthNetworkTest extends TestCase {
     private void setupMockedMail() throws ParseException {
         mockedMail = MailUtil.createMockMail2Recipients(null);
         if (isAuthorized) {
+            String MAIL_ATTRIBUTE_NAME = "org.apache.james.SMTPIsAuthNetwork";
             mockedMail.setAttribute(MAIL_ATTRIBUTE_NAME, "true");
         }
     }

@@ -116,7 +116,7 @@ public class SerialiseToHTTP extends GenericMailet {
 			String serialisedMessage = getSerialisedMessage(message);
 			NameValuePair[] nameValuePairs = getNameValuePairs(serialisedMessage);
 			String result = httpPost(nameValuePairs);
-			if (passThrough == true) {
+			if (passThrough) {
 				addHeader(mail, (result == null || result.length() == 0), result);
 			} else {
 				mail.setState(Mail.GHOST);

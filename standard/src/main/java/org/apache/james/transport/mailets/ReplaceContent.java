@@ -275,12 +275,12 @@ public class ReplaceContent extends GenericMailet {
             }
             
             ReplaceConfig rConfig = new ReplaceConfig();
-            rConfig.subjectPatterns = subjectPatternsList.toArray(new Pattern[0]);
-            rConfig.subjectSubstitutions = subjectSubstitutionsList.toArray(new String[0]);
-            rConfig.subjectFlags = subjectFlagsList.toArray(new Integer[0]);
-            rConfig.bodyPatterns = bodyPatternsList.toArray(new Pattern[0]);
-            rConfig.bodySubstitutions = bodySubstitutionsList.toArray(new String[0]);
-            rConfig.bodyFlags = bodyFlagsList.toArray(new Integer[0]);
+            rConfig.subjectPatterns = subjectPatternsList.toArray(new Pattern[subjectPatternsList.size()]);
+            rConfig.subjectSubstitutions = subjectSubstitutionsList.toArray(new String[subjectSubstitutionsList.size()]);
+            rConfig.subjectFlags = subjectFlagsList.toArray(new Integer[subjectFlagsList.size()]);
+            rConfig.bodyPatterns = bodyPatternsList.toArray(new Pattern[bodyPatternsList.size()]);
+            rConfig.bodySubstitutions = bodySubstitutionsList.toArray(new String[bodySubstitutionsList.size()]);
+            rConfig.bodyFlags = bodyFlagsList.toArray(new Integer[bodyFlagsList.size()]);
             
             return rConfig;
             

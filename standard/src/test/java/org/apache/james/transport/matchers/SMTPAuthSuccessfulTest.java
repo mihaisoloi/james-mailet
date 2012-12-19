@@ -23,8 +23,6 @@ package org.apache.james.transport.matchers;
 import org.apache.mailet.base.GenericMatcher;
 
 public class SMTPAuthSuccessfulTest extends AbstractHasMailAttributeTest {
-    
-    private final String SMTP_AUTH_USER_ATTRIBUTE_NAME = "org.apache.james.SMTPAuthUser";
 
     protected String getHasMailAttribute() {
         return "";
@@ -40,6 +38,7 @@ public class SMTPAuthSuccessfulTest extends AbstractHasMailAttributeTest {
     
     protected void init() {
         super.init();
+        String SMTP_AUTH_USER_ATTRIBUTE_NAME = "org.apache.james.SMTPAuthUser";
         setMailAttributeName(SMTP_AUTH_USER_ATTRIBUTE_NAME);
     }
 

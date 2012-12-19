@@ -106,7 +106,7 @@ public class HeadersToHTTP extends GenericMailet {
 			HashSet<NameValuePair> pairs = getNameValuePairs(message);
 			log(mail.getName() + "HeadersToHTTP: " + pairs.size() + " named value pairs found");
 			String result = httpPost(pairs);
-			if (passThrough == true) {
+			if (passThrough) {
 				addHeader(mail, true, result);
 			} else {
 				mail.setState(Mail.GHOST);

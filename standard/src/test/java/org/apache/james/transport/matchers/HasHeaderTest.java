@@ -43,8 +43,6 @@ public class HasHeaderTest extends TestCase {
 
     private final String HEADER_NAME = "JUNIT";
 
-    private final String HEADER_VALUE = "test-value";
-
     private String headerName = "defaultHeaderName";
 
     private String headerValue = "defaultHeaderValue";
@@ -76,6 +74,7 @@ public class HasHeaderTest extends TestCase {
     // test if the Header was matched
     public void testHeaderIsMatched() throws MessagingException {
         setHeaderName(HEADER_NAME);
+        String HEADER_VALUE = "test-value";
         setHeaderValue(HEADER_VALUE);
 
         setupMockedMimeMessage();

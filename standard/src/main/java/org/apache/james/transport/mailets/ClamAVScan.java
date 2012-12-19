@@ -529,7 +529,6 @@ public class ClamAVScan extends GenericMailet {
                         + address + " on port " + getPort() + ": " + ioe.getMessage());
                 address = getNextAddress();
                 // retry
-                continue;
             }
         }
     }

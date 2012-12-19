@@ -253,12 +253,7 @@ public class MailAddress implements java.io.Serializable {
 
     @Override
     public String toString() {
-        StringBuilder addressBuffer =
-            new StringBuilder(128)
-                    .append(localPart)
-                    .append("@")
-                    .append(domain);
-        return addressBuffer.toString();
+        return localPart + "@" + domain;
     }
     
     /**

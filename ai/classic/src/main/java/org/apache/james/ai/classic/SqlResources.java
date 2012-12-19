@@ -165,7 +165,11 @@ class SqlResources {
 
         }
         if (!found) {
-            StringBuilder exceptionBuffer = new StringBuilder(64).append("Error loading sql definition file. ").append("The element named \'").append(sqlDefsSection).append("\' does not exist.");
+            StringBuilder exceptionBuffer = new StringBuilder(64)
+                    .append("Error loading sql definition file. ")
+                    .append("The element named \'")
+                    .append(sqlDefsSection)
+                    .append("\' does not exist.");
             throw new RuntimeException(exceptionBuffer.toString());
         }
 
@@ -369,7 +373,10 @@ class SqlResources {
         String sql = getSqlString(name);
 
         if (sql == null && required) {
-            StringBuilder exceptionBuffer = new StringBuilder(64).append("Required SQL resource: '").append(name).append("' was not found.");
+            StringBuilder exceptionBuffer = new StringBuilder(64)
+                    .append("Required SQL resource: '")
+                    .append(name)
+                    .append("' was not found.");
             throw new RuntimeException(exceptionBuffer.toString());
         }
         return sql;

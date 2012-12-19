@@ -80,25 +80,14 @@ public class ToProcessor extends GenericMailet {
      */
     public void service(Mail mail) throws MessagingException {
         if (isDebug) {
-            StringBuilder logBuffer =
-                new StringBuilder(128)
-                        .append("Sending mail ")
-                        .append(mail)
-                        .append(" to ")
-                        .append(processor);
-            log(logBuffer.toString());
+            log(String.format("Sending mail %s to %s", mail, processor));
         }
         mail.setState(processor);
         if (noticeText != null) {
             if (mail.getErrorMessage() == null) {
                 mail.setErrorMessage(noticeText);
             } else {
-                StringBuilder errorMessageBuffer =
-                    new StringBuilder(256)
-                            .append(mail.getErrorMessage())
-                            .append("\r\n")
-                            .append(noticeText);
-                mail.setErrorMessage(errorMessageBuffer.toString());
+                mail.setErrorMessage(String.format("%s\r\n%s", mail.getErrorMessage(), noticeText));
             }
         }
     }

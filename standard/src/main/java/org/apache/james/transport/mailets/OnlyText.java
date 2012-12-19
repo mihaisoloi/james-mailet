@@ -178,7 +178,7 @@ public class OnlyText extends GenericMailet {
         return res.toString();
     }
 
-    private final void initEntityTable() {
+    private void initEntityTable() {
         for (int index = 11; index < 32; index++) charMap.put("#0" + index, String.valueOf((char) index));
         for (int index = 32; index < 128; index++) charMap.put("#" + index, String.valueOf((char) index));
         for (int index = 128; index < 256; index++) charMap.put("#" + index, String.valueOf((char) index));

@@ -58,7 +58,7 @@ public final class StringUtils {
                 list.add(prev.substring(0, prev.length() - 1) + pattern + array[i]);
             }
         }
-        return list.toArray(new String[0]);
+        return list.toArray(new String[list.size()]);
     }
 
     /**

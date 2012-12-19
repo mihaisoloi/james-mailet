@@ -26,10 +26,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Pattern;
 
 import javax.mail.Message;
@@ -93,10 +90,6 @@ public class StripAttachment extends GenericMailet {
 
     public static final String SAVED_ATTACHMENTS_ATTRIBUTE_KEY = "org.apache.james.transport.mailets.StripAttachment.saved";
 
-    private String patternString = null;
-
-    private String notpatternString = null;
-
     private String removeAttachments = null;
 
     private String directoryName = null;
@@ -128,8 +121,8 @@ public class StripAttachment extends GenericMailet {
      * @throws MailetException
      */
     public void init() throws MailetException {
-        patternString = getInitParameter(PATTERN_PARAMETER_NAME);
-        notpatternString = getInitParameter(NOTPATTERN_PARAMETER_NAME);
+        String patternString = getInitParameter(PATTERN_PARAMETER_NAME);
+        String notpatternString = getInitParameter(NOTPATTERN_PARAMETER_NAME);
         if (patternString == null && notpatternString == null) {
             throw new MailetException("No value for " + PATTERN_PARAMETER_NAME
                     + " parameter was provided.");
@@ -183,19 +176,21 @@ public class StripAttachment extends GenericMailet {
         if (getInitParameter(REPLACE_FILENAME_PATTERN_PARAMETER_NAME) != null) {
             PatternList pl = ReplaceContent
                     .getPatternsFromString(getInitParameter(REPLACE_FILENAME_PATTERN_PARAMETER_NAME));
-            replaceFilenamePatterns = pl.getPatterns().toArray(new Pattern[0]);
-            replaceFilenameSubstitutions = pl.getSubstitutions().toArray(new String[0]);
-            replaceFilenameFlags = pl.getFlags().toArray(new Integer[0]);
+            List<Pattern> patterns = pl.getPatterns();
+            replaceFilenamePatterns = patterns.toArray(new Pattern[patterns.size()]);
+            List<String> substitutions = pl.getSubstitutions();
+            replaceFilenameSubstitutions = substitutions.toArray(new String[substitutions.size()]);
+            List<Integer> flags = pl.getFlags();
+            replaceFilenameFlags = flags.toArray(new Integer[flags.size()]);
         }
 
-        String toLog = "StripAttachment is initialised with regex pattern ["
-                + patternString + " / " + notpatternString + "]";
+        String toLog = String.format("StripAttachment is initialised with regex pattern [%s / %s]",
+                patternString, notpatternString);
         if (directoryName != null) {
-            toLog += " and will save to directory [" + directoryName + "]";
+            toLog += String.format(" and will save to directory [%s]", directoryName);
         }
         if (attributeName != null) {
-            toLog += " and will store attachments to attribute ["
-                    + attributeName + "]";
+            toLog += String.format(" and will store attachments to attribute [%s]", attributeName);
         }
         log(toLog);
     }
@@ -224,8 +219,7 @@ public class StripAttachment extends GenericMailet {
                 analyseMultipartPartMessage(message, mail);
             }
         } catch (MessagingException e) {
-            throw new MailetException(
-                    "Could not retrieve contenttype of message.", e);
+            throw new MailetException("Could not retrieve contenttype of message.", e);
         } catch (Exception e) {
             throw new MailetException("Could not analyse message.", e);
         }

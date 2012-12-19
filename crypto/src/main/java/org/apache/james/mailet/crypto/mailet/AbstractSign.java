@@ -592,12 +592,9 @@ public abstract class AbstractSign extends GenericMailet {
         
         // if already signed return false
         MimeMessage mimeMessage = mail.getMessage();
-        if (mimeMessage.isMimeType("multipart/signed")
-            || mimeMessage.isMimeType("application/pkcs7-mime")) {
-            return false;
-        }
-        
-        return true;
+        return !(mimeMessage.isMimeType("multipart/signed")
+                || mimeMessage.isMimeType("application/pkcs7-mime"));
+
     }
     
     /**

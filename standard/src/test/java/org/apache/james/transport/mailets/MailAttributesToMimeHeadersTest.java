@@ -51,8 +51,6 @@ public class MailAttributesToMimeHeadersTest extends TestCase {
 
     private String config1 = MAIL_ATTRIBUTE_NAME1 + "; " + HEADER_NAME1;
 
-    private String config2 = MAIL_ATTRIBUTE_NAME2 + "; " + HEADER_NAME2;
-
     public MailAttributesToMimeHeadersTest(String arg0)
             throws UnsupportedEncodingException {
         super(arg0);
@@ -71,6 +69,7 @@ public class MailAttributesToMimeHeadersTest extends TestCase {
         FakeMailetConfig mci = new FakeMailetConfig("Test",
                 new FakeMailContext());
         mci.setProperty("simplemapping", getConfig1());
+        String config2 = MAIL_ATTRIBUTE_NAME2 + "; " + HEADER_NAME2;
         mci.setProperty("simplemapping", config2);
         mailet.init(mci);
     }
