@@ -20,16 +20,16 @@
 
 package org.apache.mailet;
 
-import java.util.Locale;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import java.util.Locale;
 
 /**
  * A representation of an email address.
- * 
+ * <p/>
  * <p>This class encapsulates functionality to access different
  * parts of an email address without dealing with its parsing.</p>
- *
+ * <p/>
  * <p>A MailAddress is an address specified in the MAIL FROM and
  * RCPT TO commands in SMTP sessions.  These are either passed by
  * an external server to the mailet-compliant SMTP server, or they
@@ -37,13 +37,13 @@ import javax.mail.internet.InternetAddress;
  * send to another (external) SMTP server.  Mailets and matchers
  * use the MailAddress for the purpose of evaluating the sender
  * and recipient(s) of a message.</p>
- *
+ * <p/>
  * <p>MailAddress parses an email address as defined in RFC 821
  * (SMTP) p. 30 and 31 where addresses are defined in BNF convention.
  * As the mailet API does not support the aged "SMTP-relayed mail"
  * addressing protocol, this leaves all addresses to be a {@code <mailbox>},
- * as per the spec. 
- *
+ * as per the spec.
+ * <p/>
  * <p>This class is a good way to validate email addresses as there are
  * some valid addresses which would fail with a simpler approach
  * to parsing address. It also removes the parsing burden from
@@ -53,7 +53,7 @@ import javax.mail.internet.InternetAddress;
  * lokitech.com is the domain). This means all current parsing to date
  * is incorrect as we just find the first '@' and use that to separate
  * local-part from domain.</p>
- *
+ * <p/>
  * <p>This parses an address as per the BNF specification for <mailbox>
  * from RFC 821 on page 30 and 31, section 4.1.2. COMMAND SYNTAX.
  * http://www.freesoft.org/CIE/RFC/821/15.htm</p>
@@ -62,15 +62,15 @@ import javax.mail.internet.InternetAddress;
  */
 public class MailAddress implements java.io.Serializable {
     /**
-     *  We hardcode the serialVersionUID 
-     *  This version (2779163542539434916L) retains compatibility back to
-     *  Mailet version 1.2 (James 1.2) so that MailAddress will be
-     *  deserializable and mail doesn't get lost after an upgrade.
+     * We hardcode the serialVersionUID
+     * This version (2779163542539434916L) retains compatibility back to
+     * Mailet version 1.2 (James 1.2) so that MailAddress will be
+     * deserializable and mail doesn't get lost after an upgrade.
      */
     public static final long serialVersionUID = 2779163542539434916L;
 
     private final static char[] SPECIAL =
-    {'<', '>', '(', ')', '[', ']', '\\', '.', ',', ';', ':', '@', '\"'};
+            {'<', '>', '(', ')', '[', ']', '\\', '.', ',', ';', ':', '@', '\"'};
 
     private String localPart = null;
     private String domain = null;
@@ -78,23 +78,23 @@ public class MailAddress implements java.io.Serializable {
     /**
      * Strips source routing. According to RFC-2821 it is a valid approach
      * to handle mails containing RFC-821 source-route information.
-     * 
+     *
      * @param address the address to strip
-     * @param pos current position
+     * @param pos     current position
      * @return new pos
      */
     private int stripSourceRoute(String address, int pos) {
         if (pos < address.length()) {
-            if (address.charAt(pos)=='@') { 
+            if (address.charAt(pos) == '@') {
                 int i = address.indexOf(':');
                 if (i != -1) {
-                    pos = i+1;
+                    pos = i + 1;
                 }
             }
         }
         return pos;
     }
-    
+
     /**
      * Constructs a MailAddress by parsing the provided address.
      *
@@ -104,7 +104,7 @@ public class MailAddress implements java.io.Serializable {
     public MailAddress(String address) throws AddressException {
         address = address.trim();
         int pos = 0;
-        
+
         // Test if mail address has source routing information (RFC-821) and get rid of it!!
         //must be called first!! (or at least prior to updating pos)
         stripSourceRoute(address, pos);
@@ -118,20 +118,15 @@ public class MailAddress implements java.io.Serializable {
             //parse local-part
             //<local-part> ::= <dot-string> | <quoted-string>
             if (address.charAt(pos) == '\"') {
-                pos = parseQuotedLocalPart(localPartSB, address, pos);
-                if (localPartSB.toString().length() == 2) {
-                    throw new AddressException("No quoted local-part (user account) found at position " + (pos + 2) + " in '" + address + "'",address,pos+2);
-                }
+                pos = parseQuotedLocalPartOrThrowException(localPartSB, address, pos);
             } else {
-                pos = parseUnquotedLocalPart(localPartSB, address, pos);
-                if (localPartSB.toString().length() == 0) {
-                    throw new AddressException("No local-part (user account) found at position " + (pos + 1) + " in '" + address + "'",address,pos+1);
-                }
+                pos = parseUnquotedLocalPartOrThrowException(localPartSB, address, pos);
             }
 
             //find @
             if (pos >= address.length() || address.charAt(pos) != '@') {
-                throw new AddressException("Did not find @ between local-part and domain at position " + (pos + 1) + " in '" + address + "'",address,pos+1);
+                throw new AddressException("Did not find @ between local-part and domain at position " +
+                        (pos + 1) + " in '" + address + "'", address, pos + 1);
             }
             pos++;
 
@@ -150,6 +145,10 @@ public class MailAddress implements java.io.Serializable {
                     break;
                 }
                 if (address.charAt(pos) == '.') {
+                    char lastChar = address.charAt(pos - 1);
+                    if (lastChar == '@' || lastChar == '.') {
+                        throw new AddressException("Subdomain expected before '.' or duplicate '.' in " + address);
+                    }
                     domainSB.append('.');
                     pos++;
                     continue;
@@ -158,35 +157,57 @@ public class MailAddress implements java.io.Serializable {
             }
 
             if (domainSB.toString().length() == 0) {
-                throw new AddressException("No domain found at position " + (pos + 1) + " in '" + address + "'",address,pos+1);
+                throw new AddressException("No domain found at position " +
+                        (pos + 1) + " in '" + address + "'", address, pos + 1);
             }
         } catch (IndexOutOfBoundsException ioobe) {
-            throw new AddressException("Out of data at position " + (pos + 1) + " in '" + address + "'",address,pos+1);
+            throw new AddressException("Out of data at position " +
+                    (pos + 1) + " in '" + address + "'", address, pos + 1);
         }
 
         localPart = localPartSB.toString();
         domain = domainSB.toString();
     }
 
+    private int parseUnquotedLocalPartOrThrowException(StringBuffer localPartSB, String address, int pos)
+            throws AddressException {
+        pos = parseUnquotedLocalPart(localPartSB, address, pos);
+        if (localPartSB.toString().length() == 0) {
+            throw new AddressException("No local-part (user account) found at position " +
+                    (pos + 1) + " in '" + address + "'", address, pos + 1);
+        }
+        return pos;
+    }
+
+    private int parseQuotedLocalPartOrThrowException(StringBuffer localPartSB, String address, int pos)
+            throws AddressException {
+        pos = parseQuotedLocalPart(localPartSB, address, pos);
+        if (localPartSB.toString().length() == 2) {
+            throw new AddressException("No quoted local-part (user account) found at position " +
+                    (pos + 2) + " in '" + address + "'", address, pos + 2);
+        }
+        return pos;
+    }
+
     /**
      * Constructs a MailAddress with the provided local part and domain.
      *
      * @param localPart the local-part portion. This is a domain dependent string.
-     *        In addresses, it is simply interpreted on the particular host as a
-     *        name of a particular mailbox. per RFC2822 3.4.1. addr-spec specification
-     * @param domain the domain portion. This identifies the point to which the mail
-     *        is delivered  per RFC2822 3.4.1. addr-spec specification
+     *                  In addresses, it is simply interpreted on the particular host as a
+     *                  name of a particular mailbox. per RFC2822 3.4.1. addr-spec specification
+     * @param domain    the domain portion. This identifies the point to which the mail
+     *                  is delivered  per RFC2822 3.4.1. addr-spec specification
      * @throws AddressException if the parse failed
      */
     public MailAddress(String localPart, String domain) throws AddressException {
-        this(new InternetAddress(localPart+"@"+domain));
+        this(new InternetAddress(localPart + "@" + domain));
     }
 
     /**
      * Constructs a MailAddress from an InternetAddress, using only the
      * email address portion (an "addr-spec", not "name-addr", as
      * defined in the RFC2822 3.4. Address Specification)
-     * 
+     *
      * @param address the address
      * @throws AddressException if the parse failed
      */
@@ -200,27 +221,26 @@ public class MailAddress implements java.io.Serializable {
      * @return the host part of this email address. If the host is of the
      *         dotNum form (e.g. [yyy.yyy.yyy.yyy]), then strip the braces first.
      * @deprecated use {@link #getDomain()}, whose name was changed to
-     *              align with RFC2822 3.4.1. addr-spec specification
+     *             align with RFC2822 3.4.1. addr-spec specification
      */
     @Deprecated
     public String getHost() {
         return getDomain();
     }
-    
+
     /**
      * Returns the domain part per RFC2822 3.4.1. addr-spec specification.
      *
      * @return the domain part of this email address. If the domain is of
-     * the domain-literal form  (e.g. [yyy.yyy.yyy.yyy]), the braces will
-     * have been stripped returning the raw IP address.
-     * 
+     *         the domain-literal form  (e.g. [yyy.yyy.yyy.yyy]), the braces will
+     *         have been stripped returning the raw IP address.
      * @since Mailet API 2.4
      */
     public String getDomain() {
         if (!(domain.startsWith("[") && domain.endsWith("]"))) {
             return domain;
-        } 
-        return domain.substring(1, domain.length() -1);
+        }
+        return domain.substring(1, domain.length() - 1);
     }
 
     /**
@@ -234,17 +254,16 @@ public class MailAddress implements java.io.Serializable {
     public String getUser() {
         return getLocalPart();
     }
-    
+
     /**
      * Returns the local-part per RFC2822 3.4.1. addr-spec specification.
      *
-     * @return  the local-part of this email address as defined by the
-     *          RFC2822 3.4.1. addr-spec specification. 
-     *          The local-part portion is a domain dependent string.
-     *          In addresses, it is simply interpreted on the particular
-     *          host as a name of a particular mailbox
-     *          (the part before the "@" character)
-     *          
+     * @return the local-part of this email address as defined by the
+     *         RFC2822 3.4.1. addr-spec specification.
+     *         The local-part portion is a domain dependent string.
+     *         In addresses, it is simply interpreted on the particular
+     *         host as a name of a particular mailbox
+     *         (the part before the "@" character)
      * @since Mailet API 2.4
      */
     public String getLocalPart() {
@@ -255,11 +274,11 @@ public class MailAddress implements java.io.Serializable {
     public String toString() {
         return localPart + "@" + domain;
     }
-    
+
     /**
      * Returns an InternetAddress representing the same address
      * as this MailAddress.
-     * 
+     *
      * @return the address
      */
     public InternetAddress toInternetAddress() {
@@ -273,12 +292,12 @@ public class MailAddress implements java.io.Serializable {
 
     /**
      * Indicates whether some other object is "equal to" this one.
-     * 
+     * <p/>
      * Note that this implementation breaks the general contract of the
      * <code>equals</code> method by allowing an instance to equal to a
      * <code>String</code>. It is recommended that implementations avoid
      * relying on this design which may be removed in a future release.
-     * 
+     *
      * @returns true if the given object is equal to this one, false otherwise
      */
     @Override
@@ -286,10 +305,10 @@ public class MailAddress implements java.io.Serializable {
         if (obj == null) {
             return false;
         } else if (obj instanceof String) {
-            String theString = (String)obj;
+            String theString = (String) obj;
             return toString().equalsIgnoreCase(theString);
         } else if (obj instanceof MailAddress) {
-            MailAddress addr = (MailAddress)obj;
+            MailAddress addr = (MailAddress) obj;
             return getLocalPart().equalsIgnoreCase(addr.getLocalPart()) && getDomain().equalsIgnoreCase(addr.getDomain());
         }
         return false;
@@ -297,7 +316,7 @@ public class MailAddress implements java.io.Serializable {
 
     /**
      * Returns a hash code value for this object.
-     * <p>
+     * <p/>
      * This method is implemented by returning the hash code of the canonical
      * string representation of this address, so that all instances representing
      * the same address will return an identical hash code.
@@ -328,7 +347,8 @@ public class MailAddress implements java.io.Serializable {
                 //<x> ::= any one of the 128 ASCII characters (no exceptions)
                 char x = address.charAt(pos);
                 if (x < 0 || x > 127) {
-                    throw new AddressException("Invalid \\ syntaxed character at position " + (pos + 1) + " in '" + address + "'",address,pos+1);
+                    throw new AddressException("Invalid \\ syntaxed character at position " +
+                            (pos + 1) + " in '" + address + "'", address, pos + 1);
                 }
                 resultSB.append(x);
                 pos++;
@@ -337,7 +357,9 @@ public class MailAddress implements java.io.Serializable {
                 //<LF>, quote ("), or backslash (\)
                 char q = address.charAt(pos);
                 if (q <= 0 || q == '\n' || q == '\r' || q == '\"' || q == '\\') {
-                    throw new AddressException("Unquoted local-part (user account) must be one of the 128 ASCI characters exception <CR>, <LF>, quote (\"), or backslash (\\) at position " + (pos + 1) + " in '" + address + "'");
+                    throw new AddressException("Unquoted local-part (user account) must be one of the 128 ASCI " +
+                            "characters exception <CR>, <LF>, quote (\"), or backslash (\\) at position " +
+                            (pos + 1) + " in '" + address + "'");
                 }
                 resultSB.append(q);
                 pos++;
@@ -360,12 +382,16 @@ public class MailAddress implements java.io.Serializable {
                 //<x> ::= any one of the 128 ASCII characters (no exceptions)
                 char x = address.charAt(pos);
                 if (x < 0 || x > 127) {
-                    throw new AddressException("Invalid \\ syntaxed character at position " + (pos + 1) + " in '" + address + "'",address,pos+1);
+                    throw new AddressException("Invalid \\ syntaxed character at position " + (pos + 1) +
+                            " in '" + address + "'", address, pos + 1);
                 }
                 resultSB.append(x);
                 pos++;
                 lastCharDot = false;
             } else if (address.charAt(pos) == '.') {
+                if (pos == 0) {
+                    throw new AddressException("Local part must not start with a '.'");
+                }
                 resultSB.append('.');
                 pos++;
                 lastCharDot = true;
@@ -382,12 +408,14 @@ public class MailAddress implements java.io.Serializable {
                 //<SP> ::= the space character (ASCII code 32)
                 char c = address.charAt(pos);
                 if (c <= 31 || c >= 127 || c == ' ') {
-                    throw new AddressException("Invalid character in local-part (user account) at position " + (pos + 1) + " in '" + address + "'",address,pos+1);
+                    throw new AddressException("Invalid character in local-part (user account) at position " +
+                            (pos + 1) + " in '" + address + "'", address, pos + 1);
                 }
                 int i = 0;
                 while (i < SPECIAL.length) {
                     if (c == SPECIAL[i]) {
-                        throw new AddressException("Invalid character in local-part (user account) at position " + (pos + 1) + " in '" + address + "'",address,pos+1);
+                        throw new AddressException("Invalid character in local-part (user account) at position " +
+                                (pos + 1) + " in '" + address + "'", address, pos + 1);
                     }
                     i++;
                 }
@@ -397,7 +425,8 @@ public class MailAddress implements java.io.Serializable {
             }
         }
         if (lastCharDot) {
-            throw new AddressException("local-part (user account) ended with a \".\", which is invalid in address '" + address + "'",address,pos);
+            throw new AddressException("local-part (user account) ended with a \".\", which is invalid in address '" +
+                    address + "'", address, pos);
         }
         lpSB.append(resultSB);
         return pos;
@@ -407,6 +436,10 @@ public class MailAddress implements java.io.Serializable {
         //<number> ::= <d> | <d> <number>
 
         StringBuilder resultSB = new StringBuilder();
+        // we were passed the string with pos pointing the the # char.
+        // take the first char (#), put it in the result buffer and increment pos
+        resultSB.append(address.charAt(pos));
+        pos++;
         //We keep the position from the class level pos field
         while (true) {
             if (pos >= address.length()) {
@@ -418,20 +451,21 @@ public class MailAddress implements java.io.Serializable {
                 break;
             }
             if (d < '0' || d > '9') {
-                throw new AddressException("In domain, did not find a number in # address at position " + (pos + 1) + " in '" + address + "'",address,pos+1);
+                throw new AddressException("In domain, did not find a number in # address at position " +
+                        (pos + 1) + " in '" + address + "'", address, pos + 1);
             }
             resultSB.append(d);
             pos++;
+        }
+        if (resultSB.length() < 2) {
+            throw new AddressException("In domain, did not find a number in # address at position " +
+                    (pos + 1) + " in '" + address + "'", address, pos + 1);
         }
         dSB.append(resultSB);
         return pos;
     }
 
     private int parseDomainLiteral(StringBuffer dSB, String address, int pos) throws AddressException {
-        //throw away all irrelevant '\' they're not necessary for escaping of '.' or digits, and are illegal as part of the domain-literal
-        while(address.contains("\\")){
-             address= address.substring(0,address.indexOf("\\")) + address.substring(address.indexOf("\\")+1);
-        }
         StringBuilder resultSB = new StringBuilder();
         //we were passed the string with pos pointing the the [ char.
         // take the first char ([), put it in the result buffer and increment pos
@@ -445,35 +479,36 @@ public class MailAddress implements java.io.Serializable {
             //<d> ::= any one of the ten digits 0 through 9
             StringBuilder snumSB = new StringBuilder();
             for (int digits = 0; digits < 3; digits++) {
-                char d = address.charAt(pos);
-                if (d == '.') {
+                char currentChar = address.charAt(pos);
+                if (currentChar == '.' || currentChar == ']') {
                     break;
+                } else if (currentChar < '0' || currentChar > '9') {
+                    throw new AddressException("Invalid number at position " +
+                            (pos + 1) + " in '" + address + "'", address, pos + 1);
                 }
-                if (d == ']') {
-                    break;
-                }
-                if (d < '0' || d > '9') {
-                    throw new AddressException("Invalid number at position " + (pos + 1) + " in '" + address + "'",address,pos+1);
-                }
-                snumSB.append(d);
+                snumSB.append(currentChar);
                 pos++;
             }
             if (snumSB.toString().length() == 0) {
-                throw new AddressException("Number not found at position " + (pos + 1) + " in '" + address + "'",address,pos+1);
+                throw new AddressException("Number not found at position " +
+                        (pos + 1) + " in '" + address + "'", address, pos + 1);
             }
             try {
                 int snum = Integer.parseInt(snumSB.toString());
                 if (snum > 255) {
-                    throw new AddressException("Invalid number at position " + (pos + 1) + " in '" + address + "'",address,pos+1);
+                    throw new AddressException("Invalid number at position " +
+                            (pos + 1) + " in '" + address + "'", address, pos + 1);
                 }
             } catch (NumberFormatException nfe) {
-                throw new AddressException("Invalid number at position " + (pos + 1) + " in '" + address + "'",address,pos+1);
+                throw new AddressException("Invalid number at position " +
+                        (pos + 1) + " in '" + address + "'", address, pos + 1);
             }
             resultSB.append(snumSB.toString());
             if (address.charAt(pos) == ']') {
                 if (octet < 3) {
-                    throw new AddressException("End of number reached too quickly at " + (pos + 1) + " in '" + address + "'",address,pos+1);
-                } 
+                    throw new AddressException("End of number reached too quickly at " +
+                            (pos + 1) + " in '" + address + "'", address, pos + 1);
+                }
                 break;
             }
             if (address.charAt(pos) == '.') {
@@ -482,7 +517,8 @@ public class MailAddress implements java.io.Serializable {
             }
         }
         if (address.charAt(pos) != ']') {
-            throw new AddressException("Did not find closing bracket \"]\" in domain at position " + (pos + 1) + " in '" + address + "'",address,pos+1);
+            throw new AddressException("Did not find closing bracket \"]\" in domain at position " +
+                    (pos + 1) + " in '" + address + "'", address, pos + 1);
         }
         resultSB.append(']');
         pos++;
@@ -513,9 +549,9 @@ public class MailAddress implements java.io.Serializable {
             }
             char ch = address.charAt(pos);
             if ((ch >= '0' && ch <= '9') ||
-                (ch >= 'a' && ch <= 'z') ||
-                (ch >= 'A' && ch <= 'Z') ||
-                (ch == '-')) {
+                    (ch >= 'a' && ch <= 'z') ||
+                    (ch >= 'A' && ch <= 'Z') ||
+                    (ch == '-')) {
                 resultSB.append(ch);
                 pos++;
                 continue;
@@ -523,11 +559,12 @@ public class MailAddress implements java.io.Serializable {
             if (ch == '.') {
                 break;
             }
-            throw new AddressException("Invalid character at " + pos + " in '" + address + "'",address,pos);
+            throw new AddressException("Invalid character at " + pos + " in '" + address + "'", address, pos);
         }
         String result = resultSB.toString();
         if (result.startsWith("-") || result.endsWith("-")) {
-            throw new AddressException("Domain name cannot begin or end with a hyphen \"-\" at position " + (pos + 1) + " in '" + address + "'",address,pos+1);
+            throw new AddressException("Domain name cannot begin or end with a hyphen \"-\" at position " +
+                    (pos + 1) + " in '" + address + "'", address, pos + 1);
         }
         dSB.append(result);
         return pos;

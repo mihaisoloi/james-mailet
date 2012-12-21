@@ -19,104 +19,119 @@
 
 package org.apache.mailet;
 
+import org.junit.Test;
+
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-import junit.framework.TestCase;
 
+import static org.junit.Assert.*;
 
-/**
- * Tests for Test method for {@link org.apache.mailet.MailAddress}.
- */
-public class MailAddressTest extends TestCase {
-    private static final String GOOD_LOCAL_PART = "\"quoted@local part\"";
-    private static final String GOOD_QUOTED_LOCAL_PART = "\"quoted@local part\"@james.apache.org";
-    private static final String BAD_LOCAL_PART_1 = "quoted local-part@james.apache.org";
-    private static final String BAD_LOCAL_PART_2 = "quoted@local-part@james.apache.org";
-    private static final String BAD_LOCAL_PART_3 = "local-part.@james.apache.org";
-    private static final String GOOD_ADDRESS = "server-dev@james.apache.org";
-    private static final String GOOD_DOMAIN = "james.apache.org";
-    
-    private static final String GOOD_DLIT = "server-dev@[127.0.0.1]";
-    private static final String BAD_DLIT_1 = "server-dev@[300.0.0.1]";
-    private static final String BAD_DLIT_2 = "server-dev@[127.0.1]";
+public class MailAddressTest {
+
+    private static final String
+            GOOD_LOCAL_PART = "\"quoted@local part\"",
+            GOOD_QUOTED_LOCAL_PART = "\"quoted@local part\"@james.apache.org",
+            GOOD_ADDRESS = "server-dev@james.apache.org",
+            GOOD_DOMAIN = "james.apache.org";
+
+    private static final String[] GOOD_ADDRESSES = {
+            GOOD_ADDRESS,
+            GOOD_QUOTED_LOCAL_PART,
+            "server-dev@james-apache.org",
+            "server-dev@[127.0.0.1]",
+            "server-dev@#123",
+            "server-dev@#123.apache.org",
+            "server.dev@james.apache.org",
+            "\\.server-dev@james.apache.org",
+            "server-dev\\.@james.apache.org",
+    };
+
+    private static final String[] BAD_ADDRESSES = {
+            "",
+            "server-dev",
+            "server-dev@",
+            "[]",
+            "server-dev@[]",
+            "server-dev@#",
+            "quoted local-part@james.apache.org",
+            "quoted@local-part@james.apache.org",
+            "local-part.@james.apache.org",
+            ".local-part@james.apache.org",
+            "local-part@.james.apache.org",
+            "local-part@james.apache.org.",
+            "local-part@james.apache..org",
+            "server-dev@-james.apache.org",
+            "server-dev@james.apache.org-",
+            "server-dev@#james.apache.org",
+            "server-dev@#123james.apache.org",
+            "server-dev@#-123.james.apache.org",
+            "server-dev@james. apache.org",
+            "server-dev@james\\.apache.org",
+            "server-dev@[300.0.0.1]",
+            "server-dev@[127.0.1]",
+            "server-dev@[0127.0.0.1]",
+            "server-dev@[127.0.1.1a]",
+            "server-dev@[127\\.0.1.1]",
+            "server-dev@[127.0.1.1.1]",
+            "server-dev@[127.0.1.-1]"
+    };
 
     /**
      * Test method for {@link org.apache.mailet.MailAddress#hashCode()}.
-     * @throws AddressException 
+     *
+     * @throws AddressException
      */
+    @Test
     public void testHashCode() throws AddressException {
 
         MailAddress a = new MailAddress(GOOD_ADDRESS);
         MailAddress b = new MailAddress(GOOD_ADDRESS);
-        assertTrue(a.hashCode()+" != "+ b.hashCode(),a.hashCode() == b.hashCode());
+        assertTrue(a.hashCode() + " != " + b.hashCode(), a.hashCode() == b.hashCode());
     }
 
     /**
      * Test method for {@link org.apache.mailet.MailAddress#MailAddress(java.lang.String)}.
-     * @throws AddressException 
+     *
+     * @throws AddressException
      */
+    @Test
     public void testMailAddressString() throws AddressException {
 
         MailAddress a = new MailAddress(GOOD_ADDRESS);
         assertTrue(GOOD_ADDRESS.equals(a.toString()));
-        try{
-            a = new MailAddress(GOOD_QUOTED_LOCAL_PART);
-        }catch (AddressException e){
-            assertTrue(e.getMessage(), false);
+
+        for (int i = 0; i < GOOD_ADDRESSES.length; i++) {
+            try {
+                a = new MailAddress(GOOD_ADDRESSES[i]);
+            } catch (AddressException e) {
+                fail(e.getMessage());
+            }
         }
-        try{
-            a = new MailAddress(GOOD_DLIT);
-        }catch (AddressException e){
-            assertTrue(e.getMessage(), false);
-        }
-        try{
-            a = new MailAddress(BAD_LOCAL_PART_1);
-            assertFalse(BAD_LOCAL_PART_1,true);
-        }catch (AddressException e){
-            assertTrue(true);
-        }
-        
-        try{
-            a = new MailAddress(BAD_LOCAL_PART_2);
-            assertFalse(BAD_LOCAL_PART_2,true);
-        }catch (AddressException e){
-             assertTrue(true);
-        }
-        
-        try{
-            a = new MailAddress(BAD_LOCAL_PART_3);
-            assertFalse(BAD_LOCAL_PART_3,true);
-        }catch (AddressException e){
-            assertTrue(true);
-        }
-        try{
-            a = new MailAddress(BAD_DLIT_1);
-            assertFalse(BAD_DLIT_1,true);
-        }catch (AddressException e){
-            assertTrue(true);
-        }
-        try{
-            a = new MailAddress(BAD_DLIT_2);
-            assertFalse(BAD_DLIT_2,true);
-        }catch (AddressException e){
-            assertTrue(true);
+
+        for (int i = 0; i < BAD_ADDRESSES.length; i++) {
+            try {
+                a = new MailAddress(BAD_ADDRESSES[i]);
+                fail(BAD_ADDRESSES[i]);
+            } catch (AddressException ignore) {
+            }
         }
     }
 
     /**
      * Test method for {@link org.apache.mailet.MailAddress#MailAddress(java.lang.String, java.lang.String)}.
      */
+    @Test
     public void testMailAddressStringString() {
 
-        try{
+        try {
             new MailAddress("local-part", "domain");
-        }catch (AddressException e){
+        } catch (AddressException e) {
             assertTrue(e.getMessage(), false);
         }
-        try{
+        try {
             MailAddress a = new MailAddress("local-part", "-domain");
-            assertFalse(a.toString(),true);
-        }catch (AddressException e){
+            assertFalse(a.toString(), true);
+        } catch (AddressException e) {
             assertTrue(true);
         }
     }
@@ -124,12 +139,13 @@ public class MailAddressTest extends TestCase {
     /**
      * Test method for {@link org.apache.mailet.MailAddress#MailAddress(javax.mail.internet.InternetAddress)}.
      */
+    @Test
     public void testMailAddressInternetAddress() {
 
-        try{
+        try {
             new MailAddress(new InternetAddress(GOOD_QUOTED_LOCAL_PART));
-        }catch (AddressException e){
-            System.out.println("AddressException"+e.getMessage());
+        } catch (AddressException e) {
+            System.out.println("AddressException" + e.getMessage());
             assertTrue(e.getMessage(), false);
         }
     }
@@ -137,13 +153,14 @@ public class MailAddressTest extends TestCase {
     /**
      * Test method for {@link org.apache.mailet.MailAddress#getDomain()}.
      */
+    @Test
     public void testGetDomain() {
 
-        try{
+        try {
             MailAddress a = new MailAddress(new InternetAddress(GOOD_ADDRESS));
-            assertTrue(a.getDomain()+" != "+GOOD_DOMAIN,a.getDomain().equals(GOOD_DOMAIN));
-        }catch (AddressException e){
-            System.out.println("AddressException"+e.getMessage());
+            assertTrue(a.getDomain() + " != " + GOOD_DOMAIN, a.getDomain().equals(GOOD_DOMAIN));
+        } catch (AddressException e) {
+            System.out.println("AddressException" + e.getMessage());
             assertTrue(e.getMessage(), false);
         }
     }
@@ -151,13 +168,14 @@ public class MailAddressTest extends TestCase {
     /**
      * Test method for {@link org.apache.mailet.MailAddress#getLocalPart()}.
      */
+    @Test
     public void testGetLocalPart() {
 
-        try{
+        try {
             MailAddress a = new MailAddress(new InternetAddress(GOOD_QUOTED_LOCAL_PART));
-            assertTrue(GOOD_LOCAL_PART+" != "+a.getLocalPart(),a.getLocalPart().equals(GOOD_LOCAL_PART));
-        }catch (AddressException e){
-            System.out.println("AddressException"+e.getMessage());
+            assertTrue(GOOD_LOCAL_PART + " != " + a.getLocalPart(), a.getLocalPart().equals(GOOD_LOCAL_PART));
+        } catch (AddressException e) {
+            System.out.println("AddressException" + e.getMessage());
             assertTrue(e.getMessage(), false);
         }
     }
@@ -165,13 +183,14 @@ public class MailAddressTest extends TestCase {
     /**
      * Test method for {@link org.apache.mailet.MailAddress#toString()}.
      */
+    @Test
     public void testToString() {
 
-        try{
+        try {
             MailAddress a = new MailAddress(new InternetAddress(GOOD_ADDRESS));
-            assertTrue(a.toString()+" != "+GOOD_ADDRESS,a.toString().equals(GOOD_ADDRESS));
-        }catch (AddressException e){
-            System.out.println("AddressException"+e.getMessage());
+            assertTrue(a.toString() + " != " + GOOD_ADDRESS, a.toString().equals(GOOD_ADDRESS));
+        } catch (AddressException e) {
+            System.out.println("AddressException" + e.getMessage());
             assertTrue(e.getMessage(), false);
         }
     }
@@ -179,28 +198,32 @@ public class MailAddressTest extends TestCase {
     /**
      * Test method for {@link org.apache.mailet.MailAddress#toInternetAddress()}.
      */
+    @Test
     public void testToInternetAddress() {
 
-        try{
+        try {
             InternetAddress b = new InternetAddress(GOOD_ADDRESS);
             MailAddress a = new MailAddress(b);
             assertTrue(a.toInternetAddress().equals(b));
-            assertTrue(a.toString()+" != "+GOOD_ADDRESS,a.toString().equals(GOOD_ADDRESS));
-        }catch (AddressException e){
-            System.out.println("AddressException"+e.getMessage());
+            assertTrue(a.toString() + " != " + GOOD_ADDRESS, a.toString().equals(GOOD_ADDRESS));
+        } catch (AddressException e) {
+            System.out.println("AddressException" + e.getMessage());
             assertTrue(e.getMessage(), false);
         }
     }
 
     /**
      * Test method for {@link org.apache.mailet.MailAddress#equals(java.lang.Object)}.
-     * @throws AddressException 
+     *
+     * @throws AddressException
      */
+    @Test
     public void testEqualsObject() throws AddressException {
 
         MailAddress a = new MailAddress(GOOD_ADDRESS);
         MailAddress b = new MailAddress(GOOD_ADDRESS);
-        
-        assertTrue(a.toString()+" != "+b.toString(),a.equals(b));
+
+        assertTrue(a.toString() + " != " + b.toString(), a.equals(b));
+        assertFalse(a.toString() + " != " + null, a.equals(null));
     }
 }
