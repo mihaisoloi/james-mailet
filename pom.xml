@@ -29,7 +29,7 @@
 
     <groupId>org.apache.james</groupId>
     <artifactId>apache-mailet</artifactId>
-    <version>2.5.0</version>
+    <version>2.5.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Apache James :: Mailets parent and aggregator</name>
@@ -236,9 +236,9 @@
     </issueManagement>
 
     <scm>
-        <connection>scm:svn:http://svn.apache.org/repos/asf/james/mailet/tags/apache-mailet-2.5.0</connection>
-        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/james/mailet/tags/apache-mailet-2.5.0</developerConnection>
-        <url>http://svn.apache.org/viewcvs.cgi/james/mailet/tags/apache-mailet-2.5.0?root=Apache-SVN</url>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/james/mailet/trunk</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/james/mailet/trunk</developerConnection>
+        <url>http://svn.apache.org/viewcvs.cgi/james/mailet/trunk/?root=Apache-SVN</url>
     </scm>
 
     <distributionManagement>
