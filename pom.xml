@@ -46,7 +46,6 @@
         <module>crypto</module>
         <module>standard</module>
         <module>ai</module>
-        <module>ai/classic</module>
     </modules>
 
     <build>

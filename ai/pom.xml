@@ -31,11 +31,26 @@
 
     <artifactId>apache-mailet-ai</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <packaging>bundle</packaging>
 
     <name>Apache James :: AI Mailets</name>
     <description>Collects mail processors making use of artificial intelligence (AI) methods.</description>
     <url>http://james.apache.org/mailet/ai</url>
     <inceptionYear>2011</inceptionYear>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.james</groupId>
+            <artifactId>apache-mailet-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.james</groupId>
+            <artifactId>apache-mailet-base</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
