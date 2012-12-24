@@ -174,6 +174,7 @@
                                 <!-- Eclipse -->
                                 <exclude>**/.*</exclude>
                                 <exclude>.*/**/*</exclude>
+                                <exclude>**/.*/**/*</exclude>
                                 <exclude>**/LICENSE*</exclude>
                                 <exclude>**/target/**</exclude>
                                 <exclude>**/*.iml</exclude>
