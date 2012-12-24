@@ -18,23 +18,26 @@
  ****************************************************************/
 package org.apache.james.mailet.standard.mailets;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
+import org.apache.mailet.Mail;
+import org.apache.mailet.base.GenericMailet;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.PostMethod;
-
-import org.apache.mailet.base.GenericMailet;
-import org.apache.mailet.Mail;
 
 /**
  * Serialise the email and pass it to an HTTP call
@@ -106,9 +109,7 @@ public class SerialiseToHTTP extends GenericMailet {
 	 * 
 	 * @param mail
 	 *            the mail being processed
-	 * 
-	 * @throws MessagingException
-	 *             if an error arises during message processing
+	 *
 	 */
 	public void service(Mail mail) {
 		try {
@@ -152,27 +153,25 @@ public class SerialiseToHTTP extends GenericMailet {
 
 	private String httpPost(NameValuePair[] data) {
 
-		String response = null;
-		HttpClient client = new HttpClient();
-		PostMethod post = new PostMethod(url);
-
+        String response = null;
+		HttpClient client = new DefaultHttpClient();
+		HttpPost post = new HttpPost(url);
+        HttpParams params = new BasicHttpParams();
 		if( data.length>1 && data[1]!=null ) {
+            params.setParameter(data[1].getName(),data[1].getValue());
 			log( data[1].getName() + "::" + data[1].getValue() );
 		}
-		post.setRequestBody(data);
+		post.setParams(params);
 
 		try {
-			int statusCode = client.executeMethod(post);
+			HttpResponse clientResponse = client.execute(post);
 
-			if (statusCode != HttpStatus.SC_OK) {
-				log("POST failed: " + post.getStatusLine());
-				response = post.getStatusLine().toString();
-			}// else {
-			//	byte[] responseBody = post.getResponseBody();
-			//	response = new String(responseBody);
-			//}
+			if (clientResponse.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+				log("POST failed: " + clientResponse.getStatusLine());
+				response = clientResponse.getStatusLine().toString();
+			}
 
-		} catch (HttpException e) {
+		} catch (ClientProtocolException e) {
 			log("Fatal protocol violation: " + e.getMessage());
 			response = "Fatal protocol violation: " + e.getMessage();
 		} catch (IOException e) {
@@ -182,6 +181,7 @@ public class SerialiseToHTTP extends GenericMailet {
 			post.releaseConnection();
 		}
 
+        client.getConnectionManager().shutdown();
 		return response;
 	}
 
@@ -192,10 +192,10 @@ public class SerialiseToHTTP extends GenericMailet {
     		l = 2;
     	}
     	
-    	NameValuePair[] data = new NameValuePair[l];
-    	data[0] = new NameValuePair( messageKeyName, message);
+    	NameValuePair[] data = new BasicNameValuePair[l];
+    	data[0] = new BasicNameValuePair( messageKeyName, message);
     	if (l==2) {
-    		data[1] = new NameValuePair( parameterKey, parameterValue);
+    		data[1] = new BasicNameValuePair( parameterKey, parameterValue);
     	}
     	
     	return data;
