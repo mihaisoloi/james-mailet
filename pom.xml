@@ -24,7 +24,6 @@
         <groupId>org.apache.james</groupId>
         <artifactId>james-project</artifactId>
         <version>1.8.1</version>
-        <relativePath />
     </parent>
 
     <groupId>org.apache.james</groupId>
@@ -47,7 +46,7 @@
         <activation.version>1.1.1</activation.version>
         <bcmail-jdk16.version>1.46</bcmail-jdk16.version>
         <commons-collections.version>3.2.1</commons-collections.version>
-        <commons-httpclient.version>3.1</commons-httpclient.version>
+        <httpclient-osgi.version>4.2.2</httpclient-osgi.version>
         <!-- maven-mailetdocs-plugin artifacts -->
         <maven-artifact.version>3.0-alpha-1</maven-artifact.version>
         <maven-plugin-api.version>3.0.4</maven-plugin-api.version>
@@ -119,9 +118,9 @@
                 <version>${commons-collections.version}</version>
             </dependency>
             <dependency>
-                <groupId>commons-httpclient</groupId>
-                <artifactId>commons-httpclient</artifactId>
-                <version>${commons-httpclient.version}</version>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient-osgi</artifactId>
+                <version>${httpclient-osgi.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.thoughtworks.qdox</groupId>

@@ -18,21 +18,24 @@
  ****************************************************************/
 package org.apache.james.mailet.standard.mailets;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpParams;
+import org.apache.mailet.Mail;
+import org.apache.mailet.base.GenericMailet;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashSet;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.mailet.Mail;
-import org.apache.mailet.base.GenericMailet;
 
 /**
  * Serialise the email and pass it to an HTTP call
@@ -96,8 +99,6 @@ public class HeadersToHTTP extends GenericMailet {
 	 * @param mail
 	 *            the mail being processed
 	 * 
-	 * @throws MessagingException
-	 *             if an error arises during message processing
 	 */
 	public void service(Mail mail) {
 		try {
@@ -133,29 +134,28 @@ public class HeadersToHTTP extends GenericMailet {
 		}
 	}
 
-	private String httpPost(HashSet<NameValuePair> pairs) throws HttpException, IOException {
+	private String httpPost(HashSet<NameValuePair> pairs) throws IOException {
 
-		HttpClient client = new HttpClient();
-		PostMethod post = new PostMethod(url);
+		HttpClient client = new DefaultHttpClient();
+		HttpPost post = new HttpPost(url);
 
-		post.setRequestBody(setToArray(pairs));
+		post.setParams(extractParams(pairs));
 		
-		int statusCode = client.executeMethod(post);
-		String result = statusCode + ": " + post.getStatusLine().toString();
+		HttpResponse clientResponse = client.execute(post);
+		String result = clientResponse.getStatusLine().getStatusCode() + ": " + clientResponse.getStatusLine();
 		log("HeadersToHTTP: " + result);
-		
+
+        client.getConnectionManager().shutdown();
 		return result;
 		
 	}
 
-	private NameValuePair[] setToArray(HashSet<NameValuePair> pairs) {
-		NameValuePair[] r =  new NameValuePair[pairs.size()];
-		int i = 0;
+	private HttpParams extractParams(HashSet<NameValuePair> pairs) {
+		HttpParams params =  new BasicHttpParams();
 		for(NameValuePair p : pairs) {
-			r[i] = p;
-			i = i + 1;
+			params.setParameter(p.getName(),p.getValue());
 		}
-		return r;
+		return params;
 	}
 	
 	private HashSet<NameValuePair> getNameValuePairs(MimeMessage message) throws UnsupportedEncodingException, MessagingException {
@@ -169,21 +169,21 @@ public class HeadersToHTTP extends GenericMailet {
 		
     	if (message!=null) {
 	    	if (message.getSender()!=null) {
-	    		pairs.add( new NameValuePair( "from", message.getSender().toString() ) );
+	    		pairs.add( new BasicNameValuePair( "from", message.getSender().toString() ) );
 	    	}
 	    	if (message.getReplyTo()!=null) {
-	    		pairs.add( new NameValuePair( "reply_to", message.getReplyTo().toString() ) );
+	    		pairs.add( new BasicNameValuePair( "reply_to", message.getReplyTo().toString() ) );
 	    	}
 	    	if (message.getMessageID()!=null) {
-	    		pairs.add( new NameValuePair( "message_id", message.getMessageID() ) );
+	    		pairs.add( new BasicNameValuePair( "message_id", message.getMessageID() ) );
 	    	}
 	    	if (message.getSubject()!=null) {
-	    		pairs.add( new NameValuePair( "subject", message.getSubject() ) );
+	    		pairs.add( new BasicNameValuePair( "subject", message.getSubject() ) );
 	    	}
-	    	pairs.add( new NameValuePair( "size", Integer.toString(message.getSize()) ) );
+	    	pairs.add( new BasicNameValuePair( "size", Integer.toString(message.getSize()) ) );
 	    }
 
-		pairs.add( new NameValuePair( parameterKey, parameterValue) );
+		pairs.add( new BasicNameValuePair( parameterKey, parameterValue) );
     			
     	return pairs;
     }
