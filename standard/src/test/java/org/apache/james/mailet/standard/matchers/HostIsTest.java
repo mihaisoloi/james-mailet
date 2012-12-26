@@ -20,32 +20,25 @@
 
 package org.apache.james.mailet.standard.matchers;
 
+import org.apache.mailet.MailAddress;
+import org.apache.mailet.Matcher;
 import org.apache.mailet.base.test.FakeMail;
 import org.apache.mailet.base.test.FakeMailContext;
 import org.apache.mailet.base.test.FakeMatcherConfig;
-
-import org.apache.mailet.MailAddress;
-import org.apache.mailet.Matcher;
+import org.junit.Assert;
+import org.junit.Test;
 
 import javax.mail.MessagingException;
-
-import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Collection;
 
-import junit.framework.TestCase;
-
-public class HostIsTest extends TestCase {
+public class HostIsTest {
 
     private FakeMail mockedMail;
 
     private Matcher matcher;
 
     private MailAddress[] recipients;
-
-    public HostIsTest(String arg0) throws UnsupportedEncodingException {
-        super(arg0);
-    }
 
     private void setRecipients(MailAddress[] recipients) {
         this.recipients = recipients;
@@ -66,47 +59,50 @@ public class HostIsTest extends TestCase {
     }
 
     // test if all recipients get returned as matched
+    @Test
     public void testHostIsMatchedAllRecipients() throws MessagingException {
-        setRecipients(new MailAddress[] {
+        setRecipients(new MailAddress[]{
                 new MailAddress("test@james.apache.org"),
-                new MailAddress("test2@james.apache.org") });
+                new MailAddress("test2@james.apache.org")});
 
         setupMockedMail();
         setupMatcher();
 
         Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
-        assertNotNull(matchedRecipients);
-        assertEquals(matchedRecipients.size(), mockedMail.getRecipients()
+        Assert.assertNotNull(matchedRecipients);
+        Assert.assertEquals(matchedRecipients.size(), mockedMail.getRecipients()
                 .size());
     }
 
     // test if one recipients get returned as matched
+    @Test
     public void testHostIsMatchedOneRecipient() throws MessagingException {
-        setRecipients(new MailAddress[] {
+        setRecipients(new MailAddress[]{
                 new MailAddress("test@james2.apache.org"),
-                new MailAddress("test2@james.apache.org") });
+                new MailAddress("test2@james.apache.org")});
 
         setupMockedMail();
         setupMatcher();
 
         Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
-        assertNotNull(matchedRecipients);
-        assertEquals(matchedRecipients.size(), 1);
+        Assert.assertNotNull(matchedRecipients);
+        Assert.assertEquals(matchedRecipients.size(), 1);
     }
 
     // test if no recipient get returned cause it not match
+    @Test
     public void testHostIsNotMatch() throws MessagingException {
-        setRecipients(new MailAddress[] {
+        setRecipients(new MailAddress[]{
                 new MailAddress("test@james2.apache.org"),
-                new MailAddress("test2@james2.apache.org") });
+                new MailAddress("test2@james2.apache.org")});
 
         setupMockedMail();
         setupMatcher();
 
         Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
-        assertEquals(matchedRecipients.size(), 0);
+        Assert.assertEquals(matchedRecipients.size(), 0);
     }
 }

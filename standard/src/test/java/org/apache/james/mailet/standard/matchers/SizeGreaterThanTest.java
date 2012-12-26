@@ -20,31 +20,24 @@
 
 package org.apache.james.mailet.standard.matchers;
 
+import org.apache.mailet.MailAddress;
+import org.apache.mailet.Matcher;
 import org.apache.mailet.base.test.FakeMail;
 import org.apache.mailet.base.test.FakeMailContext;
 import org.apache.mailet.base.test.FakeMatcherConfig;
-
-import org.apache.mailet.MailAddress;
-import org.apache.mailet.Matcher;
+import org.junit.Assert;
+import org.junit.Test;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.ParseException;
-
-import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Collection;
 
-import junit.framework.TestCase;
-
-public class SizeGreaterThanTest extends TestCase {
+public class SizeGreaterThanTest {
 
     private FakeMail mockedMail;
 
     private Matcher matcher;
-
-    public SizeGreaterThanTest(String arg0) throws UnsupportedEncodingException {
-        super(arg0);
-    }
 
     private void setupMockedMail(long size) throws ParseException {
         mockedMail = new FakeMail();
@@ -60,33 +53,36 @@ public class SizeGreaterThanTest extends TestCase {
         matcher.init(mci);
     }
 
-    
+
+    @Test
     public void testSizeGreater() throws MessagingException {
-    setupMockedMail(2000000);
+        setupMockedMail(2000000);
         setupMatcher("1m");
 
         Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
-        assertNotNull(matchedRecipients);
-        assertEquals(matchedRecipients.size(), mockedMail.getRecipients().size());
+        Assert.assertNotNull(matchedRecipients);
+        Assert.assertEquals(matchedRecipients.size(), mockedMail.getRecipients().size());
     }
-    
+
+    @Test
     public void testSizeNotGreater() throws MessagingException {
         setupMockedMail(200000);
         setupMatcher("1m");
 
         Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
-        assertNull(matchedRecipients);
+        Assert.assertNull(matchedRecipients);
     }
-    
-    public void testThrowExceptionOnInvalidAmount(){
+
+    @Test
+    public void testThrowExceptionOnInvalidAmount() {
         boolean exception = false;
         try {
             setupMatcher("1mb");
         } catch (MessagingException e) {
             exception = true;
         }
-        assertTrue("Exception thrown", exception);
+        Assert.assertTrue("Exception thrown", exception);
     }
 }

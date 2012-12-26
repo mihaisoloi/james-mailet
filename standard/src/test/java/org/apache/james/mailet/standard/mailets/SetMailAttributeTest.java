@@ -20,17 +20,19 @@
 
 package org.apache.james.mailet.standard.mailets;
 
-import junit.framework.TestCase;
+import org.apache.mailet.Mail;
+import org.apache.mailet.Mailet;
 import org.apache.mailet.base.test.FakeMailContext;
 import org.apache.mailet.base.test.FakeMailetConfig;
 import org.apache.mailet.base.test.MailUtil;
-import org.apache.mailet.Mail;
-import org.apache.mailet.Mailet;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import org.junit.Before;
+import org.junit.Test;
 
 import javax.mail.MessagingException;
-import java.io.UnsupportedEncodingException;
 
-public class SetMailAttributeTest extends TestCase {
+public class SetMailAttributeTest {
 
     private Mailet mailet;
 
@@ -38,12 +40,11 @@ public class SetMailAttributeTest extends TestCase {
 
     private final String ATTRIBUTE_NAME2 = "org.apache.james.junit2";
 
-    public SetMailAttributeTest(String arg0)
-            throws UnsupportedEncodingException {
-        super(arg0);
-    }
+    private Mail mockedMail;
 
-    private void setupMailet() throws MessagingException {
+    @Before
+    public void setupMailet() throws MessagingException {
+        mockedMail = MailUtil.createMockMail2Recipients(null);
         mailet = new SetMailAttribute();
         FakeMailetConfig mci = new FakeMailetConfig("Test",
                 new FakeMailContext());
@@ -54,10 +55,8 @@ public class SetMailAttributeTest extends TestCase {
     }
 
     // test if the Header was add
+    @Test
     public void testMailAttributeAdded() throws MessagingException {
-        Mail mockedMail = MailUtil.createMockMail2Recipients(null);
-        setupMailet();
-
         assertNull(mockedMail.getAttribute(ATTRIBUTE_NAME1));
         assertNull(mockedMail.getAttribute(ATTRIBUTE_NAME2));
         mailet.service(mockedMail);

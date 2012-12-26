@@ -19,18 +19,18 @@
 
 package org.apache.james.mailet.standard.mailets;
 
-import junit.framework.TestCase;
-
+import org.apache.mailet.Mail;
+import org.apache.mailet.Mailet;
 import org.apache.mailet.base.test.FakeMail;
 import org.apache.mailet.base.test.FakeMailContext;
 import org.apache.mailet.base.test.FakeMailetConfig;
-import org.apache.mailet.Mail;
-import org.apache.mailet.Mailet;
+import org.junit.Assert;
+import org.junit.Test;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.ParseException;
 
-public class RemoveMailAttributeTest extends TestCase {
+public class RemoveMailAttributeTest {
 
     public static final String MAIL_ATTRIBUTE_NAME1 = "org.apache.james.test.junit";
 
@@ -56,22 +56,24 @@ public class RemoveMailAttributeTest extends TestCase {
     }
 
 
+    @Test
     public void testRemoveMailAttribute() throws MessagingException {
         Mail m = setupMockedMail();
         Mailet mailet = setupMailet(MAIL_ATTRIBUTE_NAME1);
 
         // check if the mail has a attribute
-        assertNotNull("Attribute exists",m.getAttribute(MAIL_ATTRIBUTE_NAME1));
-        assertNotNull("Attribute exists",m.getAttribute(MAIL_ATTRIBUTE_NAME2));
+        Assert.assertNotNull("Attribute exists", m.getAttribute(MAIL_ATTRIBUTE_NAME1));
+        Assert.assertNotNull("Attribute exists", m.getAttribute(MAIL_ATTRIBUTE_NAME2));
 
         mailet.service(m);
 
         // Check if the attribute was removed
-        assertNull("Attribute exists",m.getAttribute(MAIL_ATTRIBUTE_NAME1));
-        assertNotNull("Attribute deleted",m.getAttribute(MAIL_ATTRIBUTE_NAME2));
+        Assert.assertNull("Attribute exists", m.getAttribute(MAIL_ATTRIBUTE_NAME1));
+        Assert.assertNotNull("Attribute deleted", m.getAttribute(MAIL_ATTRIBUTE_NAME2));
     }
 
 
+    @Test
     public void testInvalidConfig() throws MessagingException {
         boolean exception = false;
         try {
@@ -80,7 +82,7 @@ public class RemoveMailAttributeTest extends TestCase {
             exception = true;
         }
 
-        assertTrue("invalid Config", exception);
+        Assert.assertTrue("invalid Config", exception);
     }
 
 }

@@ -20,33 +20,26 @@
 
 package org.apache.james.mailet.standard.matchers;
 
-import java.io.UnsupportedEncodingException;
-import java.util.Collection;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.ParseException;
-
-import junit.framework.TestCase;
-
-import org.apache.mailet.base.test.MailUtil;
+import org.apache.mailet.MailAddress;
+import org.apache.mailet.Matcher;
 import org.apache.mailet.base.test.FakeMail;
 import org.apache.mailet.base.test.FakeMailContext;
 import org.apache.mailet.base.test.FakeMatcherConfig;
-import org.apache.mailet.MailAddress;
-import org.apache.mailet.Matcher;
+import org.apache.mailet.base.test.MailUtil;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class SMTPIsAuthNetworkTest extends TestCase {
+import javax.mail.MessagingException;
+import javax.mail.internet.ParseException;
+import java.util.Collection;
+
+public class SMTPIsAuthNetworkTest {
 
     private FakeMail mockedMail;
 
     private Matcher matcher;
 
     private boolean isAuthorized = false;
-
-    public SMTPIsAuthNetworkTest(String arg0)
-            throws UnsupportedEncodingException {
-        super(arg0);
-    }
 
     private void setIsAuthorized(boolean isAuthorized) {
         this.isAuthorized = isAuthorized;
@@ -67,6 +60,7 @@ public class SMTPIsAuthNetworkTest extends TestCase {
         matcher.init(mci);
     }
 
+    @Test
     public void testIsAuthNetwork() throws MessagingException {
         setIsAuthorized(true);
         setupMockedMail();
@@ -74,11 +68,12 @@ public class SMTPIsAuthNetworkTest extends TestCase {
 
         Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
-        assertNotNull(matchedRecipients);
-        assertEquals(matchedRecipients.size(), mockedMail.getRecipients()
+        Assert.assertNotNull(matchedRecipients);
+        Assert.assertEquals(matchedRecipients.size(), mockedMail.getRecipients()
                 .size());
     }
 
+    @Test
     public void testIsNotAuthNetwork() throws MessagingException {
         setIsAuthorized(false);
         setupMockedMail();
@@ -86,6 +81,6 @@ public class SMTPIsAuthNetworkTest extends TestCase {
 
         Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
-        assertNull(matchedRecipients);
+        Assert.assertNull(matchedRecipients);
     }
 }

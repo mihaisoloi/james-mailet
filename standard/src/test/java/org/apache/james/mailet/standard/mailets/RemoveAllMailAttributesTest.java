@@ -20,54 +20,48 @@
 
 package org.apache.james.mailet.standard.mailets;
 
-import junit.framework.TestCase;
+import org.apache.mailet.Mail;
+import org.apache.mailet.Mailet;
 import org.apache.mailet.base.test.FakeMailContext;
 import org.apache.mailet.base.test.FakeMailetConfig;
 import org.apache.mailet.base.test.MailUtil;
-import org.apache.mailet.Mail;
-import org.apache.mailet.Mailet;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.ParseException;
-import java.io.UnsupportedEncodingException;
 
-public class RemoveAllMailAttributesTest extends TestCase {
+public class RemoveAllMailAttributesTest {
 
     private Mail mockedMail;
 
     private Mailet mailet;
 
-    public RemoveAllMailAttributesTest(String arg0)
-            throws UnsupportedEncodingException {
-        super(arg0);
+    @Before
+    public void setUp() throws Exception {
+        mailet = new RemoveAllMailAttributes();
+        FakeMailetConfig mci = new FakeMailetConfig("Test", new FakeMailContext());
+        mailet.init(mci);
     }
 
     private void setupMockedMail(MimeMessage m) throws ParseException {
         mockedMail = MailUtil.createMockMail2Recipients(m);
         mockedMail.setAttribute("org.apache.james.test.junit", "true");
-
-    }
-
-    private void setupMailet() throws MessagingException {
-        mailet = new RemoveAllMailAttributes();
-        FakeMailetConfig mci = new FakeMailetConfig("Test",
-                new FakeMailContext());
-        mailet.init(mci);
     }
 
     // test if ToProcessor works
+    @Test
     public void testRemoveAllMailAttributes() throws MessagingException {
         setupMockedMail(null);
-        setupMailet();
-
         // check if the mail has a attribute
-        assertTrue(mockedMail.getAttributeNames().hasNext());
+        Assert.assertTrue(mockedMail.getAttributeNames().hasNext());
 
         mailet.service(mockedMail);
 
         // check if all was removed
-        assertFalse(mockedMail.getAttributeNames().hasNext());
+        Assert.assertFalse(mockedMail.getAttributeNames().hasNext());
     }
 
 }

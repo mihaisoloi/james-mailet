@@ -20,18 +20,19 @@
 
 package org.apache.james.mailet.standard.mailets;
 
-import junit.framework.TestCase;
+import org.apache.mailet.Mailet;
 import org.apache.mailet.base.test.FakeMail;
 import org.apache.mailet.base.test.FakeMailContext;
 import org.apache.mailet.base.test.FakeMailetConfig;
 import org.apache.mailet.base.test.MailUtil;
-import org.apache.mailet.Mailet;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.io.UnsupportedEncodingException;
 
-public class SetMimeHeaderTest extends TestCase {
+public class SetMimeHeaderTest {
 
     private Mailet mailet;
 
@@ -43,10 +44,6 @@ public class SetMimeHeaderTest extends TestCase {
 
     private String headerValue = "defaultHeaderValue";
 
-    public SetMimeHeaderTest(String arg0) throws UnsupportedEncodingException {
-        super(arg0);
-    }
-
     private void setHeaderName(String headerName) {
         this.headerName = headerName;
     }
@@ -55,7 +52,8 @@ public class SetMimeHeaderTest extends TestCase {
         this.headerValue = headerValue;
     }
 
-    private void setupMailet() throws MessagingException {
+    @Before
+    public void setUp() throws Exception {
         mailet = new SetMimeHeader();
         FakeMailetConfig mci = new FakeMailetConfig("Test",
                 new FakeMailContext());
@@ -66,31 +64,28 @@ public class SetMimeHeaderTest extends TestCase {
     }
 
     // test if the Header was add
+    @Test
     public void testHeaderIsPresent() throws MessagingException {
         MimeMessage mockedMimeMessage = MailUtil.createMimeMessage(headerName, headerValue);
         FakeMail mockedMail = MailUtil.createMockMail2Recipients(mockedMimeMessage);
-        setupMailet();
 
         mailet.service(mockedMail);
 
-        assertEquals(HEADER_VALUE, mockedMail.getMessage().getHeader(
-                HEADER_NAME)[0]);
+        Assert.assertEquals(HEADER_VALUE, mockedMail.getMessage().getHeader(HEADER_NAME)[0]);
 
     }
 
     // test if the Header was replaced
+    @Test
     public void testHeaderIsReplaced() throws MessagingException {
         setHeaderName(HEADER_NAME);
         setHeaderValue(headerValue);
 
         MimeMessage mockedMimeMessage = MailUtil.createMimeMessage(headerName, headerValue);
         FakeMail mockedMail = MailUtil.createMockMail2Recipients(mockedMimeMessage);
-        setupMailet();
 
         mailet.service(mockedMail);
 
-        assertEquals(HEADER_VALUE, mockedMail.getMessage().getHeader(
-                HEADER_NAME)[0]);
-
+        Assert.assertEquals(HEADER_VALUE, mockedMail.getMessage().getHeader(HEADER_NAME)[0]);
     }
 }

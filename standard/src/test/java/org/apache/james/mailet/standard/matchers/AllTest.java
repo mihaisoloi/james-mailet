@@ -20,27 +20,26 @@
 
 package org.apache.james.mailet.standard.matchers;
 
-import junit.framework.TestCase;
 import org.apache.mailet.MailAddress;
 import org.apache.mailet.Matcher;
 import org.apache.mailet.base.test.FakeMail;
 import org.apache.mailet.base.test.FakeMailContext;
 import org.apache.mailet.base.test.FakeMatcherConfig;
 import org.apache.mailet.base.test.MailUtil;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import org.junit.Before;
+import org.junit.Test;
 
 import javax.mail.MessagingException;
-import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 
-public class AllTest extends TestCase {
+public class AllTest {
 
     private Matcher matcher;
 
-    public AllTest(String arg0) throws UnsupportedEncodingException {
-        super(arg0);
-    }
-
-    private void setupMatcher() throws MessagingException {
+    @Before
+    public void setupMatcher() throws MessagingException {
         matcher = new All();
         FakeMatcherConfig mci = new FakeMatcherConfig("All",
                 new FakeMailContext());
@@ -48,15 +47,14 @@ public class AllTest extends TestCase {
     }
 
     // test if all recipients was returned
+    @Test
     public void testAllRecipientsReturned() throws MessagingException {
         FakeMail mockedMail = MailUtil.createMockMail2Recipients(null);
-        setupMatcher();
 
         Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
         assertNotNull(matchedRecipients);
-        assertEquals(matchedRecipients.size(), mockedMail.getRecipients()
-                .size());
+        assertEquals(matchedRecipients.size(), mockedMail.getRecipients().size());
     }
 
 }

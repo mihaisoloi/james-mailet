@@ -20,21 +20,21 @@
 
 package org.apache.james.mailet.standard.matchers;
 
-import junit.framework.TestCase;
+import org.apache.mailet.MailAddress;
+import org.apache.mailet.Matcher;
+import org.apache.mailet.base.RFC2822Headers;
 import org.apache.mailet.base.test.FakeMail;
 import org.apache.mailet.base.test.FakeMailContext;
 import org.apache.mailet.base.test.FakeMatcherConfig;
 import org.apache.mailet.base.test.MailUtil;
-import org.apache.mailet.MailAddress;
-import org.apache.mailet.Matcher;
-import org.apache.mailet.base.RFC2822Headers;
+import org.junit.Assert;
+import org.junit.Test;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 
-public class NESSpamCheckTest extends TestCase {
+public class NESSpamCheckTest {
 
     private MimeMessage mockedMimeMessage;
 
@@ -45,10 +45,6 @@ public class NESSpamCheckTest extends TestCase {
     private String headerName = "defaultHeaderName";
 
     private String headerValue = "defaultHeaderValue";
-
-    public NESSpamCheckTest(String arg0) throws UnsupportedEncodingException {
-        super(arg0);
-    }
 
     private void setHeaderName(String headerName) {
         this.headerName = headerName;
@@ -69,6 +65,7 @@ public class NESSpamCheckTest extends TestCase {
         matcher.init(mci);
     }
 
+    @Test
     public void testNESSpamCheckMatched() throws MessagingException {
         setHeaderName(RFC2822Headers.RECEIVED);
         setHeaderValue("xxxxxxxxxxxxxxxxxxxxx");
@@ -79,10 +76,11 @@ public class NESSpamCheckTest extends TestCase {
 
         Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
-        assertNotNull(matchedRecipients);
-        assertEquals(matchedRecipients.size(), mockedMail.getRecipients().size());
+        Assert.assertNotNull(matchedRecipients);
+        Assert.assertEquals(matchedRecipients.size(), mockedMail.getRecipients().size());
     }
 
+    @Test
     public void testNESSpamCheckNotMatched() throws MessagingException {
         setupMockedMimeMessage();
         mockedMail = MailUtil.createMockMail2Recipients(mockedMimeMessage);
@@ -90,6 +88,6 @@ public class NESSpamCheckTest extends TestCase {
 
         Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
-        assertNull(matchedRecipients);
+        Assert.assertNull(matchedRecipients);
     }
 }

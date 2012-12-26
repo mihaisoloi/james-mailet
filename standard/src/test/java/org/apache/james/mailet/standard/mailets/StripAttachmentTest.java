@@ -19,18 +19,19 @@
 
 package org.apache.james.mailet.standard.mailets;
 
+import org.apache.mailet.Mail;
+import org.apache.mailet.Mailet;
 import org.apache.mailet.base.test.FakeMail;
 import org.apache.mailet.base.test.FakeMailContext;
 import org.apache.mailet.base.test.FakeMailetConfig;
-import org.apache.mailet.Mail;
-import org.apache.mailet.Mailet;
+import org.junit.Assert;
+import org.junit.Test;
 
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -40,14 +41,9 @@ import java.io.InputStream;
 import java.util.Collection;
 import java.util.Properties;
 
-import junit.framework.TestCase;
+public class StripAttachmentTest {
 
-public class StripAttachmentTest extends TestCase {
-
-    public void testNoAttachment() {
-
-    }
-
+    @Test
     public void testSimpleAttachment() throws MessagingException, IOException {
         Mailet mailet = initMailet();
 
@@ -60,13 +56,15 @@ public class StripAttachmentTest extends TestCase {
         mm.addBodyPart(mp);
         String body = "\u0023\u00A4\u00E3\u00E0\u00E9";
         MimeBodyPart mp2 = new MimeBodyPart(new ByteArrayInputStream(
-                ("Content-Transfer-Encoding: 8bit\r\nContent-Type: application/octet-stream; charset=utf-8\r\n\r\n" + body).getBytes("UTF-8")));
+                ("Content-Transfer-Encoding: 8bit\r\nContent-Type: application/octet-stream; charset=utf-8\r\n\r\n"
+                        + body).getBytes("UTF-8")));
         mp2.setDisposition("attachment");
         mp2.setFileName("10.tmp");
         mm.addBodyPart(mp2);
         String body2 = "\u0014\u00A3\u00E1\u00E2\u00E4";
         MimeBodyPart mp3 = new MimeBodyPart(new ByteArrayInputStream(
-                ("Content-Transfer-Encoding: 8bit\r\nContent-Type: application/octet-stream; charset=utf-8\r\n\r\n" + body2).getBytes("UTF-8")));
+                ("Content-Transfer-Encoding: 8bit\r\nContent-Type: application/octet-stream; charset=utf-8\r\n\r\n"
+                        + body2).getBytes("UTF-8")));
         mp3.setDisposition("attachment");
         mp3.setFileName("temp.zip");
         mm.addBodyPart(mp3);
@@ -81,22 +79,22 @@ public class StripAttachmentTest extends TestCase {
 
         ByteArrayOutputStream rawMessage = new ByteArrayOutputStream();
         mail.getMessage().writeTo(rawMessage,
-                new String[] { "Bcc", "Content-Length", "Message-ID" });
+                new String[]{"Bcc", "Content-Length", "Message-ID"});
 
         @SuppressWarnings("unchecked")
         Collection<String> c = (Collection<String>) mail
                 .getAttribute(StripAttachment.SAVED_ATTACHMENTS_ATTRIBUTE_KEY);
-        assertNotNull(c);
+        Assert.assertNotNull(c);
 
-        assertEquals(1, c.size());
+        Assert.assertEquals(1, c.size());
 
         String name = c.iterator().next();
 
-        File f = new File("./"+name);
+        File f = new File("./" + name);
         InputStream is = new FileInputStream(f);
         String savedFile = toString(is);
         is.close();
-        assertEquals(body, savedFile);
+        Assert.assertEquals(body, savedFile);
 
         f.delete();
 
@@ -107,12 +105,13 @@ public class StripAttachmentTest extends TestCase {
         final byte[] buffer = new byte[1024];
         int n;
         while (-1 != (n = is.read(buffer))) {
-            System.err.println(new String(buffer,0,n));
+            System.err.println(new String(buffer, 0, n));
             sw.write(buffer, 0, n);
         }
         return sw.toString("UTF-8");
     }
 
+    @Test
     public void testSimpleAttachment2() throws MessagingException, IOException {
         Mailet mailet = new StripAttachment();
 
@@ -153,28 +152,29 @@ public class StripAttachmentTest extends TestCase {
 
         ByteArrayOutputStream rawMessage = new ByteArrayOutputStream();
         mail.getMessage().writeTo(rawMessage,
-                new String[] { "Bcc", "Content-Length", "Message-ID" });
+                new String[]{"Bcc", "Content-Length", "Message-ID"});
         // String res = rawMessage.toString();
 
         @SuppressWarnings("unchecked")
         Collection<String> c = (Collection<String>) mail
                 .getAttribute(StripAttachment.SAVED_ATTACHMENTS_ATTRIBUTE_KEY);
-        assertNotNull(c);
+        Assert.assertNotNull(c);
 
-        assertEquals(1, c.size());
+        Assert.assertEquals(1, c.size());
 
         String name = c.iterator().next();
 
-        File f = new File("./"+name);
+        File f = new File("./" + name);
         InputStream is = new FileInputStream(f);
         String savedFile = toString(is);
         is.close();
-        assertEquals(body, savedFile);
+        Assert.assertEquals(body, savedFile);
 
         f.delete();
 
     }
 
+    @Test
     public void testSimpleAttachment3() throws MessagingException, IOException {
         Mailet mailet = initMailet();
 
@@ -214,32 +214,33 @@ public class StripAttachmentTest extends TestCase {
 
         ByteArrayOutputStream rawMessage = new ByteArrayOutputStream();
         mail.getMessage().writeTo(rawMessage,
-                new String[] { "Bcc", "Content-Length", "Message-ID" });
+                new String[]{"Bcc", "Content-Length", "Message-ID"});
         // String res = rawMessage.toString();
 
         @SuppressWarnings("unchecked")
         Collection<String> c = (Collection<String>) mail
                 .getAttribute(StripAttachment.SAVED_ATTACHMENTS_ATTRIBUTE_KEY);
-        assertNotNull(c);
+        Assert.assertNotNull(c);
 
-        assertEquals(1, c.size());
+        Assert.assertEquals(1, c.size());
 
         String name = c.iterator().next();
         // System.out.println("--------------------------\n\n\n");
         // System.out.println(name);
 
-        assertTrue(name.startsWith("e_Pubblicita_e_vietata_Milano9052"));
+        Assert.assertTrue(name.startsWith("e_Pubblicita_e_vietata_Milano9052"));
 
-        File f = new File("./"+name);
+        File f = new File("./" + name);
         InputStream is = new FileInputStream(f);
         String savedFile = toString(is);
         is.close();
-        assertEquals(body, savedFile);
+        Assert.assertEquals(body, savedFile);
 
         f.delete();
 
     }
 
+    @Test
     public void testToAndFromAttributes() throws MessagingException,
             IOException {
         Mailet strip = new StripAttachment();
@@ -268,14 +269,16 @@ public class StripAttachmentTest extends TestCase {
         mm.addBodyPart(mp);
         String body = "\u0023\u00A4\u00E3\u00E0\u00E9";
         MimeBodyPart mp2 = new MimeBodyPart(new ByteArrayInputStream(
-                ("Content-Transfer-Encoding: 8bit\r\nContent-Type: application/octet-stream; charset=utf-8\r\n\r\n" + body).getBytes("UTF-8")));
+                ("Content-Transfer-Encoding: 8bit\r\nContent-Type: application/octet-stream; charset=utf-8\r\n\r\n"
+                        + body).getBytes("UTF-8")));
         mp2.setDisposition("attachment");
         mp2
                 .setFileName("=?iso-8859-15?Q?=E9_++++Pubblicit=E0_=E9_vietata____Milano9052.tmp?=");
         mm.addBodyPart(mp2);
         String body2 = "\u0014\u00A3\u00E1\u00E2\u00E4";
         MimeBodyPart mp3 = new MimeBodyPart(new ByteArrayInputStream(
-                ("Content-Transfer-Encoding: 8bit\r\nContent-Type: application/octet-stream; charset=utf-8\r\n\r\n" + body2).getBytes("UTF-8")));
+                ("Content-Transfer-Encoding: 8bit\r\nContent-Type: application/octet-stream; charset=utf-8\r\n\r\n"
+                        + body2).getBytes("UTF-8")));
         mp3.setDisposition("attachment");
         mp3.setFileName("temp.zip");
         mm.addBodyPart(mp3);
@@ -285,21 +288,21 @@ public class StripAttachmentTest extends TestCase {
         Mail mail = new FakeMail();
         mail.setMessage(message);
 
-        assertTrue(mail.getMessage().getContent() instanceof MimeMultipart);
-        assertEquals(3, ((MimeMultipart) mail.getMessage().getContent())
+        Assert.assertTrue(mail.getMessage().getContent() instanceof MimeMultipart);
+        Assert.assertEquals(3, ((MimeMultipart) mail.getMessage().getContent())
                 .getCount());
 
         strip.service(mail);
 
-        assertTrue(mail.getMessage().getContent() instanceof MimeMultipart);
-        assertEquals(1, ((MimeMultipart) mail.getMessage().getContent())
+        Assert.assertTrue(mail.getMessage().getContent() instanceof MimeMultipart);
+        Assert.assertEquals(1, ((MimeMultipart) mail.getMessage().getContent())
                 .getCount());
 
         onlyText.service(mail);
 
-        assertFalse(mail.getMessage().getContent() instanceof MimeMultipart);
-        
-        assertEquals("simple text", mail.getMessage().getContent());
+        Assert.assertFalse(mail.getMessage().getContent() instanceof MimeMultipart);
+
+        Assert.assertEquals("simple text", mail.getMessage().getContent());
 
         // prova per caricare il mime message da input stream che altrimenti
         // javamail si comporta differentemente.
@@ -311,19 +314,19 @@ public class StripAttachmentTest extends TestCase {
 
         mmNew.writeTo(System.out);
         mail.setMessage(mmNew);
-        
+
         recover.service(mail);
 
-        assertTrue(mail.getMessage().getContent() instanceof MimeMultipart);
-        assertEquals(2, ((MimeMultipart) mail.getMessage().getContent())
+        Assert.assertTrue(mail.getMessage().getContent() instanceof MimeMultipart);
+        Assert.assertEquals(2, ((MimeMultipart) mail.getMessage().getContent())
                 .getCount());
 
         Object actual = ((MimeMultipart) mail.getMessage().getContent())
                 .getBodyPart(1).getContent();
         if (actual instanceof ByteArrayInputStream) {
-            assertEquals(body2, toString((ByteArrayInputStream) actual));
+            Assert.assertEquals(body2, toString((ByteArrayInputStream) actual));
         } else {
-            assertEquals(body2, actual);
+            Assert.assertEquals(body2, actual);
         }
 
     }

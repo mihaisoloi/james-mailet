@@ -133,7 +133,6 @@ public class UnwrapText extends GenericMailet {
             boolean b;
             int w;
             // if patterns match, the quote level are identical and if the line length added to the length of the following word is greater than width then it is a wrapped line.
-            assert m2 != null;
             if (m1.matches() && i < lines.length - 1 && m2.matches() && (
                     // The following line has the same quoting of the previous.
                     ((b = m1.group(1).trim().equals(m2.group(1).trim())) && l.length() + m2.group(3).length() + 1 > width)

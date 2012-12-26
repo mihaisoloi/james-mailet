@@ -20,20 +20,20 @@
 
 package org.apache.james.mailet.standard.matchers;
 
-import junit.framework.TestCase;
+import org.apache.mailet.MailAddress;
+import org.apache.mailet.Matcher;
 import org.apache.mailet.base.test.FakeMail;
 import org.apache.mailet.base.test.FakeMailContext;
 import org.apache.mailet.base.test.FakeMatcherConfig;
 import org.apache.mailet.base.test.MailUtil;
-import org.apache.mailet.MailAddress;
-import org.apache.mailet.Matcher;
+import org.junit.Assert;
+import org.junit.Test;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 
-public class HasHeaderTest extends TestCase {
+public class HasHeaderTest {
 
     private MimeMessage mockedMimeMessage;
 
@@ -46,10 +46,6 @@ public class HasHeaderTest extends TestCase {
     private String headerName = "defaultHeaderName";
 
     private String headerValue = "defaultHeaderValue";
-
-    public HasHeaderTest(String arg0) throws UnsupportedEncodingException {
-        super(arg0);
-    }
 
     private void setHeaderName(String headerName) {
         this.headerName = headerName;
@@ -72,6 +68,7 @@ public class HasHeaderTest extends TestCase {
     }
 
     // test if the Header was matched
+    @Test
     public void testHeaderIsMatched() throws MessagingException {
         setHeaderName(HEADER_NAME);
         String HEADER_VALUE = "test-value";
@@ -83,12 +80,13 @@ public class HasHeaderTest extends TestCase {
 
         Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
-        assertNotNull(matchedRecipients);
-        assertEquals(matchedRecipients.size(), mockedMail.getRecipients()
+        Assert.assertNotNull(matchedRecipients);
+        Assert.assertEquals(matchedRecipients.size(), mockedMail.getRecipients()
                 .size());
     }
 
     // test if the Header was not matched
+    @Test
     public void testHeaderIsNotMatched() throws MessagingException {
         setupMockedMimeMessage();
         mockedMail = MailUtil.createMockMail2Recipients(mockedMimeMessage);
@@ -96,6 +94,6 @@ public class HasHeaderTest extends TestCase {
 
         Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
-        assertNull(matchedRecipients);
+        Assert.assertNull(matchedRecipients);
     }
 }

@@ -20,18 +20,6 @@
 
 package org.apache.james.mailet.standard.matchers;
 
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
-import junit.framework.TestCase;
-
 import org.apache.mailet.HostAddress;
 import org.apache.mailet.LookupException;
 import org.apache.mailet.Mail;
@@ -41,20 +29,27 @@ import org.apache.mailet.Matcher;
 import org.apache.mailet.TemporaryLookupException;
 import org.apache.mailet.base.test.FakeMail;
 import org.apache.mailet.base.test.FakeMatcherConfig;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class HostIsLocalTest extends TestCase {
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
+public class HostIsLocalTest {
 
     private FakeMail mockedMail;
 
     private Matcher matcher;
 
-    private final String[] LOCALSERVER = new String[] { "james.apache.org" };
+    private final String[] LOCALSERVER = new String[]{"james.apache.org"};
 
     private MailAddress[] recipients;
-
-    public HostIsLocalTest(String arg0) throws UnsupportedEncodingException {
-        super(arg0);
-    }
 
     private void setRecipients(MailAddress[] recipients) {
         this.recipients = recipients;
@@ -156,13 +151,13 @@ public class HostIsLocalTest extends TestCase {
             }
 
             public void sendMail(MailAddress sender, Collection recipients,
-                    MimeMessage msg) throws MessagingException {
+                                 MimeMessage msg) throws MessagingException {
                 throw new UnsupportedOperationException(
                         "Unimplemented mock service");
             }
 
             public void sendMail(MailAddress sender, Collection recipients,
-                    MimeMessage msg, String state) throws MessagingException {
+                                 MimeMessage msg, String state) throws MessagingException {
                 throw new UnsupportedOperationException(
                         "Unimplemented mock service");
             }
@@ -182,11 +177,11 @@ public class HostIsLocalTest extends TestCase {
                         "Unimplemented mock service");
             }
 
-			public void storeMail(MailAddress arg0, MailAddress arg1,
-					MimeMessage arg2) throws MessagingException {
-				// TODO Auto-generated method stub
-				
-			}
+            public void storeMail(MailAddress arg0, MailAddress arg1,
+                                  MimeMessage arg2) throws MessagingException {
+                // TODO Auto-generated method stub
+
+            }
 
             public void log(LogLevel level, String message) {
                 throw new UnsupportedOperationException(
@@ -213,47 +208,50 @@ public class HostIsLocalTest extends TestCase {
     }
 
     // test if all recipients get returned as matched
+    @Test
     public void testHostIsMatchedAllRecipients() throws MessagingException {
-        setRecipients(new MailAddress[] {
+        setRecipients(new MailAddress[]{
                 new MailAddress("test@james.apache.org"),
-                new MailAddress("test2@james.apache.org") });
+                new MailAddress("test2@james.apache.org")});
 
         setupMockedMail();
         setupMatcher();
 
         Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
-        assertNotNull(matchedRecipients);
-        assertEquals(matchedRecipients.size(), mockedMail.getRecipients()
+        Assert.assertNotNull(matchedRecipients);
+        Assert.assertEquals(matchedRecipients.size(), mockedMail.getRecipients()
                 .size());
     }
 
     // test if one recipients get returned as matched
+    @Test
     public void testHostIsMatchedOneRecipient() throws MessagingException {
-        setRecipients(new MailAddress[] {
+        setRecipients(new MailAddress[]{
                 new MailAddress("test@james2.apache.org"),
-                new MailAddress("test2@james.apache.org") });
+                new MailAddress("test2@james.apache.org")});
 
         setupMockedMail();
         setupMatcher();
 
         Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
-        assertNotNull(matchedRecipients);
-        assertEquals(matchedRecipients.size(), 1);
+        Assert.assertNotNull(matchedRecipients);
+        Assert.assertEquals(matchedRecipients.size(), 1);
     }
 
     // test if no recipient get returned cause it not match
+    @Test
     public void testHostIsNotMatch() throws MessagingException {
-        setRecipients(new MailAddress[] {
+        setRecipients(new MailAddress[]{
                 new MailAddress("test@james2.apache.org"),
-                new MailAddress("test2@james2.apache.org") });
+                new MailAddress("test2@james2.apache.org")});
 
         setupMockedMail();
         setupMatcher();
 
         Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
 
-        assertEquals(matchedRecipients.size(), 0);
+        Assert.assertEquals(matchedRecipients.size(), 0);
     }
 }

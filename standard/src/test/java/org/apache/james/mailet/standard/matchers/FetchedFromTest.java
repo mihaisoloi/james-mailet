@@ -20,21 +20,21 @@
 
 package org.apache.james.mailet.standard.matchers;
 
-import junit.framework.TestCase;
+import org.apache.mailet.MailAddress;
+import org.apache.mailet.Matcher;
 import org.apache.mailet.base.test.FakeMail;
 import org.apache.mailet.base.test.FakeMailContext;
 import org.apache.mailet.base.test.FakeMatcherConfig;
 import org.apache.mailet.base.test.MailUtil;
-import org.apache.mailet.MailAddress;
-import org.apache.mailet.Matcher;
+import org.junit.Assert;
+import org.junit.Test;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.ParseException;
-import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 
-public class FetchedFromTest extends TestCase {
+public class FetchedFromTest {
 
     private MimeMessage mockedMimeMessage;
 
@@ -49,10 +49,6 @@ public class FetchedFromTest extends TestCase {
     private String headerName = "defaultHeaderName";
 
     private String headerValue = "defaultHeaderValue";
-
-    public FetchedFromTest(String arg0) throws UnsupportedEncodingException {
-        super(arg0);
-    }
 
     private void setHeaderName(String headerName) {
         this.headerName = headerName;
@@ -79,6 +75,7 @@ public class FetchedFromTest extends TestCase {
     }
 
     // test if the Header was matched
+    @Test
     public void testHeaderIsMatched() throws MessagingException {
         setHeaderName(HEADER_NAME);
         setHeaderValue(HEADER_VALUE);
@@ -88,12 +85,13 @@ public class FetchedFromTest extends TestCase {
         setupMatcher();
 
         Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
-        assertNotNull(matchedRecipients);
-        assertEquals(matchedRecipients.size(), mockedMail.getRecipients()
+        Assert.assertNotNull(matchedRecipients);
+        Assert.assertEquals(matchedRecipients.size(), mockedMail.getRecipients()
                 .size());
     }
 
     // test if the Header was not matched
+    @Test
     public void testHeaderIsNotMatched() throws MessagingException {
         setHeaderName(HEADER_NAME);
         setHeaderValue(headerValue);
@@ -103,10 +101,11 @@ public class FetchedFromTest extends TestCase {
         setupMatcher();
 
         Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
-        assertNull(matchedRecipients);
+        Assert.assertNull(matchedRecipients);
     }
 
     // test if the Header was removed after matched
+    @Test
     public void testHeaderWasRemovedAfterMatched() throws MessagingException {
         setHeaderName(HEADER_NAME);
         setHeaderValue(HEADER_VALUE);
@@ -118,7 +117,7 @@ public class FetchedFromTest extends TestCase {
         Collection<MailAddress> matchedRecipients = matcher.match(mockedMail);
         Collection<MailAddress> matchedRecipients2 = matcher.match(mockedMail);
 
-        assertNotNull(matchedRecipients);
-        assertNull(matchedRecipients2);
+        Assert.assertNotNull(matchedRecipients);
+        Assert.assertNull(matchedRecipients2);
     }
 }

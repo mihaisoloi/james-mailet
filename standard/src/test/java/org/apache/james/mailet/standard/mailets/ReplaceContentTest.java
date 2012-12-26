@@ -19,24 +19,24 @@
 
 package org.apache.james.mailet.standard.mailets;
 
+import org.apache.mailet.Mail;
+import org.apache.mailet.Mailet;
 import org.apache.mailet.base.test.FakeMail;
 import org.apache.mailet.base.test.FakeMailContext;
 import org.apache.mailet.base.test.FakeMailetConfig;
-import org.apache.mailet.Mail;
-import org.apache.mailet.Mailet;
+import org.junit.Assert;
+import org.junit.Test;
 
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import junit.framework.TestCase;
+public class ReplaceContentTest {
 
-public class ReplaceContentTest extends TestCase {
-
+    @Test
     public void testService() throws MessagingException, IOException {
         Mailet mailet;
         FakeMailetConfig mci;
@@ -54,31 +54,31 @@ public class ReplaceContentTest extends TestCase {
         message = new MimeMessage(Session.getDefaultInstance(new Properties()));
         message.setSubject("una prova");
         message.setText("Sto facendo una prova di scrittura/ \u00E8 solo una prova.\n"
-                        + "Bla bla bla bla.\n");
+                + "Bla bla bla bla.\n");
 
         mail = new FakeMail(message);
         mailet.service(mail);
 
-        assertEquals("une PRoVA", mail.getMessage().getSubject());
-        assertEquals("Sto fecendo une PRoVA di scritture, e' solo une P.\n"
+        Assert.assertEquals("une PRoVA", mail.getMessage().getSubject());
+        Assert.assertEquals("Sto fecendo une PRoVA di scritture, e' solo une P.\n"
                 + "Q ble ble ble.\n", mail.getMessage().getContent());
 
         // ------------------
 
         mailet = new ReplaceContent();
         mci = new FakeMailetConfig("Test", new FakeMailContext());
-        mci.setProperty("subjectPatternFile","#/org/apache/james/mailet/standard/mailets/replaceSubject.patterns");
+        mci.setProperty("subjectPatternFile", "#/org/apache/james/mailet/standard/mailets/replaceSubject.patterns");
         mailet.init(mci);
 
         message = new MimeMessage(Session.getDefaultInstance(new Properties()));
         message.setSubject("re: r:ri:una prova");
         message.setText("Sto facendo una prova di scrittura/ \u00E8 solo una prova.\n"
-                        + "Bla bla bla bla.\n");
+                + "Bla bla bla bla.\n");
 
         mail = new FakeMail(message);
         mailet.service(mail);
 
-        assertEquals("Re: Re: Re: una prova", mail.getMessage().getSubject());
+        Assert.assertEquals("Re: Re: Re: una prova", mail.getMessage().getSubject());
 
         // ------------------
 
@@ -100,8 +100,8 @@ public class ReplaceContentTest extends TestCase {
         mail = new FakeMail(message);
         mailet.service(mail);
 
-        assertEquals("una prova", mail.getMessage().getSubject());
-        assertEquals("Prova.\r\n" + "\r\n" + ">parte del\r\n"
+        Assert.assertEquals("una prova", mail.getMessage().getSubject());
+        Assert.assertEquals("Prova.\r\n" + "\r\n" + ">parte del\r\n"
                 + ">messaggio\\ che\\0 deve0 essere\r\n"
                 + ">quotato. Vediamo se\r\n" + ">ce la fa.", mail.getMessage()
                 .getContent());
@@ -120,10 +120,11 @@ public class ReplaceContentTest extends TestCase {
         mail = new FakeMail(message);
         mailet.service(mail);
 
-        assertEquals("una prova", mail.getMessage().getSubject());
-        assertEquals("Prova ... di replace ...", mail.getMessage().getContent());
+        Assert.assertEquals("una prova", mail.getMessage().getSubject());
+        Assert.assertEquals("Prova ... di replace ...", mail.getMessage().getContent());
     }
 
+    @Test
     public void testFromFakeCp1252Stream() throws MessagingException,
             IOException {
         String messageSource = "Content-Type: text/plain; charset=\"iso-8859-1\"\r\n"
@@ -150,8 +151,7 @@ public class ReplaceContentTest extends TestCase {
         mail = new FakeMail(message);
         mailet.service(mail);
 
-        assertEquals("\"prova\" con l'apice", mail.getMessage().getContent());
-
+        Assert.assertEquals("\"prova\" con l'apice", mail.getMessage().getContent());
     }
 
 }

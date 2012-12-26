@@ -19,19 +19,21 @@
 
 package org.apache.mailet.base;
 
-import java.util.Arrays;
-import java.util.Collection;
-
-import javax.mail.MessagingException;
-
-import junit.framework.TestCase;
-
 import org.apache.mailet.Mail;
 import org.apache.mailet.MailAddress;
 import org.apache.mailet.base.test.FakeMail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import org.junit.Test;
 
-public class MatcherInverterTest extends TestCase {
+import javax.mail.MessagingException;
+import java.util.Arrays;
+import java.util.Collection;
 
+public class MatcherInverterTest {
+
+    @Test
     public void testAllMatch() throws MessagingException {
         MatcherInverter inverter = new MatcherInverter(new GenericMatcher() {
 
@@ -44,11 +46,12 @@ public class MatcherInverterTest extends TestCase {
 
         assertNotNull("Should match all recipients", inverter.match(mail));
     }
-    
+
+    @Test
     public void testNonMatch() throws MessagingException {
         final MailAddress address1 = new MailAddress("user", "domain");
         final MailAddress address2 = new MailAddress("user", "domain2");
-        
+
         MatcherInverter inverter = new MatcherInverter(new GenericMatcher() {
 
             public Collection<MailAddress> match(Mail mail) throws MessagingException {
@@ -60,11 +63,12 @@ public class MatcherInverterTest extends TestCase {
 
         assertNull("Should match all recipients", inverter.match(mail));
     }
-    
+
+    @Test
     public void testOneMatch() throws MessagingException {
         final MailAddress address1 = new MailAddress("user", "domain");
         final MailAddress address2 = new MailAddress("user", "domain2");
-        
+
         MatcherInverter inverter = new MatcherInverter(new GenericMatcher() {
 
             public Collection<MailAddress> match(Mail mail) throws MessagingException {

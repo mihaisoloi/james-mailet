@@ -20,23 +20,21 @@
 
 package org.apache.james.mailet.standard.mailets;
 
-import org.apache.mailet.base.test.FakeMail;
-import org.apache.mailet.base.test.FakeMailContext;
-import org.apache.mailet.base.test.FakeMailetConfig;
 import org.apache.mailet.Mail;
 import org.apache.mailet.MailAddress;
 import org.apache.mailet.Mailet;
+import org.apache.mailet.base.test.FakeMail;
+import org.apache.mailet.base.test.FakeMailContext;
+import org.apache.mailet.base.test.FakeMailetConfig;
+import org.junit.Assert;
+import org.junit.Test;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.ParseException;
-
-import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
-import junit.framework.TestCase;
-
-public class ToProcessorTest extends TestCase {
+public class ToProcessorTest {
 
     private MimeMessage mockedMimeMessage;
 
@@ -47,10 +45,6 @@ public class ToProcessorTest extends TestCase {
     private String processor = null;
 
     private String notice = null;
-
-    public ToProcessorTest(String arg0) throws UnsupportedEncodingException {
-        super(arg0);
-    }
 
     private void setProcessor(String processor) {
         this.processor = processor;
@@ -82,6 +76,7 @@ public class ToProcessorTest extends TestCase {
     }
 
     // test if ToProcessor works
+    @Test
     public void testValidToProcessor() throws MessagingException {
         setProcessor("error");
         setNotice("error in message");
@@ -90,12 +85,13 @@ public class ToProcessorTest extends TestCase {
 
         mailet.service(mockedMail);
 
-        assertEquals(processor, mockedMail.getState());
-        assertEquals(notice, mockedMail.getErrorMessage());
+        Assert.assertEquals(processor, mockedMail.getState());
+        Assert.assertEquals(notice, mockedMail.getErrorMessage());
 
     }
 
     // test if exception was thrown
+    @Test
     public void testExceptionThrown() throws MessagingException {
         boolean exceptionThrown = false;
         setProcessor(null);
@@ -108,7 +104,7 @@ public class ToProcessorTest extends TestCase {
         } catch (MessagingException m) {
             exceptionThrown = true;
         }
-        assertTrue(exceptionThrown);
+        Assert.assertTrue(exceptionThrown);
     }
 
 }
