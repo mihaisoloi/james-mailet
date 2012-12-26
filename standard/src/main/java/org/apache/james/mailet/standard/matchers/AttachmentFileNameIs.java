@@ -221,13 +221,12 @@ public class AttachmentFileNameIs extends GenericMatcher {
     protected boolean matchFound(String fileName) {
         for (Mask mask1 : masks) {
             boolean fMatch;
-            Mask mask = mask1;
 
             //XXX: file names in mail may contain directory - theoretically
-            if (mask.suffixMatch) {
-                fMatch = fileName.endsWith(mask.matchString);
+            if (mask1.suffixMatch) {
+                fMatch = fileName.endsWith(mask1.matchString);
             } else {
-                fMatch = fileName.equals(mask.matchString);
+                fMatch = fileName.equals(mask1.matchString);
             }
             if (fMatch) {
                 return true; // matching file found

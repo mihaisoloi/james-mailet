@@ -18,12 +18,11 @@
  ****************************************************************/
 
 
-
 package org.apache.james.mailet.standard.mailets;
 
-import org.apache.mailet.base.GenericMailet;
 import org.apache.mailet.Mail;
 import org.apache.mailet.MailAddress;
+import org.apache.mailet.base.GenericMailet;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
@@ -37,14 +36,14 @@ import java.util.Vector;
  * than the recipients specified in the SMTP message header.  This can be
  * useful if your mail is redirected on-route by a mail server that
  * substitutes a fixed recipient address for the original.</p>
- *
+ * <p/>
  * <p>To use this, match against the redirection address using the
  * <code>RecipientIs</code> matcher and set the mailet 'class' to
  * <code>UseHeaderRecipients</code>.  This will cause the email to be
  * re-injected into the root process with the recipient substituted
  * by all the recipients in the Mail-For, To and Cc headers
  * of the message.</p>
- *
+ * <p/>
  * <p>e.g.</p>
  * <pre><code>
  *    &lt;mailet match="RecipientIs=forwarded@myhost"
@@ -63,7 +62,7 @@ public class UseHeaderRecipients extends GenericMailet {
 
     /**
      * Initialize the mailet
-     *
+     * <p/>
      * initializes the DEBUG flag
      */
     public void init() {
@@ -117,18 +116,13 @@ public class UseHeaderRecipients extends GenericMailet {
      * extract all the mail addresses as a collection of addresses.
      *
      * @param message the mail message to read
-     * @param name the header name as a String
+     * @param name    the header name as a String
      * @return the collection of MailAddress objects.
      */
     private Collection<MailAddress> getHeaderMailAddresses(MimeMessage message, String name) throws MessagingException {
 
         if (isDebug) {
-            StringBuilder logBuffer =
-                new StringBuilder(64)
-                        .append("Checking ")
-                        .append(name)
-                        .append(" headers");
-            log(logBuffer.toString());
+            log("Checking " + name + " headers");
         }
         Collection<MailAddress> addresses = new Vector<MailAddress>();
         String[] headers = message.getHeader(name);

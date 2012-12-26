@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashSet;
 
 /**
@@ -172,7 +173,7 @@ public class HeadersToHTTP extends GenericMailet {
 	    		pairs.add( new BasicNameValuePair( "from", message.getSender().toString() ) );
 	    	}
 	    	if (message.getReplyTo()!=null) {
-	    		pairs.add( new BasicNameValuePair( "reply_to", message.getReplyTo().toString() ) );
+	    		pairs.add( new BasicNameValuePair( "reply_to", Arrays.toString(message.getReplyTo())) );
 	    	}
 	    	if (message.getMessageID()!=null) {
 	    		pairs.add( new BasicNameValuePair( "message_id", message.getMessageID() ) );

@@ -18,23 +18,21 @@
  ****************************************************************/
 
 
-
 package org.apache.james.mailet.standard.matchers;
 
-import org.apache.mailet.base.GenericMatcher;
 import org.apache.mailet.Mail;
 import org.apache.mailet.MailAddress;
+import org.apache.mailet.base.GenericMatcher;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.StringTokenizer;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
 /**
  * use: <pre><code>&lt;mailet match="HasHeader={&lt;header&gt;[=value]}+" class="..." /&gt;</code></pre>
- * 
+ * <p/>
  * <p>This matcher checks if the header named is present. If complements the
  * AddHeader mailet.</p>
  */
@@ -58,9 +56,6 @@ public class HasHeader extends GenericMatcher {
         boolean match = false;
         MimeMessage message = mail.getMessage();
 
-
-        header:
-            // goes through the headernames one by one
         for (String element : conditionline_) {
             StringTokenizer st = new StringTokenizer(element, "=", false);
             String header;

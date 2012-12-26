@@ -18,20 +18,19 @@
  ****************************************************************/
 
 
-
 package org.apache.james.mailet.standard.mailets;
+
+import org.apache.mailet.Mail;
+import org.apache.mailet.base.GenericMailet;
+import org.apache.mailet.base.RFC2822Headers;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.mailet.base.GenericMailet;
-import org.apache.mailet.Mail;
-import org.apache.mailet.base.RFC2822Headers;
-
 /**
  * Add an prefix (tag) to the subject of a message <br>
  * <br>
- * 
+ * <p/>
  * Sample Configuration: <br>
  * <pre><code>
  * &lt;mailet match="RecipientIs=robot@james.apache.org" class="TagMessage"&gt;
@@ -57,12 +56,9 @@ public class AddSubjectPrefix extends GenericMailet {
 
     /**
      * Takes the message and adds a prefix to the subject
-     * 
-     * @param mail
-     *            the mail being processed
-     * 
-     * @throws MessagingException
-     *             if an error arises during message processing
+     *
+     * @param mail the mail being processed
+     * @throws MessagingException if an error arises during message processing
      */
     public void service(Mail mail) throws MessagingException {
         String newSubject;
@@ -115,15 +111,14 @@ public class AddSubjectPrefix extends GenericMailet {
      * It attempts to determine the charset used to encode an "unstructured" RFC
      * 822 header (like Subject). The encoding is specified in RFC 2047. If it
      * cannot determine or the the text is not encoded then it returns null.
-     * 
+     * <p/>
      * Here is an example raw text: Subject:
      * =?iso-8859-2?Q?leg=FAjabb_pr=F3ba_l=F5elemmel?=
-     * 
+     * <p/>
      * TODO: Should we include this in a util class ?
-     * 
-     * @param rawText
-     *            the raw (not decoded) value of the header. Null means that the
-     *            header was not present (in this case it always return null).
+     *
+     * @param rawText the raw (not decoded) value of the header. Null means that the
+     *                header was not present (in this case it always return null).
      * @return the MIME charset name or null if no encoding applied
      */
     static private String determineMailHeaderEncodingCharset(String rawText) {
@@ -144,9 +139,7 @@ public class AddSubjectPrefix extends GenericMailet {
             return null; // there must be one after encoding
         if (-1 == rawText.indexOf("?=", iThirdQuestionMark + 1))
             return null; // closing tag
-        String mimeCharset = rawText.substring(iCharsetBegin,
-                iSecondQuestionMark);
-        return mimeCharset;
+        return rawText.substring(iCharsetBegin, iSecondQuestionMark);
     }
 
 }

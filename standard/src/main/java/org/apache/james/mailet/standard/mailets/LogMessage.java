@@ -71,7 +71,7 @@ public class LogMessage extends GenericMailet {
      * @param mail the mail to process
      */
     public void service(Mail mail) {
-        log(new StringBuffer(160).append("Logging mail ").append(mail.getName()).toString());
+        log("Logging mail " + mail.getName());
         if (comment != null) log(comment);
         try {
             if (headers) log(getMessageHeaders(mail.getMessage()));

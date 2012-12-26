@@ -19,16 +19,15 @@
 
 package org.apache.james.mailet.standard.mailets;
 
-import org.apache.mailet.base.GenericMailet;
 import org.apache.mailet.Mail;
 import org.apache.mailet.MailetException;
+import org.apache.mailet.base.GenericMailet;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Part;
 import javax.mail.internet.ContentType;
-
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -42,13 +41,13 @@ import java.util.HashMap;
  */
 public class OnlyText extends GenericMailet {
     private static final String PARAMETER_NAME_NOTEXT_PROCESSOR = "NoTextProcessor";
-    
+
     private String optionsNotextProcessor = null;
     private final HashMap<String, String> charMap = new HashMap<String, String>();
-    
+
     /**
      * returns a String describing this mailet.
-     * 
+     *
      * @return A desciption of this mailet
      */
     public String getMailetInfo() {
@@ -60,7 +59,7 @@ public class OnlyText extends GenericMailet {
         initEntityTable();
     }
 
-    private int[] process(Mail mail, Multipart mp, int found, int htmlPart, int stringPart)  throws MessagingException, IOException {
+    private int[] process(Mail mail, Multipart mp, int found, int htmlPart, int stringPart) throws MessagingException, IOException {
         for (int i = 0; found < 0 && i < mp.getCount(); i++) {
             Object content = null;
             try {
@@ -72,13 +71,12 @@ public class OnlyText extends GenericMailet {
                 if (mp.getBodyPart(i).isMimeType("text/plain")) {
                     setContentFromPart(mail.getMessage(), mp.getBodyPart(i), null, false);
                     found = 1;
-                } 
-                else if (htmlPart == -1 && mp.getBodyPart(i).isMimeType("text/html"))
+                } else if (htmlPart == -1 && mp.getBodyPart(i).isMimeType("text/html"))
                     htmlPart = i;
-                    
+
                 else if (stringPart == -1 && content instanceof String)
                     stringPart = i;
-            
+
                 else if (content instanceof Multipart) {
                     int[] res = process(mail, (Multipart) content, found, htmlPart, stringPart);
                     found = res[0];
@@ -87,17 +85,17 @@ public class OnlyText extends GenericMailet {
                 }
             }
         }
-        
-        return new int[] {found, htmlPart, stringPart};
-        
+
+        return new int[]{found, htmlPart, stringPart};
+
     }
-    
+
     public void service(Mail mail) throws MailetException {
         try {
             Object content = mail.getMessage().getContent();
             if (content instanceof Multipart) {
                 Multipart mp = (Multipart) content;
-                
+
                 int found = -1;
                 int htmlPart = -1;
                 int stringPart = -1;
@@ -105,36 +103,35 @@ public class OnlyText extends GenericMailet {
                 found = res[0];
                 htmlPart = res[1];
                 stringPart = res[2];
-                
+
                 if (found < 0 && htmlPart != -1) {
                     setContentFromPart(mail.getMessage(), mp.getBodyPart(htmlPart), html2Text((String) mp.getBodyPart(htmlPart).getContent()), true);
                     found = 1;
                 }
-                
+
                 if (found < 0 && stringPart != -1) {
                     setContentFromPart(mail.getMessage(), mp.getBodyPart(htmlPart), null, false);
                     found = 1;
                 }
-                
+
 
                 if (found < 0 && optionsNotextProcessor != null) mail.setState(optionsNotextProcessor);
-                
-            } 
-            
-            else if (!(content instanceof String) && optionsNotextProcessor != null) mail.setState(optionsNotextProcessor);
-            
+
+            } else if (!(content instanceof String) && optionsNotextProcessor != null)
+                mail.setState(optionsNotextProcessor);
+
             else if (mail.getMessage().isMimeType("text/html")) {
                 setContentFromPart(mail.getMessage(), mail.getMessage(), html2Text((String) mail.getMessage().getContent()), true);
             }
-            
+
         } catch (IOException e) {
             throw new MailetException("Failed fetching text part", e);
-            
+
         } catch (MessagingException e) {
             throw new MailetException("Failed fetching text part", e);
         }
     }
-    
+
     private static void setContentFromPart(Message m, Part p, String newText, boolean setTextPlain) throws MessagingException, IOException {
         String contentType = p.getContentType();
         if (setTextPlain) {
@@ -148,16 +145,16 @@ public class OnlyText extends GenericMailet {
         if (h != null && h.length > 0) m.setHeader("Content-Transfer-Encoding", h[0]);
         m.saveChanges();
     }
-    
+
     public String html2Text(String html) {
         return decodeEntities(html
-            .replaceAll("\\<([bB][rR]|[dD][lL])[ ]*[/]*[ ]*\\>", "\n")
-            .replaceAll("\\</([pP]|[hH]5|[dD][tT]|[dD][dD]|[dD][iI][vV])[ ]*\\>", "\n")
-            .replaceAll("\\<[lL][iI][ ]*[/]*[ ]*\\>", "\n* ")
-            .replaceAll("\\<[dD][dD][ ]*[/]*[ ]*\\>", " - ")
-            .replaceAll("\\<.*?\\>", ""));
+                .replaceAll("\\<([bB][rR]|[dD][lL])[ ]*[/]*[ ]*\\>", "\n")
+                .replaceAll("\\</([pP]|[hH]5|[dD][tT]|[dD][dD]|[dD][iI][vV])[ ]*\\>", "\n")
+                .replaceAll("\\<[lL][iI][ ]*[/]*[ ]*\\>", "\n* ")
+                .replaceAll("\\<[dD][dD][ ]*[/]*[ ]*\\>", " - ")
+                .replaceAll("\\<.*?\\>", ""));
     }
-    
+
     public String decodeEntities(String data) {
         StringBuffer buffer = new StringBuffer();
         StringBuilder res = new StringBuilder();
@@ -171,8 +168,7 @@ public class OnlyText extends GenericMailet {
                 else res.append("&").append(buffer.toString()).append(";");
                 lastAmp = -1;
                 buffer = new StringBuffer();
-            } 
-            else if (lastAmp == -1) res.append(c);
+            } else if (lastAmp == -1) res.append(c);
             else buffer.append(c);
         }
         return res.toString();
@@ -182,10 +178,10 @@ public class OnlyText extends GenericMailet {
         for (int index = 11; index < 32; index++) charMap.put("#0" + index, String.valueOf((char) index));
         for (int index = 32; index < 128; index++) charMap.put("#" + index, String.valueOf((char) index));
         for (int index = 128; index < 256; index++) charMap.put("#" + index, String.valueOf((char) index));
-        
+
         // A complete reference is here:
         // http://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references
-        
+
         charMap.put("#09", "\t");
         charMap.put("#10", "\n");
         charMap.put("#13", "\r");

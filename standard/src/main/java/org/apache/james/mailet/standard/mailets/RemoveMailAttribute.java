@@ -85,8 +85,7 @@ public class RemoveMailAttribute extends GenericMailet {
      */
     public void service(Mail mail) throws MessagingException {
         for (String anAttributesToRemove : attributesToRemove) {
-            String attribute_name = anAttributesToRemove;
-            mail.removeAttribute(attribute_name);
+            mail.removeAttribute(anAttributesToRemove);
         }
     }
     

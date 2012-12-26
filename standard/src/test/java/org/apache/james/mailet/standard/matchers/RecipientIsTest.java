@@ -35,8 +35,7 @@ public class RecipientIsTest extends AbstractRecipientIsTest {
     }
 
     protected String getRecipientName() {
-        String RECIPIENT_NAME = "test@james.apache.org";
-        return RECIPIENT_NAME;
+        return "test@james.apache.org";
     }
 
     // test if the recipients get returned as matched

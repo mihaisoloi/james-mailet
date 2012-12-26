@@ -35,8 +35,7 @@ public class UserIsTest extends AbstractRecipientIsTest {
     }
 
     protected String getRecipientName() {
-        String USER = "test";
-        return USER;
+        return "test";
     }
 
     // test if the recipients get returned as matched

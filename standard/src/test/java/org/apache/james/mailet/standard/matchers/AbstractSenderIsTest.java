@@ -80,7 +80,7 @@ public abstract class AbstractSenderIsTest extends TestCase {
                 ArrayList<MailAddress> r = new ArrayList<MailAddress>();
                 try {
                     r.add(new MailAddress("test@localhost"));
-                } catch (ParseException e) {
+                } catch (ParseException ignored) {
                 }
                 return r;
             }
